@@ -132,7 +132,13 @@ class AppHomeScreen extends StatelessWidget {
     // dairy. A role the module does not register falls through to the
     // module's default shell inside `resolveShell`, so a vendor/executive
     // check that lands here unrecognised never renders a driver manifest.
-    final VerticalMeta vertical = findVerticalMeta(session?.activeVertical) ?? verticalRegistry.first;
+    final String soleVertical = (session != null && session.availableVerticals.length == 1)
+        ? session.availableVerticals.first
+        : '';
+    final VerticalMeta vertical =
+        findVerticalMeta(session?.activeVertical) ??
+        findVerticalMeta(soleVertical) ??
+        verticalRegistry.first;
     return vertical.resolveShell(state.activeRole.wire, state);
   }
 }

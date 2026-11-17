@@ -1,4 +1,4 @@
-﻿/*
+/*
  * WeWorkLocal
  * Hyperlocal Commerce, Delivery & Service Platform
  *
@@ -31,7 +31,7 @@ import 'package:flutter/services.dart';
 /// Profile, role visibility, and logout.
 ///
 /// Riders need licence and FSSAI document visibility, and an owner-operator
-/// needs to see both roles listed explicitly â€” the whole point of the merged
+/// needs to see both roles listed explicitly — the whole point of the merged
 /// app is that one account can be both, and this screen is where that is
 /// legible.
 class ProfileScreen extends StatefulWidget {
@@ -483,7 +483,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       };
                       return Chip(
                         avatar: Icon(
-                          role == DairyAppRole.driver
+                          role == DairyAppRole.driver || role == DairyAppRole.storeDriver
                               ? Icons.local_shipping_outlined
                               : Icons.storefront_outlined,
                           size: 18,
@@ -732,6 +732,56 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 12),
         children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: <Color>[theme.primary, theme.primary.withValues(alpha: 0.7)],
+                ),
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color: theme.primary.withValues(alpha: 0.2),
+                    blurRadius: 16,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: <Widget>[
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Colors.white.withValues(alpha: 0.2),
+                    child: Text(
+                      session.firstName.isEmpty ? '?' : session.firstName[0].toUpperCase(),
+                      style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          '${session.firstName} ${session.lastName}'.trim(),
+                          style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          session.mobile == null ? (session.email ?? '') : '+${session.countryCode ?? ''}${session.mobile}',
+                          style: TextStyle(color: Colors.white.withValues(alpha: 0.85), fontSize: 13),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           Card(
             child: ListTile(
               leading: CircleAvatar(
@@ -754,10 +804,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     (DairyAppRole role) => ListTile(
                       dense: true,
                       leading: Icon(
-                        role == DairyAppRole.partner ? Icons.storefront_outlined : Icons.pedal_bike_outlined,
+                        role == DairyAppRole.partner
+                            ? Icons.storefront_outlined
+                            : role == DairyAppRole.driver ||
+                                      role == DairyAppRole.jhatkaDriver ||
+                                      role == DairyAppRole.storeDriver
+                                ? Icons.pedal_bike_outlined
+                                : Icons.handyman_outlined,
                         color: role == session.activeRole ? theme.primary : AppColors.grey,
                       ),
-                      title: Text(role == DairyAppRole.partner ? l10n.partnerShell : l10n.deliveryShell),
+                      title: Text(
+                        role == DairyAppRole.partner
+                            ? l10n.partnerShell
+                            : role == DairyAppRole.driver ||
+                                      role == DairyAppRole.jhatkaDriver ||
+                                      role == DairyAppRole.storeDriver
+                                ? l10n.deliveryShell
+                                : role.label,
+                      ),
                       trailing: role == session.activeRole
                           ? Icon(Icons.check_circle, color: theme.primary)
                           : null,
@@ -802,14 +866,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Card(
             child: Column(
               children: <Widget>[
-                ListTile(
-                  leading: Icon(Icons.badge_outlined, color: theme.primary),
-                  title: const Text('Licence & FSSAI documents'),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Document upload arrives with the compliance slice')),
+                if (session.isDriver)
+                  ListTile(
+                    leading: Icon(Icons.badge_outlined, color: theme.primary),
+                    title: const Text('Licence & FSSAI documents'),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () => ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Document upload arrives with the compliance slice')),
+                    ),
                   ),
-                ),
                 ListTile(
                   leading: Icon(Icons.support_agent_outlined, color: theme.primary),
                   title: const Text('Support'),

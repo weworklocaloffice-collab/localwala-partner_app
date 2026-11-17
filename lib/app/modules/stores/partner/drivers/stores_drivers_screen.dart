@@ -46,10 +46,11 @@ class _StoresDriversScreenState extends State<StoresDriversScreen> {
     if (id == null) return;
     final StoresPartnerRepository repo = _repo ?? StoresPartnerRepository();
     final ScaffoldMessengerState messenger = ScaffoldMessenger.of(context);
+    final String doneMessage = AppLocalizations.of(context)!.storesMsgDriverSuspended;
     try {
       await repo.suspendDriver(id, 'suspended');
       if (!mounted) return;
-      messenger.showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.storesMsgDriverSuspended)));
+      messenger.showSnackBar(SnackBar(content: Text(doneMessage)));
       _load();
     } on Object catch (e) {
       if (!mounted) return;
@@ -62,10 +63,11 @@ class _StoresDriversScreenState extends State<StoresDriversScreen> {
     if (id == null) return;
     final StoresPartnerRepository repo = _repo ?? StoresPartnerRepository();
     final ScaffoldMessengerState messenger = ScaffoldMessenger.of(context);
+    final String doneMessage = AppLocalizations.of(context)!.storesMsgDriverReactivated;
     try {
       await repo.reactivateDriver(id);
       if (!mounted) return;
-      messenger.showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.storesMsgDriverReactivated)));
+      messenger.showSnackBar(SnackBar(content: Text(doneMessage)));
       _load();
     } on Object catch (e) {
       if (!mounted) return;

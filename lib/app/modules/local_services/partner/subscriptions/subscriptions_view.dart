@@ -8,6 +8,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:partner/app/core/config/api_request_service.dart';
+import 'package:partner/app/modules/local_services/partner/shared/ls_ui.dart';
 import 'package:partner/app/modules/local_services/repository/provider_repository.dart';
 import 'package:partner/gen/l10n/app_localizations.dart';
 
@@ -82,15 +83,7 @@ class _SubscriptionsScreenState extends State<SubscriptionsScreen> {
       return const Center(child: CircularProgressIndicator());
     }
     if (_error != null) {
-      return Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text(_error!),
-            TextButton(onPressed: _load, child: Text(AppLocalizations.of(context)?.ls_retry ?? 'Retry')),
-          ],
-        ),
-      );
+      return LsErrorState(message: _error!, onRetry: _load);
     }
     return RefreshIndicator(
       onRefresh: _load,

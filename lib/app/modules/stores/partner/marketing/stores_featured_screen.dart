@@ -191,7 +191,7 @@ class _PlacementList extends StatelessWidget {
 
         return ListView.separated(
           itemCount: rows.length,
-          separatorBuilder: (_, __) => const Divider(height: 1),
+          separatorBuilder: (_, _) => const Divider(height: 1),
           itemBuilder: (BuildContext context, int index) {
             final Map<String, dynamic> row = rows[index];
             return ListTile(

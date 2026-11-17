@@ -12,6 +12,7 @@ import 'package:partner/app/modules/realestate/models/property.dart';
 import 'package:partner/app/modules/realestate/vendor/listings/bloc/vendor_listings_bloc.dart';
 import 'package:partner/app/modules/realestate/vendor/listings/detail/listing_detail_view.dart';
 import 'package:partner/app/modules/realestate/vendor/listings/form/listing_form_view.dart';
+import 'package:partner/app/modules/realestate/vendor/modals/vendor_listing_filter_modal.dart';
 import 'package:partner/app/modules/realestate/vendor/widgets/property_card.dart';
 import 'package:partner/gen/l10n/app_localizations.dart';
 
@@ -34,7 +35,15 @@ class VendorListingsScreen extends StatelessWidget {
           return DefaultTabController(
             length: listingsTabs.length,
             child: Scaffold(
-              appBar: AppBar(title: Text(l10n.realEstateNavListings)),
+              appBar: AppBar(
+                title: Text(l10n.realEstateNavListings),
+                actions: <Widget>[
+                  IconButton(
+                    icon: const Icon(Icons.filter_list),
+                    onPressed: () => VendorListingFilterModal.show(context),
+                  ),
+                ],
+              ),
               floatingActionButton: FloatingActionButton(
                 onPressed: () async {
                   final bool? saved = await Navigator.of(context).push<bool>(

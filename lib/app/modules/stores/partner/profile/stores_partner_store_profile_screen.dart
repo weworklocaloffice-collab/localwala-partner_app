@@ -1,6 +1,5 @@
 import 'package:partner/gen/l10n/app_localizations.dart';
 import 'package:partner/app/modules/stores/stores_partner_repository.dart';
-import 'package:partner/app/presentation/styles/theme.dart';
 import 'package:flutter/material.dart';
 
 class StoresPartnerStoreProfileScreen extends StatefulWidget {

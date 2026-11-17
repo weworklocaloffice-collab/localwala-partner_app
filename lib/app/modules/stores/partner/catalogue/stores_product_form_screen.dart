@@ -157,7 +157,7 @@ class _StoresProductFormScreenState extends State<StoresProductFormScreen> {
     _hasVariants = product['hasVariants'] == true || product['variantsEnabled'] == true;
     final dynamic rawAttributes = product['attributes'];
     _initialAttributes = rawAttributes is Map
-        ? Map<String, dynamic>.from(rawAttributes as Map)
+        ? Map<String, dynamic>.from(rawAttributes)
         : null;
     _selectedAxisIds
       ..clear()

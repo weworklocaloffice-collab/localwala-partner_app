@@ -3,10 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:partner/gen/l10n/app_localizations.dart';
 import 'package:partner/app/modules/stores/partner/orders/bloc/stores_orders_bloc.dart';
 import 'package:partner/app/modules/stores/partner/orders/stores_order_detail_screen.dart';
+import 'package:partner/app/modules/stores/stores_permissions.dart';
 import 'package:partner/app/modules/stores/widgets/stores_ui_states.dart';
 
 class StoresOrdersScreen extends StatelessWidget {
-  const StoresOrdersScreen({super.key});
+  const StoresOrdersScreen({super.key, this.initialLifecycle, this.permissions});
+
+  /// Opens the list already filtered, so a dashboard action ("Picking: 3") lands on
+  /// exactly the queue its count described.
+  final String? initialLifecycle;
+
+  /// Role rights for the detail screen's action buttons. Null means unknown, which
+  /// leaves them visible and lets the server refuse (§6.23 is advisory in the UI).
+  final StoresPermissions? permissions;
 
   static const List<String> _filters = <String>[
     'created',
@@ -74,7 +83,9 @@ class StoresOrdersScreen extends StatelessWidget {
   Widget _buildList(BuildContext context, AppLocalizations l10n, StoresOrdersState state) {
     switch (state.status) {
       case StoresOrdersStatus.initial:
-        context.read<StoresOrdersBloc>().add(const StoresOrdersLoadEvent());
+        context.read<StoresOrdersBloc>().add(
+              StoresOrdersLoadEvent(lifecycle: initialLifecycle),
+            );
         return const Center(child: CircularProgressIndicator());
       case StoresOrdersStatus.loading:
         return const Center(child: CircularProgressIndicator());
@@ -92,7 +103,7 @@ class StoresOrdersScreen extends StatelessWidget {
     }
     return ListView.separated(
       itemCount: orders.length,
-      separatorBuilder: (_, __) => const Divider(height: 1),
+      separatorBuilder: (_, _) => const Divider(height: 1),
       itemBuilder: (BuildContext context, int index) {
         final Map<String, dynamic> order = orders[index];
         final String id = '${order['_id'] ?? ''}';
@@ -107,7 +118,7 @@ class StoresOrdersScreen extends StatelessWidget {
             if (id.isEmpty) return;
             Navigator.of(context).push(
               MaterialPageRoute<void>(
-                builder: (_) => StoresOrderDetailScreen(orderId: id),
+                builder: (_) => StoresOrderDetailScreen(orderId: id, permissions: permissions),
               ),
             );
           },

@@ -34,7 +34,10 @@ enum DairyAppRole {
   localServicesPartner('user', 'Local Services Partner'),
 
   /// Real Estate partner.
-  realestatePartner('user', 'Real Estate Partner');
+  realestatePartner('user', 'Real Estate Partner'),
+
+  /// Store driver (store-owned delivery). Uses the Partner app driver shell (BR-05).
+  storeDriver('storeDriver', 'Store Driver');
 
   const DairyAppRole(this.wire, this.label);
 

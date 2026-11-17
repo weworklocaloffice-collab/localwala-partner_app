@@ -1,30 +1,11 @@
-/*
- * WeWorkLocal
- * Hyperlocal Commerce, Delivery & Service Platform
- *
- * Copyright © 2026 WeWorkLocal.
- * All Rights Reserved.
- *
- * Website: https://localwala.tech
- * Email: weworklocal1@gmail.com
- *
- * Proprietary and Confidential.
- *
- * Unauthorized copying, modification, distribution,
- * publication, resale, reverse engineering, or use of
- * this software without prior written authorization is
- * strictly prohibited.
- */
-
 import 'package:flutter/material.dart';
 import 'package:partner/app/core/config/api_request_service.dart';
 import 'package:partner/app/modules/local_services/models/booking.dart';
 import 'package:partner/app/modules/local_services/partner/jobs/booking_detail_view.dart';
+import 'package:partner/app/modules/local_services/partner/shared/ls_ui.dart';
 import 'package:partner/app/modules/local_services/repository/provider_repository.dart';
 import 'package:partner/gen/l10n/app_localizations.dart';
 
-/// Provider job queue. Actions render from [LsBooking.actions] (display only —
-/// the server allow-lists every transition and 403s foreign bookings).
 class BookingListScreen extends StatefulWidget {
   const BookingListScreen({super.key});
 
@@ -80,7 +61,7 @@ class _BookingListScreenState extends State<BookingListScreen> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context)?.ls_failed_error('$e') ?? 'Failed: $e'))
+          SnackBar(content: Text(AppLocalizations.of(context)?.ls_failed_error('$e') ?? 'Failed: $e')),
         );
       }
     } finally {
@@ -94,31 +75,27 @@ class _BookingListScreenState extends State<BookingListScreen> {
       return const Center(child: CircularProgressIndicator());
     }
     if (_error != null) {
-      return Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text(_error!),
-            TextButton(onPressed: _load, child: Text(AppLocalizations.of(context)?.ls_retry ?? 'Retry')),
-          ],
-        ),
-      );
+      return LsErrorState(message: _error!, onRetry: _load);
     }
     if (_bookings.isEmpty) {
-      return Center(child: Text(AppLocalizations.of(context)?.ls_no_jobs ?? 'No jobs yet'));
+      return LsEmptyState(
+        icon: Icons.work_outline,
+        title: AppLocalizations.of(context)?.ls_no_jobs ?? 'No jobs yet',
+        subtitle: 'New bookings will appear here.',
+      );
     }
     return RefreshIndicator(
       onRefresh: _load,
       child: ListView.builder(
+        padding: const EdgeInsets.all(12),
         itemCount: _bookings.length,
         itemBuilder: (BuildContext context, int i) {
           final LsBooking b = _bookings[i];
           return Card(
-            child: ListTile(
-              title: Text(b.code),
-              subtitle: Text(
-                '${b.status} · ${b.bookingMode} · ₹${b.labourAmount}',
-              ),
+            margin: const EdgeInsets.only(bottom: 10),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(14),
               onTap: () => Navigator.of(context)
                   .push(
                     MaterialPageRoute<void>(
@@ -126,21 +103,52 @@ class _BookingListScreenState extends State<BookingListScreen> {
                     ),
                   )
                   .then((_) => _load()),
-              trailing: Wrap(
-                spacing: 4,
-                children: <Widget>[
-                  for (final String a in b.actions)
-                    _actingOn == b.id + a
-                        ? const SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          )
-                        : TextButton(
-                            onPressed: () => _act(b, a),
-                            child: Text(a),
+              child: Padding(
+                padding: const EdgeInsets.all(14),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Text(
+                            b.code,
+                            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
                           ),
-                ],
+                        ),
+                        LsStatusBadge(status: b.status),
+                      ],
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      '${b.bookingMode} · ₹${b.labourAmount}',
+                      style: TextStyle(fontSize: 12, color: Theme.of(context).textTheme.bodySmall?.color),
+                    ),
+                    if (b.actions.isNotEmpty) ...<Widget>[
+                      const SizedBox(height: 10),
+                      Wrap(
+                        spacing: 6,
+                        children: <Widget>[
+                          for (final String a in b.actions)
+                            _actingOn == b.id + a
+                                ? const SizedBox(
+                                    width: 20,
+                                    height: 20,
+                                    child: CircularProgressIndicator(strokeWidth: 2),
+                                  )
+                                : FilledButton.tonal(
+                                    onPressed: () => _act(b, a),
+                                    style: FilledButton.styleFrom(
+                                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                                      textStyle: const TextStyle(fontSize: 12),
+                                    ),
+                                    child: Text(a),
+                                  ),
+                        ],
+                      ),
+                    ],
+                  ],
+                ),
               ),
             ),
           );

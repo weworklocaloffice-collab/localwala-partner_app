@@ -1,28 +1,9 @@
-/*
- * WeWorkLocal
- * Hyperlocal Commerce, Delivery & Service Platform
- *
- * Copyright © 2026 WeWorkLocal.
- * All Rights Reserved.
- *
- * Website: https://localwala.tech
- * Email: weworklocal1@gmail.com
- *
- * Proprietary and Confidential.
- *
- * Unauthorized copying, modification, distribution,
- * publication, resale, reverse engineering, or use of
- * this software without prior written authorization is
- * strictly prohibited.
- */
-
 import 'package:flutter/material.dart';
 import 'package:partner/app/core/config/api_request_service.dart';
+import 'package:partner/app/modules/local_services/partner/shared/ls_ui.dart';
 import 'package:partner/app/modules/local_services/repository/provider_repository.dart';
 import 'package:partner/gen/l10n/app_localizations.dart';
 
-/// Provider earnings from the revenue summary (server-computed, rupees).
-/// GBV vs collected vs payable vs net stay distinct — never netted here.
 class EarningsScreen extends StatefulWidget {
   const EarningsScreen({super.key});
 
@@ -63,39 +44,65 @@ class _EarningsScreenState extends State<EarningsScreen> {
     }
   }
 
-  Widget _tile(String label, dynamic value) => ListTile(
-        title: Text(label),
-        trailing: Text(
-          '₹$value',
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-      );
-
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations? l10n = AppLocalizations.of(context);
     if (_loading) {
       return const Center(child: CircularProgressIndicator());
     }
     if (_error != null) {
-      return Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text(_error!),
-            TextButton(onPressed: _load, child: Text(AppLocalizations.of(context)?.ls_retry ?? 'Retry')),
-          ],
-        ),
-      );
+      return LsErrorState(message: _error!, onRetry: _load);
     }
+    final List<Map<String, dynamic>> tiles = <Map<String, dynamic>>[
+      <String, dynamic>{'label': l10n?.ls_gross_booking_value ?? 'Gross booking value', 'value': _summary['grossBookingValue'] ?? 0, 'icon': Icons.trending_up_outlined, 'color': const Color(0xFF2563EB)},
+      <String, dynamic>{'label': l10n?.ls_booking_fees ?? 'Booking fees', 'value': _summary['bookingFees'] ?? 0, 'icon': Icons.receipt_long_outlined, 'color': const Color(0xFF0EA5E9)},
+      <String, dynamic>{'label': l10n?.ls_commission ?? 'Commission', 'value': _summary['commission'] ?? 0, 'icon': Icons.percent_outlined, 'color': const Color(0xFF7C3AED)},
+      <String, dynamic>{'label': l10n?.ls_provider_payable ?? 'Provider payable', 'value': _summary['providerPayable'] ?? 0, 'icon': Icons.account_balance_wallet_outlined, 'color': const Color(0xFF16A34A)},
+      <String, dynamic>{'label': l10n?.ls_reversals ?? 'Reversals', 'value': _summary['reversals'] ?? 0, 'icon': Icons.undo_outlined, 'color': const Color(0xFFDC2626)},
+    ];
     return RefreshIndicator(
       onRefresh: _load,
       child: ListView(
+        padding: const EdgeInsets.all(16),
         children: <Widget>[
-          _tile(AppLocalizations.of(context)?.ls_gross_booking_value ?? 'Gross booking value', _summary['grossBookingValue'] ?? 0),
-          _tile(AppLocalizations.of(context)?.ls_booking_fees ?? 'Booking fees', _summary['bookingFees'] ?? 0),
-          _tile(AppLocalizations.of(context)?.ls_commission ?? 'Commission', _summary['commission'] ?? 0),
-          _tile(AppLocalizations.of(context)?.ls_provider_payable ?? 'Provider payable', _summary['providerPayable'] ?? 0),
-          _tile(AppLocalizations.of(context)?.ls_reversals ?? 'Reversals', _summary['reversals'] ?? 0),
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: <Color>[
+                  Theme.of(context).colorScheme.primary,
+                  Theme.of(context).colorScheme.tertiary,
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Earnings',
+                  style: const TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w700),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'Revenue summary (server-computed)',
+                  style: TextStyle(color: Colors.white.withValues(alpha: 0.85), fontSize: 13),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          ...tiles.map((Map<String, dynamic> t) => Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: LsKpiCard(
+                  label: t['label'] as String,
+                  value: '₹${t['value']}',
+                  icon: t['icon'] as IconData,
+                  color: t['color'] as Color,
+                ),
+              )),
         ],
       ),
     );

@@ -39,8 +39,6 @@ class StoresAsyncView<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations l10n = AppLocalizations.of(context)!;
-
     return FutureBuilder<T>(
       future: future,
       builder: (BuildContext context, AsyncSnapshot<T> snapshot) {
@@ -139,7 +137,7 @@ class StoresSectionHeader extends StatelessWidget {
           Expanded(
             child: Text(title, style: Theme.of(context).textTheme.titleMedium),
           ),
-          if (trailing != null) trailing!,
+          ?trailing,
         ],
       ),
     );

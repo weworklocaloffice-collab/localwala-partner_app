@@ -13,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:partner/app/modules/realestate/executive/visits/bloc/executive_visits_bloc.dart';
 import 'package:partner/app/modules/realestate/models/property.dart';
+import 'package:partner/app/modules/realestate/executive/visit_detail/executive_visit_detail_view.dart';
 import 'package:partner/app/modules/realestate/models/visit.dart';
 import 'package:partner/app/modules/realestate/repository/executive_repository.dart';
 import 'package:partner/gen/l10n/app_localizations.dart';
@@ -333,6 +334,11 @@ class _VisitRow extends StatelessWidget {
         '${visit.status ?? '—'} · ${visit.scheduledAt?.toLocal().toString().split('.').first ?? l10n.realEstateExecUnscheduled}';
 
     return ListTile(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute<void>(
+          builder: (_) => ExecutiveVisitDetailScreen(visitId: visit.id),
+        ),
+      ),
       title: Text(title),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

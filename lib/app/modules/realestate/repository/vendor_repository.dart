@@ -122,8 +122,9 @@ class RealEstateVendorRepository {
       token: await _auth.authToken(),
       body: body,
     );
-    if (response.errorType != NetErrorType.none)
+    if (response.errorType != NetErrorType.none) {
       _fail(response, '$method $url');
+    }
     return decodeBody(response);
   }
 
@@ -480,8 +481,9 @@ class RealEstateVendorRepository {
       method: 'DELETE',
       token: await _auth.authToken(),
     );
-    if (response.errorType != NetErrorType.none)
+    if (response.errorType != NetErrorType.none) {
       _fail(response, 'DELETE document');
+    }
     return true;
   }
 
@@ -681,8 +683,9 @@ class RealEstateVendorRepository {
       method: 'GET',
       token: await _auth.authToken(),
     );
-    if (response.errorType != NetErrorType.none)
+    if (response.errorType != NetErrorType.none) {
       _fail(response, 'GET localities');
+    }
     final Map<String, dynamic> body = decodeBody(response);
     final List<dynamic> raw = body['localities'] is List
         ? body['localities'] as List<dynamic>
@@ -711,8 +714,9 @@ class RealEstateVendorRepository {
       filename: filename,
       token: await _auth.authToken(),
     );
-    if (response.errorType != NetErrorType.none)
+    if (response.errorType != NetErrorType.none) {
       _fail(response, 'POST uploadImage');
+    }
     final Map<String, dynamic> body = decodeBody(response);
     final String? path = body['path']?.toString();
     if (path == null || path.isEmpty) {

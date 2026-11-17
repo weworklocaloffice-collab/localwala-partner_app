@@ -1,4 +1,4 @@
-﻿/*
+/*
  * WeWorkLocal
  * Hyperlocal Commerce, Delivery & Service Platform
  *
@@ -47,7 +47,7 @@ class AppRouter {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => RegisterScreen(
-          initialInviteCode: incoming!.queryParameters['invite'],
+          initialInviteCode: incoming.queryParameters['invite'],
           initialMobile: incoming.queryParameters['mobile'],
         ),
       );

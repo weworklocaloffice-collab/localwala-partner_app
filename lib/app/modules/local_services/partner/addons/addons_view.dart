@@ -18,6 +18,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:partner/app/core/config/api_request_service.dart';
+import 'package:partner/app/modules/local_services/partner/shared/ls_ui.dart';
 import 'package:partner/app/modules/local_services/models/provider.dart';
 import 'package:partner/app/modules/local_services/repository/provider_repository.dart';
 import 'package:partner/gen/l10n/app_localizations.dart';
@@ -177,24 +178,22 @@ class _AddonsScreenState extends State<AddonsScreen> {
           if (_loading || _loadingAddons)
             const Center(child: CircularProgressIndicator())
           else if (_error != null)
-            Expanded(
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text(_error!, textAlign: TextAlign.center),
-                    TextButton(onPressed: _load, child: Text(AppLocalizations.of(context)?.ls_retry ?? 'Retry')),
-                  ],
-                ),
-              ),
-            )
+            Expanded(child: LsErrorState(message: _error!, onRetry: _load))
           else if (_serviceId == null)
             Expanded(
-              child: Center(child: Text(AppLocalizations.of(context)?.ls_choose_service_to_see_addons ?? 'Choose a service to see add-ons')),
+              child: LsEmptyState(
+                icon: Icons.add_box_outlined,
+                title: AppLocalizations.of(context)?.ls_choose_service_to_see_addons ?? 'Choose a service',
+                subtitle: 'Select a service above to view its add-ons.',
+              ),
             )
           else if (_addons.isEmpty)
             Expanded(
-              child: Center(child: Text(AppLocalizations.of(context)?.ls_no_addons ?? 'This service has no add-ons')),
+              child: LsEmptyState(
+                icon: Icons.add_box_outlined,
+                title: AppLocalizations.of(context)?.ls_no_addons ?? 'No add-ons',
+                subtitle: 'This service has no add-ons.',
+              ),
             )
           else
             Expanded(

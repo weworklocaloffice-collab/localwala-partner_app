@@ -18,6 +18,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:partner/app/core/config/api_request_service.dart';
+import 'package:partner/app/modules/local_services/partner/shared/ls_ui.dart';
 import 'package:partner/app/modules/local_services/repository/provider_repository.dart';
 import 'package:partner/gen/l10n/app_localizations.dart';
 
@@ -76,16 +77,16 @@ class _EarningsDetailScreenState extends State<EarningsDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final int totalBookings = _bookings.length;
-    final double totalGross = (_summary['grossBookingValue'] ?? 0) as double;
-    final double totalCommission = (_summary['commission'] ?? 0) as double;
-    final double totalPayable = (_summary['providerPayable'] ?? 0) as double;
+    final double totalGross = ((_summary['grossBookingValue'] ?? 0) as num).toDouble();
+    final double totalCommission = ((_summary['commission'] ?? 0) as num).toDouble();
+    final double totalPayable = ((_summary['providerPayable'] ?? 0) as num).toDouble();
 
     return Scaffold(
        appBar: AppBar(title: Text(AppLocalizations.of(context)?.ls_earnings_detail ?? 'Earnings Detail')),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : _error != null
-          ? Center(child: Text(_error!))
+           ? LsErrorState(message: _error!, onRetry: _load)
           : SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -147,13 +148,13 @@ class _EarningsDetailScreenState extends State<EarningsDetailScreen> {
                             final dynamic b = _bookings[i];
                             final String status = b['status'] ?? '';
                             final double labour =
-                                (b['labourAmount'] ?? 0) as double;
+                                ((b['labourAmount'] ?? 0) as num).toDouble();
                             final double parts =
-                                (b['partsAmount'] ?? 0) as double;
+                                ((b['partsAmount'] ?? 0) as num).toDouble();
                             final double commission =
-                                (b['commission'] ?? 0) as double;
+                                ((b['commission'] ?? 0) as num).toDouble();
                             final double payable =
-                                (b['providerPayable'] ?? 0) as double;
+                                ((b['providerPayable'] ?? 0) as num).toDouble();
                             return Card(
                               margin: const EdgeInsets.symmetric(
                                 horizontal: 8,

@@ -37,6 +37,7 @@ import 'package:partner/app/modules/stores/partner/profile/stores_partner_store_
 import 'package:partner/app/modules/stores/partner/reviews/stores_partner_reviews_screen.dart';
 import 'package:partner/app/modules/stores/partner/promotions/stores_promotions_screen.dart';
 import 'package:partner/app/modules/stores/partner/recurring/stores_partner_recurring_plans_screen.dart';
+import 'package:partner/app/modules/stores/stores_permissions.dart';
 import 'package:partner/app/modules/stores/partner/settlements/stores_settlements_screen.dart';
 import 'package:partner/app/modules/stores/partner/staff/stores_team_screen.dart';
 import 'package:partner/app/modules/stores/partner/subscriptions/stores_partner_subscriptions_screen.dart';
@@ -51,9 +52,19 @@ import 'package:partner/app/modules/stores/partner/warranty/stores_warranty_scre
 /// file holds no behaviour of its own — the screens decide their own loading, scoping and
 /// gating, and this list cannot diverge from them.
 class StoresPartnerMoreScreen extends StatelessWidget {
-  const StoresPartnerMoreScreen({super.key, required this.accountScreen});
+  const StoresPartnerMoreScreen({
+    super.key,
+    required this.accountScreen,
+    this.permissions,
+  });
 
   final Widget accountScreen;
+
+  /// The actor's role rights (§6.23). Money entries are hidden unless the role owns
+  /// them: settlement and payouts are owner-only, and the subscription plan is the
+  /// owner's contract. Null keeps the historical full list for callers that have not
+  /// loaded capabilities yet — the server still refuses those routes.
+  final StoresPermissions? permissions;
 
   static const List<StoresMoreEntry> entries = <StoresMoreEntry>[
     StoresMoreEntry(icon: Icons.point_of_sale_outlined, keyName: 'manual'),
@@ -84,18 +95,21 @@ class StoresPartnerMoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AppLocalizations l10n = AppLocalizations.of(context)!;
+    final List<StoresMoreEntry> visible = entries
+        .where((StoresMoreEntry entry) => _visible(entry.keyName))
+        .toList(growable: false);
     return Scaffold(
       body: SafeArea(
         child: ListView(
           children: <Widget>[
             ListTile(title: Text(l10n.storesMoney)),
-            for (final StoresMoreEntry entry in entries.where((e) =>
+            for (final StoresMoreEntry entry in visible.where((e) =>
                 e.keyName == 'manual' ||
                 e.keyName == 'payments' ||
                 e.keyName == 'settlements'))
               _tile(context, entry),
             ListTile(title: Text(l10n.storesOperations)),
-            for (final StoresMoreEntry entry in entries.where((e) =>
+            for (final StoresMoreEntry entry in visible.where((e) =>
                 e.keyName == 'inventory' ||
                 e.keyName == 'recurringplans' ||
                 e.keyName == 'exchanges' ||
@@ -115,7 +129,7 @@ class StoresPartnerMoreScreen extends StatelessWidget {
                 e.keyName == 'warranty'))
               _tile(context, entry),
             ListTile(title: Text(l10n.storesAccount)),
-            for (final StoresMoreEntry entry in entries.where((e) =>
+            for (final StoresMoreEntry entry in visible.where((e) =>
                 e.keyName == 'subscription' ||
                 e.keyName == 'customers' ||
                 e.keyName == 'customersubscriptions' ||
@@ -127,6 +141,19 @@ class StoresPartnerMoreScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  bool _visible(String keyName) {
+    final StoresPermissions rights = permissions ?? StoresPermissions.unknown;
+    switch (keyName) {
+      case 'payments':
+      case 'settlements':
+        return rights.can('settlement.view');
+      case 'subscription':
+        return rights.can('subscription.manage');
+      default:
+        return true;
+    }
   }
 
   void _open(BuildContext context, StoresMoreEntry entry) {

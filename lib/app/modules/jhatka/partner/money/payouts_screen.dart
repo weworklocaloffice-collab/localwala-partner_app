@@ -29,9 +29,10 @@ import 'package:partner/gen/l10n/app_localizations.dart';
 /// Settlement summary, payouts and payables for the outlet.
 ///
 /// Units differ by endpoint and the screen must not guess: the summary speaks
-/// paise (`totalRevenuePaise`), payout documents speak rupees. Each figure is
-/// formatted with its unit made explicit. A rolled-forward payout shows its
-/// own `rolledForwardReason` — the money is carried, not lost.
+/// paise (`totalRevenuePaise`) and the lean payout/payable lists are raw paise
+/// too. Each figure is formatted with its unit made explicit. A rolled-forward
+/// payout shows its own `rolledForwardReason` — the money is carried, not lost.
+/// Payables are read-only here; LocalWala finance owns their lifecycle.
 class PayoutsScreen extends StatefulWidget {
   const PayoutsScreen({super.key});
 
@@ -50,7 +51,6 @@ class _PayoutsScreenState extends State<PayoutsScreen> {
   Map<String, dynamic> _terms = const <String, dynamic>{};
   List<dynamic> _settlements = const <dynamic>[];
   Map<String, dynamic> _analytics = const <String, dynamic>{};
-  String? _actingOn;
 
   /// Last 30 days, yyyy-mm-dd. The server requires an explicit window.
   String _iso(DateTime d) =>
@@ -104,22 +104,6 @@ class _PayoutsScreenState extends State<PayoutsScreen> {
       _settlements =
           (decodeBody(results[5])['settlements'] as List?) ?? const <dynamic>[];
     });
-  }
-
-  Future<void> _act(String key, Future<DioApiResponse> Function() call) async {
-    setState(() => _actingOn = key);
-    final DioApiResponse response = await call();
-    if (!mounted) return;
-    setState(() => _actingOn = null);
-    if (response.errorType == NetErrorType.none) {
-      await _load();
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.jhatkaDidNotGoThrough),
-        ),
-      );
-    }
   }
 
   @override
@@ -231,28 +215,26 @@ class _PayoutsScreenState extends State<PayoutsScreen> {
 
   Widget _payableTile(dynamic raw) {
     final Map<String, dynamic> payable = Map<String, dynamic>.from(raw as Map);
-    final String id = (payable['id'] ?? payable['_id'] ?? '').toString();
     final String status = (payable['status'] ?? '').toString();
-    final bool busy = _actingOn == 'payable:$id';
-    // Lean list read: raw PAISE, not rupees.
-    final num net = (payable['netAmount'] ?? 0) as num;
+    // Lean list read: raw PAISE, not rupees. The amount lives under `totals`,
+    // not at the document root. LocalWala finance owns every status change;
+    // this screen is read-only.
+    final Map<String, dynamic> totals = payable['totals'] is Map
+        ? Map<String, dynamic>.from(payable['totals'] as Map)
+        : const <String, dynamic>{};
+    final num net = (totals['netAmount'] ?? 0) as num;
+    final String supplier = payable['supplier'] is Map
+        ? ((payable['supplier'] as Map)['name'] ?? '').toString()
+        : '';
     return Card(
       child: ListTile(
         title: Text('Payable ${payable['payableNo'] ?? '—'}'),
-        subtitle: Text('${jhatka_money.formatPaise(net)} · $status'),
-        trailing: busy
-            ? const SizedBox(
-                width: 16,
-                height: 16,
-                child: CircularProgressIndicator(strokeWidth: 2),
-              )
-            : status == 'draft' || status == 'approved'
-            ? TextButton(
-                onPressed: () =>
-                    _act('payable:$id', () => _repository.payPayable(id)),
-                child: Text(AppLocalizations.of(context)!.jhatkaActionPay),
-              )
-            : StatusChip(label: status, color: AppColors.grey),
+        subtitle: Text(
+          '${jhatka_money.formatPaise(net)} · $status'
+          '${supplier.isEmpty ? '' : '\n$supplier'}',
+        ),
+        isThreeLine: supplier.isNotEmpty,
+        trailing: StatusChip(label: status, color: AppColors.grey),
       ),
     );
   }

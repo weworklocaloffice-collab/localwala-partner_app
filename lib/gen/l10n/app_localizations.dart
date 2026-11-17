@@ -219,7 +219,7 @@ abstract class AppLocalizations {
   /// No description provided for @checkingDriverApproval.
   ///
   /// In en, this message translates to:
-  /// **'Checking driver approvalâ€¦'**
+  /// **'Checking driver approval…'**
   String get checkingDriverApproval;
 
   /// No description provided for @approvalStatusUnavailable.
@@ -591,7 +591,7 @@ abstract class AppLocalizations {
   /// No description provided for @canScanActiveRunRequired.
   ///
   /// In en, this message translates to:
-  /// **'Start todayâ€™s run from Manifest before scanning cans.'**
+  /// **'Start today’s run from Manifest before scanning cans.'**
   String get canScanActiveRunRequired;
 
   /// No description provided for @canScanSelectStop.
@@ -651,7 +651,7 @@ abstract class AppLocalizations {
   /// No description provided for @canScannerHint.
   ///
   /// In en, this message translates to:
-  /// **'Align the canâ€™s QR code or barcode inside the frame.'**
+  /// **'Align the can’s QR code or barcode inside the frame.'**
   String get canScannerHint;
 
   /// No description provided for @depotReconciliation.
@@ -885,7 +885,7 @@ abstract class AppLocalizations {
   /// No description provided for @realEstateDashVerificationPending.
   ///
   /// In en, this message translates to:
-  /// **'Verification pending â€” listings cannot be published yet'**
+  /// **'Verification pending — listings cannot be published yet'**
   String get realEstateDashVerificationPending;
 
   /// No description provided for @realEstateNavListings.
@@ -1929,19 +1929,19 @@ abstract class AppLocalizations {
   /// No description provided for @storesBannerSubscriptionPastDue.
   ///
   /// In en, this message translates to:
-  /// **'Subscription payment is past due â€” settle it to keep new orders flowing.'**
+  /// **'Subscription payment is past due — settle it to keep new orders flowing.'**
   String get storesBannerSubscriptionPastDue;
 
   /// No description provided for @storesBannerSubscriptionGracePeriod.
   ///
   /// In en, this message translates to:
-  /// **'Subscription is in grace period â€” new orders are paused until payment resumes.'**
+  /// **'Subscription is in grace period — new orders are paused until payment resumes.'**
   String get storesBannerSubscriptionGracePeriod;
 
   /// No description provided for @storesBannerSubscriptionSuspended.
   ///
   /// In en, this message translates to:
-  /// **'Subscription suspended â€” fulfil existing orders and settle; new orders are blocked.'**
+  /// **'Subscription suspended — fulfil existing orders and settle; new orders are blocked.'**
   String get storesBannerSubscriptionSuspended;
 
   /// No description provided for @realEstateExecAccept.
@@ -2013,7 +2013,7 @@ abstract class AppLocalizations {
   /// No description provided for @realEstateExecCancelVisitReason.
   ///
   /// In en, this message translates to:
-  /// **'Cancel visit â€” reason required'**
+  /// **'Cancel visit — reason required'**
   String get realEstateExecCancelVisitReason;
 
   /// No description provided for @realEstateExecCheckedIn.
@@ -2175,7 +2175,7 @@ abstract class AppLocalizations {
   /// No description provided for @realEstateExecLeadSummary.
   ///
   /// In en, this message translates to:
-  /// **'Visits: {visits} Â· Follow-ups: {followUps}'**
+  /// **'Visits: {visits} · Follow-ups: {followUps}'**
   String realEstateExecLeadSummary(int visits, int followUps);
 
   /// No description provided for @realEstateExecLoanNotFound.
@@ -2199,7 +2199,7 @@ abstract class AppLocalizations {
   /// No description provided for @realEstateExecLocating.
   ///
   /// In en, this message translates to:
-  /// **'Locatingâ€¦'**
+  /// **'Locating…'**
   String get realEstateExecLocating;
 
   /// No description provided for @realEstateExecLocationPermissionCheckIn.
@@ -2577,7 +2577,7 @@ abstract class AppLocalizations {
   /// No description provided for @jhatkaCloseFailed.
   ///
   /// In en, this message translates to:
-  /// **'Close failed â€” the fan-out may be incomplete. Retry.'**
+  /// **'Close failed — the fan-out may be incomplete. Retry.'**
   String get jhatkaCloseFailed;
 
   /// No description provided for @jhatkaPodCaptureFailed.
@@ -2607,7 +2607,7 @@ abstract class AppLocalizations {
   /// No description provided for @jhatkaAlreadyWeighed.
   ///
   /// In en, this message translates to:
-  /// **'Already weighed â€” showing the saved confirmation'**
+  /// **'Already weighed — showing the saved confirmation'**
   String get jhatkaAlreadyWeighed;
 
   /// No description provided for @jhatkaReasonRequired.
@@ -2619,7 +2619,7 @@ abstract class AppLocalizations {
   /// No description provided for @jhatkaReasonRequiredCustomer.
   ///
   /// In en, this message translates to:
-  /// **'A reason is required â€” the customer reads it.'**
+  /// **'A reason is required — the customer reads it.'**
   String get jhatkaReasonRequiredCustomer;
 
   /// No description provided for @jhatkaClientRefRequired.
@@ -2685,7 +2685,7 @@ abstract class AppLocalizations {
   /// No description provided for @jhatkaLineMissingVariant.
   ///
   /// In en, this message translates to:
-  /// **'A line is missing its variant â€” cannot save.'**
+  /// **'A line is missing its variant — cannot save.'**
   String get jhatkaLineMissingVariant;
 
   /// No description provided for @jhatkaNothingToSave.
@@ -3051,13 +3051,13 @@ abstract class AppLocalizations {
   /// No description provided for @jhatkaActionQuarantineBatch.
   ///
   /// In en, this message translates to:
-  /// **'Quarantine batch â€” reason required'**
+  /// **'Quarantine batch — reason required'**
   String get jhatkaActionQuarantineBatch;
 
   /// No description provided for @jhatkaActionRecallNotify.
   ///
   /// In en, this message translates to:
-  /// **'Recall â€” notify customers'**
+  /// **'Recall — notify customers'**
   String get jhatkaActionRecallNotify;
 
   /// No description provided for @jhatkaActionRecordAdjustWastage.
@@ -3093,7 +3093,7 @@ abstract class AppLocalizations {
   /// No description provided for @jhatkaActionReleaseBatch.
   ///
   /// In en, this message translates to:
-  /// **'Release batch â€” reason required'**
+  /// **'Release batch — reason required'**
   String get jhatkaActionReleaseBatch;
 
   /// No description provided for @jhatkaActionRemoveLine.
@@ -3237,7 +3237,7 @@ abstract class AppLocalizations {
   /// No description provided for @jhatkaFieldDeliveredTemp.
   ///
   /// In en, this message translates to:
-  /// **'Delivered temp Â°C'**
+  /// **'Delivered temp °C'**
   String get jhatkaFieldDeliveredTemp;
 
   /// No description provided for @jhatkaFieldEmail.
@@ -3279,7 +3279,7 @@ abstract class AppLocalizations {
   /// No description provided for @jhatkaFieldNameOrPhone.
   ///
   /// In en, this message translates to:
-  /// **'Name or phone (this outletâ€™s customers)'**
+  /// **'Name or phone (this outlet’s customers)'**
   String get jhatkaFieldNameOrPhone;
 
   /// No description provided for @jhatkaFieldNoteOptional.
@@ -3303,7 +3303,7 @@ abstract class AppLocalizations {
   /// No description provided for @jhatkaFieldPackingTemp.
   ///
   /// In en, this message translates to:
-  /// **'Packing temp Â°C (optional)'**
+  /// **'Packing temp °C (optional)'**
   String get jhatkaFieldPackingTemp;
 
   /// No description provided for @jhatkaFieldPeriodEnd.
@@ -3357,13 +3357,13 @@ abstract class AppLocalizations {
   /// No description provided for @jhatkaFieldReasonCustomer.
   ///
   /// In en, this message translates to:
-  /// **'Reason (required â€” the customer reads this)'**
+  /// **'Reason (required — the customer reads this)'**
   String get jhatkaFieldReasonCustomer;
 
   /// No description provided for @jhatkaFieldReasonOutlet.
   ///
   /// In en, this message translates to:
-  /// **'Reason (required â€” the outlet reads this)'**
+  /// **'Reason (required — the outlet reads this)'**
   String get jhatkaFieldReasonOutlet;
 
   /// No description provided for @jhatkaFieldReasonShown.
@@ -3453,19 +3453,19 @@ abstract class AppLocalizations {
   /// No description provided for @jhatkaSeverityAdvisory.
   ///
   /// In en, this message translates to:
-  /// **'Advisory â€” in-house'**
+  /// **'Advisory — in-house'**
   String get jhatkaSeverityAdvisory;
 
   /// No description provided for @jhatkaSeverityWithdraw.
   ///
   /// In en, this message translates to:
-  /// **'Withdraw â€” pull from sale'**
+  /// **'Withdraw — pull from sale'**
   String get jhatkaSeverityWithdraw;
 
   /// No description provided for @jhatkaAwaitingResponse.
   ///
   /// In en, this message translates to:
-  /// **'Awaiting response â€” one only'**
+  /// **'Awaiting response — one only'**
   String get jhatkaAwaitingResponse;
 
   /// No description provided for @jhatkaBlankUnchanged.
@@ -3603,7 +3603,7 @@ abstract class AppLocalizations {
   /// No description provided for @jhatkaStatusSkippedCredited.
   ///
   /// In en, this message translates to:
-  /// **'skipped Â· credited'**
+  /// **'skipped · credited'**
   String get jhatkaStatusSkippedCredited;
 
   /// No description provided for @jhatkaVariantCount.
@@ -3663,7 +3663,7 @@ abstract class AppLocalizations {
   /// No description provided for @jhatkaCollectCollected.
   ///
   /// In en, this message translates to:
-  /// **'Collect {collect} Â· collected {collected}'**
+  /// **'Collect {collect} · collected {collected}'**
   String jhatkaCollectCollected(Object collect, Object collected);
 
   /// No description provided for @jhatkaReceiverLabel.
@@ -3675,7 +3675,7 @@ abstract class AppLocalizations {
   /// No description provided for @jhatkaDeliveryStatus.
   ///
   /// In en, this message translates to:
-  /// **'Delivery {no} Â· {status}'**
+  /// **'Delivery {no} · {status}'**
   String jhatkaDeliveryStatus(Object no, Object status);
 
   /// No description provided for @jhatkaCodLabel.
@@ -3729,7 +3729,7 @@ abstract class AppLocalizations {
   /// No description provided for @jhatkaPickupOrderNote.
   ///
   /// In en, this message translates to:
-  /// **'Pickup order â€” the customer collects here. No rider is dispatched.'**
+  /// **'Pickup order — the customer collects here. No rider is dispatched.'**
   String get jhatkaPickupOrderNote;
 
   /// No description provided for @jhatkaSupplyTitle.
@@ -3759,7 +3759,7 @@ abstract class AppLocalizations {
   /// No description provided for @jhatkaSupplySubmitted.
   ///
   /// In en, this message translates to:
-  /// **'Request sent â€” LocalWala will approve and deliver.'**
+  /// **'Request sent — LocalWala will approve and deliver.'**
   String get jhatkaSupplySubmitted;
 
   /// No description provided for @jhatkaSupplyPayFailed.
@@ -3873,7 +3873,7 @@ abstract class AppLocalizations {
   /// No description provided for @jhatkaAreaFee.
   ///
   /// In en, this message translates to:
-  /// **'Flat fee (â‚¹)'**
+  /// **'Flat fee (₹)'**
   String get jhatkaAreaFee;
 
   /// No description provided for @jhatkaAreaReason.
@@ -3891,7 +3891,7 @@ abstract class AppLocalizations {
   /// No description provided for @jhatkaAreaSubmitted.
   ///
   /// In en, this message translates to:
-  /// **'Area change requested â€” LocalWala will review.'**
+  /// **'Area change requested — LocalWala will review.'**
   String get jhatkaAreaSubmitted;
 
   /// No description provided for @jhatkaAreaSubmitFailed.
@@ -3939,7 +3939,7 @@ abstract class AppLocalizations {
   /// No description provided for @jhatkaAreaReasonRequired.
   ///
   /// In en, this message translates to:
-  /// **'Say why â€” the admin reads it.'**
+  /// **'Say why — the admin reads it.'**
   String get jhatkaAreaReasonRequired;
 
   /// No description provided for @earningsToday.
@@ -4605,7 +4605,7 @@ abstract class AppLocalizations {
   /// No description provided for @livePreSettlementSummary.
   ///
   /// In en, this message translates to:
-  /// **'{count} delivered orders Â· live, pre-settlement'**
+  /// **'{count} delivered orders · live, pre-settlement'**
   String livePreSettlementSummary(int count);
 
   /// No description provided for @youKeep.
@@ -5283,13 +5283,13 @@ abstract class AppLocalizations {
   /// No description provided for @storesMsgCashSaleHint.
   ///
   /// In en, this message translates to:
-  /// **'Cash sale â€” add items from the list above'**
+  /// **'Cash sale — add items from the list above'**
   String get storesMsgCashSaleHint;
 
   /// No description provided for @storesMsgCashDue.
   ///
   /// In en, this message translates to:
-  /// **'Order #{orderNo} â€” cash due {total}'**
+  /// **'Order #{orderNo} — cash due {total}'**
   String storesMsgCashDue(Object orderNo, Object total);
 
   /// No description provided for @storesTitleOutlet.
@@ -6414,6 +6414,36 @@ abstract class AppLocalizations {
   /// **'Service areas (comma-separated)'**
   String get ls_service_areas;
 
+  /// No description provided for @ls_contact_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact name'**
+  String get ls_contact_name;
+
+  /// No description provided for @ls_contact_phone.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact phone'**
+  String get ls_contact_phone;
+
+  /// No description provided for @ls_gstin_optional.
+  ///
+  /// In en, this message translates to:
+  /// **'GSTIN (optional)'**
+  String get ls_gstin_optional;
+
+  /// No description provided for @ls_gst_state_code_optional.
+  ///
+  /// In en, this message translates to:
+  /// **'GST state code (optional, e.g. 27)'**
+  String get ls_gst_state_code_optional;
+
+  /// No description provided for @ls_document_file_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Document kind and file are required'**
+  String get ls_document_file_required;
+
   /// No description provided for @ls_document_kind.
   ///
   /// In en, this message translates to:
@@ -7031,6 +7061,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Set up & publish services'**
   String get ls_setup_publish;
+
+  /// No description provided for @jhatkaActionAcceptLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept line'**
+  String get jhatkaActionAcceptLine;
+
+  /// No description provided for @jhatkaActionRejectLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Reject line'**
+  String get jhatkaActionRejectLine;
+
+  /// No description provided for @jhatkaActionPostReceipt.
+  ///
+  /// In en, this message translates to:
+  /// **'Post receipt'**
+  String get jhatkaActionPostReceipt;
+
+  /// No description provided for @jhatkaReceiptDecisionPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending decision'**
+  String get jhatkaReceiptDecisionPending;
+
+  /// No description provided for @jhatkaReceiptAcceptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept line?'**
+  String get jhatkaReceiptAcceptTitle;
+
+  /// No description provided for @jhatkaReceiptAcceptBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Accepting makes the received quantity saleable and payable when the receipt posts.'**
+  String get jhatkaReceiptAcceptBody;
+
+  /// No description provided for @jhatkaReceiptRejectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reject this line'**
+  String get jhatkaReceiptRejectTitle;
+
+  /// No description provided for @jhatkaReceiptRejectReasons.
+  ///
+  /// In en, this message translates to:
+  /// **'Rejection reasons'**
+  String get jhatkaReceiptRejectReasons;
+
+  /// No description provided for @jhatkaReceiptNoReasons.
+  ///
+  /// In en, this message translates to:
+  /// **'No rejection reasons are active. Contact Admin.'**
+  String get jhatkaReceiptNoReasons;
+
+  /// No description provided for @jhatkaReceiptReasonsUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load rejection reasons. Retry.'**
+  String get jhatkaReceiptReasonsUnavailable;
+
+  /// No description provided for @jhatkaReceiptDecisionSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Quality decision saved.'**
+  String get jhatkaReceiptDecisionSaved;
+
+  /// No description provided for @jhatkaReceiptPostBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Decide every pending line before posting.'**
+  String get jhatkaReceiptPostBlocked;
+
+  /// No description provided for @jhatkaReceiptPostTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Post receipt?'**
+  String get jhatkaReceiptPostTitle;
+
+  /// No description provided for @jhatkaReceiptPostBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Posting creates batches, moves stock and makes accepted lines payable.'**
+  String get jhatkaReceiptPostBody;
+
+  /// No description provided for @jhatkaReceiptPosted.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt posted.'**
+  String get jhatkaReceiptPosted;
+
+  /// No description provided for @jhatkaReceiptReverseBatchFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'This line already has a batch. Reverse the batch first.'**
+  String get jhatkaReceiptReverseBatchFirst;
+
+  /// No description provided for @jhatkaReceiptAlreadyPosted.
+  ///
+  /// In en, this message translates to:
+  /// **'This receipt is already posted.'**
+  String get jhatkaReceiptAlreadyPosted;
 }
 
 class _AppLocalizationsDelegate

@@ -25,6 +25,7 @@ import 'package:partner/app/presentation/pages/account/profile_view.dart';
 import 'package:partner/app/modules/stores/partner/orders/stores_orders_screen.dart';
 import 'package:partner/app/modules/stores/partner/outlet/stores_outlet_switcher_screen.dart';
 import 'package:partner/app/modules/stores/stores_partner_repository.dart';
+import 'package:partner/app/modules/stores/stores_permissions.dart';
 import 'package:partner/app/shell/role_gate/bloc/role_gate_bloc.dart';
 import 'package:partner/gen/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -71,6 +72,7 @@ class _StoresPartnerShellScreenState extends State<StoresPartnerShellScreen> {
   int _index = 0;
   StoresPartnerRepository? _repo;
   String? _capabilityBanner;
+  StoresPermissions _permissions = StoresPermissions.unknown;
 
   static const Map<String, Icon> _navIcons = <String, Icon>{
     'home': Icon(Icons.dashboard_outlined),
@@ -94,8 +96,13 @@ class _StoresPartnerShellScreenState extends State<StoresPartnerShellScreen> {
       final dynamic row = caps['capabilities'];
       final String? banner =
           row is Map && row['banner'] != null ? '${row['banner']}' : null;
-      if (mounted && _capabilityBanner != banner) {
-        setState(() => _capabilityBanner = banner);
+      final StoresPermissions permissions =
+          StoresPermissions.fromCapabilities(caps);
+      if (mounted) {
+        setState(() {
+          _capabilityBanner = banner;
+          _permissions = permissions;
+        });
       }
     }).catchError((Object _) {
       // Gating is advisory scaffolding: a failed capabilities call must never
@@ -138,10 +145,11 @@ class _StoresPartnerShellScreenState extends State<StoresPartnerShellScreen> {
               index: _index,
               children: <Widget>[
                 const StoresDashboardScreen(),
-                const StoresOrdersScreen(),
+                StoresOrdersScreen(permissions: _permissions),
                 const StoresCatalogueScreen(),
                 const StoresDriversScreen(),
                 StoresPartnerMoreScreen(
+                  permissions: _permissions,
                   accountScreen: ProfileScreen(
                     session: widget.gate.session ?? const UserSessionModel(id: ''),
                   ),

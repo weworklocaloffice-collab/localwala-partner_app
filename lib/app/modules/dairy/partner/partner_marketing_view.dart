@@ -119,8 +119,10 @@ class _PartnerMarketingScreenState extends State<PartnerMarketingScreen> {
     if (date == null || !mounted) return;
     final TimeOfDay? time = await showTimePicker(context: context,
       initialTime: TimeOfDay.fromDateTime(_startsAt));
-    if (time != null && mounted) setState(() => _startsAt = DateTime(
+    if (time != null && mounted) {
+      setState(() => _startsAt = DateTime(
       date.year, date.month, date.day, time.hour, time.minute));
+    }
   }
 
   Future<void> _createCampaign() async {
@@ -195,7 +197,7 @@ class _PartnerMarketingScreenState extends State<PartnerMarketingScreen> {
         'discountType': _couponType,
         'discountValue': value,
         'minOrderAmount': minOrder,
-        if (cap != null) 'maxDiscountAmount': cap,
+        'maxDiscountAmount': ?cap,
         'startsAt': DateTime.now().add(const Duration(minutes: 1)).toUtc().toIso8601String(),
         'endsAt': _couponEndsAt.toUtc().toIso8601String(),
         if (maxRedemptions != null && maxRedemptions > 0) 'maxRedemptions': maxRedemptions,
@@ -406,7 +408,7 @@ class _PartnerMarketingScreenState extends State<PartnerMarketingScreen> {
             Text('Book a sponsored placement', style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: 6), const Text('Campaigns are reviewed by the platform before payment and publication.'),
             const SizedBox(height: 16),
-            DropdownButtonFormField<String>(value: _packageId, decoration: const InputDecoration(labelText: 'Placement package', border: OutlineInputBorder()),
+            DropdownButtonFormField<String>(initialValue: _packageId, decoration: const InputDecoration(labelText: 'Placement package', border: OutlineInputBorder()),
               items: _packages.map((Map<String, dynamic> row) => DropdownMenuItem<String>(value: _id(row),
                 child: Text('${row['name']} · ₹${row['price']} · ${row['durationHours']}h'))).toList(),
               onChanged: _saving ? null : (String? value) => setState(() {
@@ -419,7 +421,7 @@ class _PartnerMarketingScreenState extends State<PartnerMarketingScreen> {
             TextField(maxLength: 100, decoration: const InputDecoration(labelText: 'Campaign caption', border: OutlineInputBorder()), onChanged: (String value) => _caption = value),
             if (placement == 'featured_product') ...<Widget>[
               const SizedBox(height: 8),
-              DropdownButtonFormField<String>(value: _productId, decoration: const InputDecoration(labelText: 'Product to feature', border: OutlineInputBorder()),
+              DropdownButtonFormField<String>(initialValue: _productId, decoration: const InputDecoration(labelText: 'Product to feature', border: OutlineInputBorder()),
                 items: _products.map((Map<String, dynamic> row) => DropdownMenuItem<String>(value: _id(row), child: Text(row['name']?.toString() ?? 'Product'))).toList(),
                 onChanged: (String? value) => setState(() => _productId = value)),
             ],
@@ -433,7 +435,11 @@ class _PartnerMarketingScreenState extends State<PartnerMarketingScreen> {
                 title: Text(row['name']?.toString() ?? 'Locality'),
                 onChanged: (targeting == 'city' || _saving) ? null : (bool? checked) => setState(() {
                   if (targeting == 'locality') _selectedLocalities.clear();
-                  if (checked == true) _selectedLocalities.add(id); else _selectedLocalities.remove(id);
+                  if (checked == true) {
+                    _selectedLocalities.add(id);
+                  } else {
+                    _selectedLocalities.remove(id);
+                  }
                 }));
             }),
             const SizedBox(height: 8), OutlinedButton.icon(onPressed: _saving ? null : _chooseStart,
@@ -451,7 +457,7 @@ class _PartnerMarketingScreenState extends State<PartnerMarketingScreen> {
             TextField(maxLength: 100, decoration: const InputDecoration(labelText: 'Offer title', border: OutlineInputBorder()), onChanged: (String value) => _couponTitle = value),
             TextField(maxLength: 500, decoration: const InputDecoration(labelText: 'Description (optional)', border: OutlineInputBorder()), onChanged: (String value) => _couponDescription = value),
             const SizedBox(height: 8),
-            DropdownButtonFormField<String>(value: _couponType, decoration: const InputDecoration(labelText: 'Discount type', border: OutlineInputBorder()),
+            DropdownButtonFormField<String>(initialValue: _couponType, decoration: const InputDecoration(labelText: 'Discount type', border: OutlineInputBorder()),
               items: const <DropdownMenuItem<String>>[
                 DropdownMenuItem(value: 'fixed', child: Text('Fixed amount (₹)')),
                 DropdownMenuItem(value: 'percentage', child: Text('Percentage')),

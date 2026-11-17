@@ -253,6 +253,7 @@ class ApiRequestService {
     Map<String, String>? fields,
     String? token,
     String? baseUrl,
+    void Function(int sent, int total)? onSendProgress,
   }) async {
     final Dio dio = createDio(baseUrl: baseUrl, token: token);
     try {
@@ -269,6 +270,7 @@ class ApiRequestService {
         endpoint,
         data: form,
         options: options,
+        onSendProgress: onSendProgress,
       );
       return DioApiResponse(
         body: response.data.toString(),

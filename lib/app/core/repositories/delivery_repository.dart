@@ -93,8 +93,8 @@ class DeliveryRepository {
     final Map<String, String> query = <String, String>{
       'page': '$page',
       'limit': '$limit',
-      if (status != null) 'status': status,
-      if (serviceDate != null) 'serviceDate': serviceDate,
+      'status': ?status,
+      'serviceDate': ?serviceDate,
     };
 
     return ApiRequestService.makeRequest(
@@ -153,7 +153,7 @@ class DeliveryRepository {
       token: await _authRepository.authToken(),
       body: <String, dynamic>{
         'cansReturned': cansReturned,
-        if (adjustmentReason != null) 'adjustmentReason': adjustmentReason,
+        'adjustmentReason': ?adjustmentReason,
         if (forceClose) 'forceClose': true,
       },
     );
@@ -207,7 +207,7 @@ class DeliveryRepository {
         if (shortfallReason != null && shortfallReason.isNotEmpty)
           'shortfallReason': shortfallReason,
         if (clientRef != null && clientRef.isNotEmpty) 'clientRef': clientRef,
-        if (proof != null) 'proof': proof,
+        'proof': ?proof,
       },
     );
   }
@@ -343,8 +343,8 @@ class DeliveryRepository {
   /// window has to be appended to the path or it is silently ignored.
   Future<DioApiResponse> earnings({String? from, String? to}) async {
     final Map<String, String> query = <String, String>{
-      if (from != null) 'from': from,
-      if (to != null) 'to': to,
+      'from': ?from,
+      'to': ?to,
     };
     final String endpoint = query.isEmpty
         ? DairyPartnerEndpoints.driverEarnings

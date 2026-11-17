@@ -20,6 +20,7 @@ import 'package:partner/app/presentation/styles/theme.dart';
 import 'package:partner/gen/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:partner/app/modules/stores/stores_partner_repository.dart';
+import 'package:partner/app/modules/stores/stores_permissions.dart';
 import 'package:partner/app/modules/stores/widgets/stores_ui_states.dart';
 
 /// One line's pick decision.
@@ -59,9 +60,24 @@ class _PickLine {
 /// ladder, because the server's transition table is the authority and a stale client that
 /// offers an illegal move just produces a 409.
 class StoresOrderDetailScreen extends StatefulWidget {
-  const StoresOrderDetailScreen({super.key, required this.orderId});
+  const StoresOrderDetailScreen({
+    super.key,
+    required this.orderId,
+    this.permissions,
+    this.repository,
+  });
 
   final String orderId;
+
+  /// Test seam: the screen owns the real repository in production, but a widget test
+  /// supplies a fake so role gating can be proven without a server.
+  final StoresPartnerRepository? repository;
+
+  /// The signed-in role's rights. Null means "not loaded" and keeps every lifecycle
+  /// action visible — the server is the authority either way. With a real set, a
+  /// dispatcher sees no accept/reject/cancel (§6.23.2) and only delivery-capable
+  /// roles get Assign driver.
+  final StoresPermissions? permissions;
 
   @override
   State<StoresOrderDetailScreen> createState() =>
@@ -76,10 +92,15 @@ class _StoresOrderDetailScreenState extends State<StoresOrderDetailScreen> {
   bool _busy = false;
   bool _loading = true;
 
+  StoresPermissions get _permissions =>
+      widget.permissions ?? StoresPermissions.unknown;
+
+  bool get _mayManageOrders => _permissions.can('orders.write');
+
   @override
   void initState() {
     super.initState();
-    _repo = StoresPartnerRepository();
+    _repo = widget.repository ?? StoresPartnerRepository();
     _loadAll();
   }
 
@@ -93,29 +114,37 @@ class _StoresOrderDetailScreenState extends State<StoresOrderDetailScreen> {
   }
 
   bool get _canAccept =>
+      _mayManageOrders &&
       <String>['created', 'paid', 'store_received'].contains(_lifecycle) &&
       ('${_order?['paymentMode']}' == 'cod' ||
           '${_order?['paymentStatus']}' == 'paid');
 
-  bool get _canCancel => <String>[
-    'created',
-    'payment_pending',
-    'paid',
-    'store_received',
-    'accepted',
-    'picking',
-    'packing',
-    'ready',
-  ].contains(_lifecycle);
+  bool get _canCancel =>
+      _mayManageOrders &&
+      <String>[
+        'created',
+        'payment_pending',
+        'paid',
+        'store_received',
+        'accepted',
+        'picking',
+        'packing',
+        'ready',
+      ].contains(_lifecycle);
 
   bool get _canReject =>
+      _mayManageOrders &&
       <String>['created', 'paid', 'store_received'].contains(_lifecycle);
 
-  bool get _canCompletePacking => _lifecycle == 'picking' && _everyLineResolved;
+  bool get _canCompletePacking =>
+      _mayManageOrders && _lifecycle == 'picking' && _everyLineResolved;
 
-  bool get _canMarkReady => _lifecycle == 'packing';
+  bool get _canMarkReady => _mayManageOrders && _lifecycle == 'packing';
 
-  bool get _canAssignDriver => _lifecycle == 'ready' && _delivery == null;
+  bool get _canAssignDriver =>
+      _permissions.can('assign_driver') &&
+      _lifecycle == 'ready' &&
+      _delivery == null;
 
   bool get _everyLineResolved =>
       _lines.isNotEmpty && _lines.every((_PickLine l) => l.status != 'pending');

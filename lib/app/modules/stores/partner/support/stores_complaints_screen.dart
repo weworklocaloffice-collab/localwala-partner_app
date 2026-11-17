@@ -113,7 +113,7 @@ class _StoresComplaintsScreenState extends State<StoresComplaintsScreen> {
 
           return ListView.separated(
             itemCount: rows.length,
-            separatorBuilder: (_, __) => const Divider(height: 1),
+            separatorBuilder: (_, _) => const Divider(height: 1),
             itemBuilder: (BuildContext context, int index) {
               final Map<String, dynamic> complaint = rows[index];
               final String status = '${complaint['status'] ?? 'open'}';

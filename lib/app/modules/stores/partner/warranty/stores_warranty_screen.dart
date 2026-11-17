@@ -109,7 +109,7 @@ class _StoresWarrantyScreenState extends State<StoresWarrantyScreen> {
 
           return ListView.separated(
             itemCount: rows.length,
-            separatorBuilder: (_, __) => const Divider(height: 1),
+            separatorBuilder: (_, _) => const Divider(height: 1),
             itemBuilder: (BuildContext context, int index) {
               final Map<String, dynamic> warranty = rows[index];
               final String status = '${warranty['status'] ?? 'requested'}';
@@ -118,7 +118,7 @@ class _StoresWarrantyScreenState extends State<StoresWarrantyScreen> {
               return ExpansionTile(
                 leading: const Icon(Icons.verified_outlined),
                 title: Text('${warranty['productName'] ?? warranty['name'] ?? AppLocalizations.of(context)!.storesFallbackClaim}'),
-                subtitle: Text('$status'),
+                subtitle: Text(status),
                 children: <Widget>[
                   if ((warranty['description'] ?? warranty['issue']) != null)
                     Padding(

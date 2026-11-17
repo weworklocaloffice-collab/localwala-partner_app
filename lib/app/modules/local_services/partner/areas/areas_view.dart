@@ -19,6 +19,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:partner/app/core/config/api_request_service.dart';
+import 'package:partner/app/modules/local_services/partner/shared/ls_ui.dart';
 import 'package:partner/app/modules/local_services/repository/provider_repository.dart';
 import 'package:partner/gen/l10n/app_localizations.dart';
 
@@ -223,19 +224,7 @@ class _ServiceAreasScreenState extends State<ServiceAreasScreen> {
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : _error != null
-              ? Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Text(_error!, textAlign: TextAlign.center),
-                      const SizedBox(height: 8),
-                      TextButton(
-                        onPressed: _load,
-                        child: Text(l10n?.ls_retry ?? 'Retry'),
-                      ),
-                    ],
-                  ),
-                )
+               ? LsErrorState(message: _error!, onRetry: _load)
               : ListView(
                   padding: const EdgeInsets.fromLTRB(12, 12, 12, 88),
                   children: <Widget>[

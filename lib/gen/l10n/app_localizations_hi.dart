@@ -66,7 +66,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get navManifest => 'Manifest';
 
   @override
-  String get checkingDriverApproval => 'Checking driver approvalâ€¦';
+  String get checkingDriverApproval => 'Checking driver approval…';
 
   @override
   String get approvalStatusUnavailable => 'Approval status unavailable';
@@ -135,19 +135,17 @@ class AppLocalizationsHi extends AppLocalizations {
   String get cansToDeliver => 'Cans to deliver';
 
   @override
-  String get items => 'Ã Â¤â€ Ã Â¤â€¡Ã Â¤Å¸Ã Â¤Â®';
+  String get items => 'à¤†à¤‡à¤Ÿà¤®';
 
   @override
-  String get cansDelivered =>
-      'Ã Â¤Â¡Ã Â¤Â¿Ã Â¤Â²Ã Â¥â‚¬Ã Â¤ÂµÃ Â¤Â° Ã Â¤â€¢Ã Â¥â‚¬ Ã Â¤â€”Ã Â¤Ë† Ã Â¤â€¢Ã Â¥Ë†Ã Â¤Â¨';
+  String get cansDelivered => 'à¤¡à¤¿à¤²à¥€à¤µà¤° à¤•à¥€ à¤—à¤ˆ à¤•à¥ˆà¤¨';
 
   @override
-  String get shortfallReason =>
-      'Ã Â¤â€¢Ã Â¤Â®Ã Â¥â‚¬ Ã Â¤â€¢Ã Â¤Â¾ Ã Â¤â€¢Ã Â¤Â¾Ã Â¤Â°Ã Â¤Â£';
+  String get shortfallReason => 'à¤•à¤®à¥€ à¤•à¤¾ à¤•à¤¾à¤°à¤£';
 
   @override
   String get shortfallReasonRequired =>
-      'Ã Â¤â€¢Ã Â¤Â®Ã Â¥â‚¬ Ã Â¤â€¢Ã Â¤Â¾ Ã Â¤â€¢Ã Â¤Â¾Ã Â¤Â°Ã Â¤Â£ Ã Â¤Â¦Ã Â¤Â°Ã Â¥ÂÃ Â¤Å“ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€šÃ Â¥Â¤';
+      'à¤•à¤®à¥€ à¤•à¤¾ à¤•à¤¾à¤°à¤£ à¤¦à¤°à¥à¤œ à¤•à¤°à¥‡à¤‚à¥¤';
 
   @override
   String get emptyCansToCollect => 'Empty cans to collect';
@@ -187,104 +185,97 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get driverRunLoadHint =>
-      'Ã Â¤â€ Ã Â¤â€°Ã Â¤Å¸Ã Â¤Â²Ã Â¥â€¡Ã Â¤Å¸ Ã Â¤Â¸Ã Â¥â€¡ Ã Â¤Â¨Ã Â¤Â¿Ã Â¤â€¢Ã Â¤Â²Ã Â¤Â¨Ã Â¥â€¡ Ã Â¤Â¸Ã Â¥â€¡ Ã Â¤ÂªÃ Â¤Â¹Ã Â¤Â²Ã Â¥â€¡ Ã Â¤â€¢Ã Â¥Ë†Ã Â¤Â¨ Ã Â¤â€¢Ã Â¥â‚¬ Ã Â¤Â¸Ã Â¤â€šÃ Â¤â€“Ã Â¥ÂÃ Â¤Â¯Ã Â¤Â¾ Ã Â¤â€¢Ã Â¥â‚¬ Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â·Ã Â¥ÂÃ Â¤Å¸Ã Â¤Â¿ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€šÃ Â¥Â¤';
+      'à¤†à¤‰à¤Ÿà¤²à¥‡à¤Ÿ à¤¸à¥‡ à¤¨à¤¿à¤•à¤²à¤¨à¥‡ à¤¸à¥‡ à¤ªà¤¹à¤²à¥‡ à¤•à¥ˆà¤¨ à¤•à¥€ à¤¸à¤‚à¤–à¥à¤¯à¤¾ à¤•à¥€ à¤ªà¥à¤·à¥à¤Ÿà¤¿ à¤•à¤°à¥‡à¤‚à¥¤';
 
   @override
-  String get driverCansLoaded =>
-      'Ã Â¤Â²Ã Â¥â€¹Ã Â¤Â¡ Ã Â¤â€¢Ã Â¤Â¿Ã Â¤Â Ã Â¤â€”Ã Â¤Â Ã Â¤â€¢Ã Â¥Ë†Ã Â¤Â¨';
+  String get driverCansLoaded => 'à¤²à¥‹à¤¡ à¤•à¤¿à¤ à¤—à¤ à¤•à¥ˆà¤¨';
 
   @override
   String get driverEmptyCansForReturn =>
-      'Ã Â¤ÂµÃ Â¤Â¾Ã Â¤ÂªÃ Â¤Â¸ Ã Â¤Â²Ã Â¥â€¡ Ã Â¤Å“Ã Â¤Â¾Ã Â¤Â¨Ã Â¥â€¡ Ã Â¤ÂµÃ Â¤Â¾Ã Â¤Â²Ã Â¥â€¡ Ã Â¤â€“Ã Â¤Â¾Ã Â¤Â²Ã Â¥â‚¬ Ã Â¤â€¢Ã Â¥Ë†Ã Â¤Â¨';
+      'à¤µà¤¾à¤ªà¤¸ à¤²à¥‡ à¤œà¤¾à¤¨à¥‡ à¤µà¤¾à¤²à¥‡ à¤–à¤¾à¤²à¥€ à¤•à¥ˆà¤¨';
 
   @override
   String get driverEnterValidCanCounts =>
-      'Ã Â¤â€¢Ã Â¥Ë†Ã Â¤Â¨ Ã Â¤â€¢Ã Â¥â‚¬ Ã Â¤Â¸Ã Â¤Â¹Ã Â¥â‚¬ Ã Â¤â€”Ã Â¥Ë†Ã Â¤Â°-Ã Â¤â€¹Ã Â¤Â£Ã Â¤Â¾Ã Â¤Â¤Ã Â¥ÂÃ Â¤Â®Ã Â¤â€¢ Ã Â¤Â¸Ã Â¤â€šÃ Â¤â€“Ã Â¥ÂÃ Â¤Â¯Ã Â¤Â¾ Ã Â¤Â¦Ã Â¤Â°Ã Â¥ÂÃ Â¤Å“ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€šÃ Â¥Â¤';
+      'à¤•à¥ˆà¤¨ à¤•à¥€ à¤¸à¤¹à¥€ à¤—à¥ˆà¤°-à¤‹à¤£à¤¾à¤¤à¥à¤®à¤• à¤¸à¤‚à¤–à¥à¤¯à¤¾ à¤¦à¤°à¥à¤œ à¤•à¤°à¥‡à¤‚à¥¤';
 
   @override
   String get driverLoadAtLeastManifest =>
-      'Ã Â¤â€¡Ã Â¤Â¸ Ã Â¤Â°Ã Â¥â€šÃ Â¤Å¸ Ã Â¤Â®Ã Â¥â€¡Ã Â¤â€š Ã Â¤Â¬Ã Â¤Â¤Ã Â¤Â¾Ã Â¤Ë† Ã Â¤â€”Ã Â¤Ë† Ã Â¤â€¢Ã Â¤Â®-Ã Â¤Â¸Ã Â¥â€¡-Ã Â¤â€¢Ã Â¤Â® Ã Â¤Â¸Ã Â¤â€šÃ Â¤â€“Ã Â¥ÂÃ Â¤Â¯Ã Â¤Â¾ Ã Â¤Â®Ã Â¥â€¡Ã Â¤â€š Ã Â¤â€¢Ã Â¥Ë†Ã Â¤Â¨ Ã Â¤Â²Ã Â¥â€¹Ã Â¤Â¡ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€šÃ Â¥Â¤';
+      'à¤‡à¤¸ à¤°à¥‚à¤Ÿ à¤®à¥‡à¤‚ à¤¬à¤¤à¤¾à¤ˆ à¤—à¤ˆ à¤•à¤®-à¤¸à¥‡-à¤•à¤® à¤¸à¤‚à¤–à¥à¤¯à¤¾ à¤®à¥‡à¤‚ à¤•à¥ˆà¤¨ à¤²à¥‹à¤¡ à¤•à¤°à¥‡à¤‚à¥¤';
 
   @override
-  String get driverRunStarted =>
-      'Ã Â¤Â°Ã Â¥â€šÃ Â¤Å¸ Ã Â¤Â¶Ã Â¥ÂÃ Â¤Â°Ã Â¥â€š Ã Â¤Â¹Ã Â¥â€¹ Ã Â¤â€”Ã Â¤Â¯Ã Â¤Â¾';
+  String get driverRunStarted => 'à¤°à¥‚à¤Ÿ à¤¶à¥à¤°à¥‚ à¤¹à¥‹ à¤—à¤¯à¤¾';
 
   @override
   String get driverCouldNotLoadRun =>
-      'Ã Â¤â€ Ã Â¤Å“ Ã Â¤â€¢Ã Â¤Â¾ Ã Â¤Â°Ã Â¥â€šÃ Â¤Å¸ Ã Â¤Â²Ã Â¥â€¹Ã Â¤Â¡ Ã Â¤Â¨Ã Â¤Â¹Ã Â¥â‚¬Ã Â¤â€š Ã Â¤Â¹Ã Â¥â€¹ Ã Â¤Â¸Ã Â¤â€¢Ã Â¤Â¾Ã Â¥Â¤';
+      'à¤†à¤œ à¤•à¤¾ à¤°à¥‚à¤Ÿ à¤²à¥‹à¤¡ à¤¨à¤¹à¥€à¤‚ à¤¹à¥‹ à¤¸à¤•à¤¾à¥¤';
 
   @override
   String get driverArrivalRecorded =>
-      'Ã Â¤ÂªÃ Â¤Â¹Ã Â¥ÂÃ Â¤â€šÃ Â¤Å¡ Ã Â¤Â¦Ã Â¤Â°Ã Â¥ÂÃ Â¤Å“ Ã Â¤â€¢Ã Â¥â‚¬ Ã Â¤â€”Ã Â¤Ë†';
+      'à¤ªà¤¹à¥à¤‚à¤š à¤¦à¤°à¥à¤œ à¤•à¥€ à¤—à¤ˆ';
 
   @override
-  String get driverMarkArrived =>
-      'Ã Â¤ÂªÃ Â¤Â¹Ã Â¥ÂÃ Â¤â€šÃ Â¤Å¡ Ã Â¤Â¦Ã Â¤Â°Ã Â¥ÂÃ Â¤Å“ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š';
+  String get driverMarkArrived => 'à¤ªà¤¹à¥à¤‚à¤š à¤¦à¤°à¥à¤œ à¤•à¤°à¥‡à¤‚';
 
   @override
   String get driverDeliveryRecorded =>
-      'Ã Â¤Â¡Ã Â¤Â¿Ã Â¤Â²Ã Â¥â‚¬Ã Â¤ÂµÃ Â¤Â°Ã Â¥â‚¬ Ã Â¤Â¦Ã Â¤Â°Ã Â¥ÂÃ Â¤Å“ Ã Â¤â€¢Ã Â¥â‚¬ Ã Â¤â€”Ã Â¤Ë†';
+      'à¤¡à¤¿à¤²à¥€à¤µà¤°à¥€ à¤¦à¤°à¥à¤œ à¤•à¥€ à¤—à¤ˆ';
 
   @override
   String get driverStartRunBeforeStops =>
-      'Ã Â¤Â¸Ã Â¥ÂÃ Â¤Å¸Ã Â¥â€°Ã Â¤Âª Ã Â¤â€¦Ã Â¤ÂªÃ Â¤Â¡Ã Â¥â€¡Ã Â¤Å¸ Ã Â¤â€¢Ã Â¤Â°Ã Â¤Â¨Ã Â¥â€¡ Ã Â¤Â¸Ã Â¥â€¡ Ã Â¤ÂªÃ Â¤Â¹Ã Â¤Â²Ã Â¥â€¡ Ã Â¤Â°Ã Â¥â€šÃ Â¤Å¸ Ã Â¤Â¶Ã Â¥ÂÃ Â¤Â°Ã Â¥â€š Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€šÃ Â¥Â¤';
+      'à¤¸à¥à¤Ÿà¥‰à¤ª à¤…à¤ªà¤¡à¥‡à¤Ÿ à¤•à¤°à¤¨à¥‡ à¤¸à¥‡ à¤ªà¤¹à¤²à¥‡ à¤°à¥‚à¤Ÿ à¤¶à¥à¤°à¥‚ à¤•à¤°à¥‡à¤‚à¥¤';
 
   @override
   String get driverEmptyCansCollected =>
-      'Ã Â¤â€¡Ã Â¤â€¢Ã Â¤Å¸Ã Â¥ÂÃ Â¤Â Ã Â¤Â¾ Ã Â¤â€¢Ã Â¤Â¿Ã Â¤Â Ã Â¤â€”Ã Â¤Â Ã Â¤â€“Ã Â¤Â¾Ã Â¤Â²Ã Â¥â‚¬ Ã Â¤â€¢Ã Â¥Ë†Ã Â¤Â¨';
+      'à¤‡à¤•à¤Ÿà¥à¤ à¤¾ à¤•à¤¿à¤ à¤—à¤ à¤–à¤¾à¤²à¥€ à¤•à¥ˆà¤¨';
 
   @override
-  String get driverReasonRequired =>
-      'Ã Â¤â€¢Ã Â¤Â¾Ã Â¤Â°Ã Â¤Â£ (Ã Â¤â€ Ã Â¤ÂµÃ Â¤Â¶Ã Â¥ÂÃ Â¤Â¯Ã Â¤â€¢)';
+  String get driverReasonRequired => 'à¤•à¤¾à¤°à¤£ (à¤†à¤µà¤¶à¥à¤¯à¤•)';
 
   @override
-  String get driverNavigate =>
-      'Ã Â¤Â¨Ã Â¥â€¡Ã Â¤ÂµÃ Â¤Â¿Ã Â¤â€”Ã Â¥â€¡Ã Â¤Å¸ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š';
+  String get driverNavigate => 'à¤¨à¥‡à¤µà¤¿à¤—à¥‡à¤Ÿ à¤•à¤°à¥‡à¤‚';
 
   @override
   String get driverAddressUnavailable =>
-      'Ã Â¤â€¡Ã Â¤Â¸ Ã Â¤Â¸Ã Â¥ÂÃ Â¤Å¸Ã Â¥â€°Ã Â¤Âª Ã Â¤â€¢Ã Â¥â€¡ Ã Â¤Â²Ã Â¤Â¿Ã Â¤Â Ã Â¤Â¨Ã Â¥â€¡Ã Â¤ÂµÃ Â¤Â¿Ã Â¤â€”Ã Â¥â€¡Ã Â¤Å¸ Ã Â¤â€¢Ã Â¤Â°Ã Â¤Â¨Ã Â¥â€¡ Ã Â¤â€¢Ã Â¤Â¾ Ã Â¤ÂªÃ Â¤Â¤Ã Â¤Â¾ Ã Â¤â€°Ã Â¤ÂªÃ Â¤Â²Ã Â¤Â¬Ã Â¥ÂÃ Â¤Â§ Ã Â¤Â¨Ã Â¤Â¹Ã Â¥â‚¬Ã Â¤â€š Ã Â¤Â¹Ã Â¥Ë†Ã Â¥Â¤';
+      'à¤‡à¤¸ à¤¸à¥à¤Ÿà¥‰à¤ª à¤•à¥‡ à¤²à¤¿à¤ à¤¨à¥‡à¤µà¤¿à¤—à¥‡à¤Ÿ à¤•à¤°à¤¨à¥‡ à¤•à¤¾ à¤ªà¤¤à¤¾ à¤‰à¤ªà¤²à¤¬à¥à¤§ à¤¨à¤¹à¥€à¤‚ à¤¹à¥ˆà¥¤';
 
   @override
   String get completeRun => 'Complete run';
 
   @override
-  String get nextStop =>
-      'Ã Â¤â€¦Ã Â¤â€”Ã Â¤Â²Ã Â¤Â¾ Ã Â¤Â¸Ã Â¥ÂÃ Â¤Å¸Ã Â¥â€°Ã Â¤Âª';
+  String get nextStop => 'à¤…à¤—à¤²à¤¾ à¤¸à¥à¤Ÿà¥‰à¤ª';
 
   @override
-  String get openStop =>
-      'Ã Â¤Â¸Ã Â¥ÂÃ Â¤Å¸Ã Â¥â€°Ã Â¤Âª Ã Â¤â€“Ã Â¥â€¹Ã Â¤Â²Ã Â¥â€¡Ã Â¤â€š';
+  String get openStop => 'à¤¸à¥à¤Ÿà¥‰à¤ª à¤–à¥‹à¤²à¥‡à¤‚';
 
   @override
   String get allStopsResolved =>
-      'Ã Â¤Â¸Ã Â¤Â­Ã Â¥â‚¬ Ã Â¤Â¸Ã Â¥ÂÃ Â¤Å¸Ã Â¥â€°Ã Â¤Âª Ã Â¤ÂªÃ Â¥â€šÃ Â¤Â°Ã Â¥â€¡ Ã Â¤Â¹Ã Â¥ÂÃ Â¤Â';
+      'à¤¸à¤­à¥€ à¤¸à¥à¤Ÿà¥‰à¤ª à¤ªà¥‚à¤°à¥‡ à¤¹à¥à¤';
 
   @override
-  String get callCustomer => 'Ã Â¤â€¢Ã Â¥â€°Ã Â¤Â² Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š';
+  String get callCustomer => 'à¤•à¥‰à¤² à¤•à¤°à¥‡à¤‚';
 
   @override
   String get amountExceedsDue =>
-      'Ã Â¤ÂµÃ Â¤Â¸Ã Â¥â€šÃ Â¤Â² Ã Â¤â€¢Ã Â¥â‚¬ Ã Â¤â€”Ã Â¤Ë† Ã Â¤Â°Ã Â¤Â¾Ã Â¤Â¶Ã Â¤Â¿ Ã Â¤Â¦Ã Â¥â€¡Ã Â¤Â¯ Ã Â¤Â°Ã Â¤Â¾Ã Â¤Â¶Ã Â¤Â¿ Ã Â¤Â¸Ã Â¥â€¡ Ã Â¤â€¦Ã Â¤Â§Ã Â¤Â¿Ã Â¤â€¢ Ã Â¤Â¨Ã Â¤Â¹Ã Â¥â‚¬Ã Â¤â€š Ã Â¤Â¹Ã Â¥â€¹ Ã Â¤Â¸Ã Â¤â€¢Ã Â¤Â¤Ã Â¥â‚¬Ã Â¥Â¤';
+      'à¤µà¤¸à¥‚à¤² à¤•à¥€ à¤—à¤ˆ à¤°à¤¾à¤¶à¤¿ à¤¦à¥‡à¤¯ à¤°à¤¾à¤¶à¤¿ à¤¸à¥‡ à¤…à¤§à¤¿à¤• à¤¨à¤¹à¥€à¤‚ à¤¹à¥‹ à¤¸à¤•à¤¤à¥€à¥¤';
 
   @override
   String get captureProof =>
-      'Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â°Ã Â¤Â®Ã Â¤Â¾Ã Â¤Â£ Ã Â¤Â«Ã Â¤Â¼Ã Â¥â€¹Ã Â¤Å¸Ã Â¥â€¹ Ã Â¤Å“Ã Â¥â€¹Ã Â¤Â¡Ã Â¤Â¼Ã Â¥â€¡Ã Â¤â€š';
+      'à¤ªà¥à¤°à¤®à¤¾à¤£ à¤«à¤¼à¥‹à¤Ÿà¥‹ à¤œà¥‹à¤¡à¤¼à¥‡à¤‚';
 
   @override
   String get proofAttached =>
-      'Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â°Ã Â¤Â®Ã Â¤Â¾Ã Â¤Â£ Ã Â¤Â«Ã Â¤Â¼Ã Â¥â€¹Ã Â¤Å¸Ã Â¥â€¹ Ã Â¤Å“Ã Â¥ÂÃ Â¤Â¡Ã Â¤Â¼Ã Â¥â‚¬ Ã Â¤Â¹Ã Â¥Ë†';
+      'à¤ªà¥à¤°à¤®à¤¾à¤£ à¤«à¤¼à¥‹à¤Ÿà¥‹ à¤œà¥à¤¡à¤¼à¥€ à¤¹à¥ˆ';
 
   @override
   String get proofNotAttached =>
-      'Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â°Ã Â¤Â®Ã Â¤Â¾Ã Â¤Â£ Ã Â¤Â«Ã Â¤Â¼Ã Â¥â€¹Ã Â¤Å¸Ã Â¥â€¹ Ã Â¤Â¨Ã Â¤Â¹Ã Â¥â‚¬Ã Â¤â€š Ã Â¤Å“Ã Â¥ÂÃ Â¤Â¡Ã Â¤Â¼Ã Â¥â‚¬Ã Â¥Â¤ Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â¨Ã Â¤Æ’ Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â°Ã Â¤Â¯Ã Â¤Â¾Ã Â¤Â¸ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€šÃ Â¥Â¤';
+      'à¤ªà¥à¤°à¤®à¤¾à¤£ à¤«à¤¼à¥‹à¤Ÿà¥‹ à¤¨à¤¹à¥€à¤‚ à¤œà¥à¤¡à¤¼à¥€à¥¤ à¤ªà¥à¤¨à¤ƒ à¤ªà¥à¤°à¤¯à¤¾à¤¸ à¤•à¤°à¥‡à¤‚à¥¤';
 
   @override
   String get pickupScan => 'Pickup scan';
 
   @override
   String get canScanActiveRunRequired =>
-      'Start todayâ€™s run from Manifest before scanning cans.';
+      'Start today’s run from Manifest before scanning cans.';
 
   @override
   String get canScanSelectStop => 'Select an active customer stop first.';
@@ -320,7 +311,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get canScannerHint =>
-      'Align the canâ€™s QR code or barcode inside the frame.';
+      'Align the can’s QR code or barcode inside the frame.';
 
   @override
   String get depotReconciliation => 'Depot reconciliation';
@@ -442,7 +433,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get realEstateDashVerificationPending =>
-      'Verification pending â€” listings cannot be published yet';
+      'Verification pending — listings cannot be published yet';
 
   @override
   String get realEstateNavListings => 'Listings';
@@ -721,317 +712,283 @@ class AppLocalizationsHi extends AppLocalizations {
       'Check the reason on your Profile, fix the documents and submit again.';
 
   @override
-  String get storesNavHome => 'Ã Â¤Â¹Ã Â¥â€¹Ã Â¤Â®';
+  String get storesNavHome => 'à¤¹à¥‹à¤®';
 
   @override
-  String get storesNavOrders => 'Ã Â¤â€˜Ã Â¤Â°Ã Â¥ÂÃ Â¤Â¡Ã Â¤Â°';
+  String get storesNavOrders => 'à¤‘à¤°à¥à¤¡à¤°';
 
   @override
-  String get storesNavStock => 'Ã Â¤Â¸Ã Â¥ÂÃ Â¤Å¸Ã Â¥â€°Ã Â¤â€¢';
+  String get storesNavStock => 'à¤¸à¥à¤Ÿà¥‰à¤•';
 
   @override
-  String get storesNavCatalogue => 'Ã Â¤â€¢Ã Â¥Ë†Ã Â¤Å¸Ã Â¤Â²Ã Â¥â€°Ã Â¤â€”';
+  String get storesNavCatalogue => 'à¤•à¥ˆà¤Ÿà¤²à¥‰à¤—';
 
   @override
-  String get storesNavDrivers => 'Ã Â¤Â¡Ã Â¥ÂÃ Â¤Â°Ã Â¤Â¾Ã Â¤â€¡Ã Â¤ÂµÃ Â¤Â°';
+  String get storesNavDrivers => 'à¤¡à¥à¤°à¤¾à¤‡à¤µà¤°';
 
   @override
-  String get storesNavPostsale =>
-      'Ã Â¤Â¬Ã Â¤Â¿Ã Â¤â€¢Ã Â¥ÂÃ Â¤Â°Ã Â¥â‚¬ Ã Â¤â€¢Ã Â¥â€¡ Ã Â¤Â¬Ã Â¤Â¾Ã Â¤Â¦';
+  String get storesNavPostsale => 'à¤¬à¤¿à¤•à¥à¤°à¥€ à¤•à¥‡ à¤¬à¤¾à¤¦';
 
   @override
-  String get storesNavAccount => 'Ã Â¤â€“Ã Â¤Â¾Ã Â¤Â¤Ã Â¤Â¾';
+  String get storesNavAccount => 'à¤–à¤¾à¤¤à¤¾';
 
   @override
-  String get storesNavDeliveries =>
-      'Ã Â¤Â¡Ã Â¤Â¿Ã Â¤Â²Ã Â¥â‚¬Ã Â¤ÂµÃ Â¤Â°Ã Â¥â‚¬';
+  String get storesNavDeliveries => 'à¤¡à¤¿à¤²à¥€à¤µà¤°à¥€';
 
   @override
-  String get storesNavEarnings => 'Ã Â¤â€¢Ã Â¤Â®Ã Â¤Â¾Ã Â¤Ë†';
+  String get storesNavEarnings => 'à¤•à¤®à¤¾à¤ˆ';
 
   @override
-  String get storesTitleStore => 'Ã Â¤Â¸Ã Â¥ÂÃ Â¤Å¸Ã Â¥â€¹Ã Â¤Â°';
+  String get storesTitleStore => 'à¤¸à¥à¤Ÿà¥‹à¤°';
 
   @override
-  String get storesTitleOrders => 'Ã Â¤â€˜Ã Â¤Â°Ã Â¥ÂÃ Â¤Â¡Ã Â¤Â°';
+  String get storesTitleOrders => 'à¤‘à¤°à¥à¤¡à¤°';
 
   @override
-  String get storesTitleStock => 'Ã Â¤Â¸Ã Â¥ÂÃ Â¤Å¸Ã Â¥â€°Ã Â¤â€¢';
+  String get storesTitleStock => 'à¤¸à¥à¤Ÿà¥‰à¤•';
 
   @override
-  String get storesTitleCatalogue => 'Ã Â¤â€¢Ã Â¥Ë†Ã Â¤Å¸Ã Â¤Â²Ã Â¥â€°Ã Â¤â€”';
+  String get storesTitleCatalogue => 'à¤•à¥ˆà¤Ÿà¤²à¥‰à¤—';
 
   @override
-  String get storesTitleDrivers =>
-      'Ã Â¤Â¡Ã Â¥ÂÃ Â¤Â°Ã Â¤Â¾Ã Â¤â€¡Ã Â¤ÂµÃ Â¤Â°';
+  String get storesTitleDrivers => 'à¤¡à¥à¤°à¤¾à¤‡à¤µà¤°';
 
   @override
-  String get storesTitlePostsale =>
-      'Ã Â¤Â¬Ã Â¤Â¿Ã Â¤â€¢Ã Â¥ÂÃ Â¤Â°Ã Â¥â‚¬ Ã Â¤â€¢Ã Â¥â€¡ Ã Â¤Â¬Ã Â¤Â¾Ã Â¤Â¦';
+  String get storesTitlePostsale => 'à¤¬à¤¿à¤•à¥à¤°à¥€ à¤•à¥‡ à¤¬à¤¾à¤¦';
 
   @override
-  String get storesTitleSubscription =>
-      'Ã Â¤Â¸Ã Â¤Â¦Ã Â¤Â¸Ã Â¥ÂÃ Â¤Â¯Ã Â¤Â¤Ã Â¤Â¾';
+  String get storesTitleSubscription => 'à¤¸à¤¦à¤¸à¥à¤¯à¤¤à¤¾';
 
   @override
-  String get storesTitleSupport => 'Ã Â¤Â¸Ã Â¤Â¹Ã Â¤Â¾Ã Â¤Â¯Ã Â¤Â¤Ã Â¤Â¾';
+  String get storesTitleSupport => 'à¤¸à¤¹à¤¾à¤¯à¤¤à¤¾';
 
   @override
-  String get storesTitleFeatured => 'Ã Â¤Â«Ã Â¥â‚¬Ã Â¤Å¡Ã Â¤Â°Ã Â¥ÂÃ Â¤Â¡';
+  String get storesTitleFeatured => 'à¤«à¥€à¤šà¤°à¥à¤¡';
 
   @override
-  String get storesTitleTeam => 'Ã Â¤Å¸Ã Â¥â‚¬Ã Â¤Â®';
+  String get storesTitleTeam => 'à¤Ÿà¥€à¤®';
 
   @override
-  String get storesTitlePromotions =>
-      'Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â°Ã Â¥â€¹Ã Â¤Â®Ã Â¥â€¹Ã Â¤Â¶Ã Â¤Â¨';
+  String get storesTitlePromotions => 'à¤ªà¥à¤°à¥‹à¤®à¥‹à¤¶à¤¨';
 
   @override
-  String get storesTitleWarranty => 'Ã Â¤ÂµÃ Â¤Â¾Ã Â¤Â°Ã Â¤â€šÃ Â¤Å¸Ã Â¥â‚¬';
+  String get storesTitleWarranty => 'à¤µà¤¾à¤°à¤‚à¤Ÿà¥€';
 
   @override
-  String get storesTitleDeliveries =>
-      'Ã Â¤Â¡Ã Â¤Â¿Ã Â¤Â²Ã Â¥â‚¬Ã Â¤ÂµÃ Â¤Â°Ã Â¥â‚¬';
+  String get storesTitleDeliveries => 'à¤¡à¤¿à¤²à¥€à¤µà¤°à¥€';
 
   @override
-  String get storesTitleEarnings => 'Ã Â¤â€¢Ã Â¤Â®Ã Â¤Â¾Ã Â¤Ë†';
+  String get storesTitleEarnings => 'à¤•à¤®à¤¾à¤ˆ';
 
   @override
-  String get storesTitleOutlets =>
-      'Ã Â¤â€ Ã Â¤ÂªÃ Â¤â€¢Ã Â¥â€¡ Ã Â¤â€ Ã Â¤â€°Ã Â¤Å¸Ã Â¤Â²Ã Â¥â€¡Ã Â¤Å¸';
+  String get storesTitleOutlets => 'à¤†à¤ªà¤•à¥‡ à¤†à¤‰à¤Ÿà¤²à¥‡à¤Ÿ';
 
   @override
-  String get storesTitleOnboarding =>
-      'Ã Â¤Â¨Ã Â¤Â¯Ã Â¤Â¾ Ã Â¤Â¸Ã Â¥ÂÃ Â¤Å¸Ã Â¥â€¹Ã Â¤Â°';
+  String get storesTitleOnboarding => 'à¤¨à¤¯à¤¾ à¤¸à¥à¤Ÿà¥‹à¤°';
 
   @override
-  String get storesTabReturns => 'Ã Â¤Â°Ã Â¤Â¿Ã Â¤Å¸Ã Â¤Â°Ã Â¥ÂÃ Â¤Â¨';
+  String get storesTabReturns => 'à¤°à¤¿à¤Ÿà¤°à¥à¤¨';
 
   @override
-  String get storesTabSettlements => 'Ã Â¤Â¨Ã Â¤Â¿Ã Â¤ÂªÃ Â¤Å¸Ã Â¤Â¾Ã Â¤Â¨';
+  String get storesTabSettlements => 'à¤¨à¤¿à¤ªà¤Ÿà¤¾à¤¨';
 
   @override
-  String get storesTitleNewStore =>
-      'Ã Â¤Â¨Ã Â¤Â¯Ã Â¤Â¾ Ã Â¤Â¸Ã Â¥ÂÃ Â¤Å¸Ã Â¥â€¹Ã Â¤Â°';
+  String get storesTitleNewStore => 'à¤¨à¤¯à¤¾ à¤¸à¥à¤Ÿà¥‹à¤°';
 
   @override
-  String get storesTitlePickList =>
-      'Ã Â¤ÂªÃ Â¤Â¿Ã Â¤â€¢ Ã Â¤Â²Ã Â¤Â¿Ã Â¤Â¸Ã Â¥ÂÃ Â¤Å¸';
+  String get storesTitlePickList => 'à¤ªà¤¿à¤• à¤²à¤¿à¤¸à¥à¤Ÿ';
 
   @override
-  String get storesTitleAdvance => 'Ã Â¤â€¦Ã Â¤â€”Ã Â¥ÂÃ Â¤Â°Ã Â¤Â¿Ã Â¤Â®';
+  String get storesTitleAdvance => 'à¤…à¤—à¥à¤°à¤¿à¤®';
 
   @override
-  String get storesActionSave =>
-      'Ã Â¤Â¸Ã Â¥â€¡Ã Â¤Âµ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š';
+  String get storesActionSave => 'à¤¸à¥‡à¤µ à¤•à¤°à¥‡à¤‚';
 
   @override
-  String get storesActionCancel =>
-      'Ã Â¤Â°Ã Â¤Â¦Ã Â¥ÂÃ Â¤Â¦ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š';
+  String get storesActionCancel => 'à¤°à¤¦à¥à¤¦ à¤•à¤°à¥‡à¤‚';
 
   @override
-  String get storesActionSubmit =>
-      'Ã Â¤Å“Ã Â¤Â®Ã Â¤Â¾ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š';
+  String get storesActionSubmit => 'à¤œà¤®à¤¾ à¤•à¤°à¥‡à¤‚';
 
   @override
-  String get storesActionRefresh =>
-      'Ã Â¤Â°Ã Â¤Â¿Ã Â¤Â«Ã Â¥ÂÃ Â¤Â°Ã Â¥â€¡Ã Â¤Â¶ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š';
+  String get storesActionRefresh => 'à¤°à¤¿à¤«à¥à¤°à¥‡à¤¶ à¤•à¤°à¥‡à¤‚';
 
   @override
-  String get storesActionClose =>
-      'Ã Â¤Â¬Ã Â¤â€šÃ Â¤Â¦ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š';
+  String get storesActionClose => 'à¤¬à¤‚à¤¦ à¤•à¤°à¥‡à¤‚';
 
   @override
-  String get storesActionEdit =>
-      'Ã Â¤Â¸Ã Â¤â€šÃ Â¤ÂªÃ Â¤Â¾Ã Â¤Â¦Ã Â¤Â¿Ã Â¤Â¤ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š';
+  String get storesActionEdit => 'à¤¸à¤‚à¤ªà¤¾à¤¦à¤¿à¤¤ à¤•à¤°à¥‡à¤‚';
 
   @override
-  String get storesActionAdd => 'Ã Â¤Å“Ã Â¥â€¹Ã Â¤Â¡Ã Â¤Â¼Ã Â¥â€¡Ã Â¤â€š';
+  String get storesActionAdd => 'à¤œà¥‹à¤¡à¤¼à¥‡à¤‚';
 
   @override
-  String get storesActionVerify =>
-      'Ã Â¤Â¸Ã Â¤Â¤Ã Â¥ÂÃ Â¤Â¯Ã Â¤Â¾Ã Â¤ÂªÃ Â¤Â¿Ã Â¤Â¤ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š';
+  String get storesActionVerify => 'à¤¸à¤¤à¥à¤¯à¤¾à¤ªà¤¿à¤¤ à¤•à¤°à¥‡à¤‚';
 
   @override
-  String get storesActionReject =>
-      'Ã Â¤â€¦Ã Â¤Â¸Ã Â¥ÂÃ Â¤ÂµÃ Â¥â‚¬Ã Â¤â€¢Ã Â¤Â¾Ã Â¤Â° Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š';
+  String get storesActionReject => 'à¤…à¤¸à¥à¤µà¥€à¤•à¤¾à¤° à¤•à¤°à¥‡à¤‚';
 
   @override
-  String get storesActionNext => 'Ã Â¤â€ Ã Â¤â€”Ã Â¥â€¡';
+  String get storesActionNext => 'à¤†à¤—à¥‡';
 
   @override
-  String get storesActionBack => 'Ã Â¤ÂªÃ Â¥â‚¬Ã Â¤â€ºÃ Â¥â€¡';
+  String get storesActionBack => 'à¤ªà¥€à¤›à¥‡';
 
   @override
-  String get storesActionApply =>
-      'Ã Â¤Â²Ã Â¤Â¾Ã Â¤â€”Ã Â¥â€š Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š';
+  String get storesActionApply => 'à¤²à¤¾à¤—à¥‚ à¤•à¤°à¥‡à¤‚';
 
   @override
-  String get storesActionCreate => 'Ã Â¤Â¬Ã Â¤Â¨Ã Â¤Â¾Ã Â¤ÂÃ Â¤â€š';
+  String get storesActionCreate => 'à¤¬à¤¨à¤¾à¤à¤‚';
 
   @override
-  String get storesActionRetry =>
-      'Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â¨: Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â°Ã Â¤Â¯Ã Â¤Â¾Ã Â¤Â¸ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š';
+  String get storesActionRetry => 'à¤ªà¥à¤¨: à¤ªà¥à¤°à¤¯à¤¾à¤¸ à¤•à¤°à¥‡à¤‚';
 
   @override
-  String get storesFieldSearchProducts =>
-      'Ã Â¤â€°Ã Â¤Â¤Ã Â¥ÂÃ Â¤ÂªÃ Â¤Â¾Ã Â¤Â¦ Ã Â¤â€“Ã Â¥â€¹Ã Â¤Å“Ã Â¥â€¡Ã Â¤â€š';
+  String get storesFieldSearchProducts => 'à¤‰à¤¤à¥à¤ªà¤¾à¤¦ à¤–à¥‹à¤œà¥‡à¤‚';
 
   @override
-  String get storesFieldCartAmount =>
-      'Ã Â¤â€¢Ã Â¤Â¾Ã Â¤Â°Ã Â¥ÂÃ Â¤Å¸ Ã Â¤Â°Ã Â¤Â¾Ã Â¤Â¶Ã Â¤Â¿';
+  String get storesFieldCartAmount => 'à¤•à¤¾à¤°à¥à¤Ÿ à¤°à¤¾à¤¶à¤¿';
 
   @override
-  String get storesFieldCode => 'Ã Â¤â€¢Ã Â¥â€¹Ã Â¤Â¡';
+  String get storesFieldCode => 'à¤•à¥‹à¤¡';
 
   @override
-  String get storesFieldCodeOptional =>
-      'Ã Â¤â€¢Ã Â¥â€¹Ã Â¤Â¡ (Ã Â¤ÂµÃ Â¥Ë†Ã Â¤â€¢Ã Â¤Â²Ã Â¥ÂÃ Â¤ÂªÃ Â¤Â¿Ã Â¤â€¢)';
+  String get storesFieldCodeOptional => 'à¤•à¥‹à¤¡ (à¤µà¥ˆà¤•à¤²à¥à¤ªà¤¿à¤•)';
 
   @override
-  String get storesFieldNameRequired =>
-      'Ã Â¤Â¨Ã Â¤Â¾Ã Â¤Â® (Ã Â¤â€ Ã Â¤ÂµÃ Â¤Â¶Ã Â¥ÂÃ Â¤Â¯Ã Â¤â€¢)';
+  String get storesFieldNameRequired => 'à¤¨à¤¾à¤® (à¤†à¤µà¤¶à¥à¤¯à¤•)';
 
   @override
-  String get storesFieldOtp => 'Ã Â¤â€œÃ Â¤Å¸Ã Â¥â‚¬Ã Â¤ÂªÃ Â¥â‚¬';
+  String get storesFieldOtp => 'à¤“à¤Ÿà¥€à¤ªà¥€';
 
   @override
-  String get storesFieldPackageCount =>
-      'Ã Â¤ÂªÃ Â¥Ë†Ã Â¤â€¢Ã Â¥â€¡Ã Â¤Å“ Ã Â¤Â¸Ã Â¤â€šÃ Â¤â€“Ã Â¥ÂÃ Â¤Â¯Ã Â¤Â¾';
+  String get storesFieldPackageCount => 'à¤ªà¥ˆà¤•à¥‡à¤œ à¤¸à¤‚à¤–à¥à¤¯à¤¾';
 
   @override
-  String get storesFieldQuantity => 'Ã Â¤Â®Ã Â¤Â¾Ã Â¤Â¤Ã Â¥ÂÃ Â¤Â°Ã Â¤Â¾';
+  String get storesFieldQuantity => 'à¤®à¤¾à¤¤à¥à¤°à¤¾';
 
   @override
-  String get storesFieldReason => 'Ã Â¤â€¢Ã Â¤Â¾Ã Â¤Â°Ã Â¤Â£';
+  String get storesFieldReason => 'à¤•à¤¾à¤°à¤£';
 
   @override
-  String get storesFieldReasonRequired =>
-      'Ã Â¤â€¢Ã Â¤Â¾Ã Â¤Â°Ã Â¤Â£ (Ã Â¤â€ Ã Â¤ÂµÃ Â¤Â¶Ã Â¥ÂÃ Â¤Â¯Ã Â¤â€¢)';
+  String get storesFieldReasonRequired => 'à¤•à¤¾à¤°à¤£ (à¤†à¤µà¤¶à¥à¤¯à¤•)';
 
   @override
   String get storesFieldSubstituteVariant =>
-      'Ã Â¤ÂµÃ Â¤Â¿Ã Â¤â€¢Ã Â¤Â²Ã Â¥ÂÃ Â¤Âª Ã Â¤ÂµÃ Â¥â€¡Ã Â¤Â°Ã Â¤Â¿Ã Â¤ÂÃ Â¤â€šÃ Â¤Å¸ Ã Â¤â€ Ã Â¤Ë†Ã Â¤Â¡Ã Â¥â‚¬';
+      'à¤µà¤¿à¤•à¤²à¥à¤ª à¤µà¥‡à¤°à¤¿à¤à¤‚à¤Ÿ à¤†à¤ˆà¤¡à¥€';
 
   @override
   String get storesFieldWeightGrams =>
-      'Ã Â¤â€¢Ã Â¥ÂÃ Â¤Â² Ã Â¤ÂµÃ Â¤Å“Ã Â¤Â¼Ã Â¤Â¨ (Ã Â¤â€”Ã Â¥ÂÃ Â¤Â°Ã Â¤Â¾Ã Â¤Â®)';
+      'à¤•à¥à¤² à¤µà¤œà¤¼à¤¨ (à¤—à¥à¤°à¤¾à¤®)';
 
   @override
-  String get storesFieldValueRequired =>
-      'Ã Â¤Â®Ã Â¤Â¾Ã Â¤Â¨ (Ã Â¤â€ Ã Â¤ÂµÃ Â¤Â¶Ã Â¥ÂÃ Â¤Â¯Ã Â¤â€¢)';
+  String get storesFieldValueRequired => 'à¤®à¤¾à¤¨ (à¤†à¤µà¤¶à¥à¤¯à¤•)';
 
   @override
   String get storesDialogAdjustStock =>
-      'Ã Â¤Â¸Ã Â¥ÂÃ Â¤Å¸Ã Â¥â€°Ã Â¤â€¢ Ã Â¤Â¸Ã Â¤Â®Ã Â¤Â¾Ã Â¤Â¯Ã Â¥â€¹Ã Â¤Å“Ã Â¤Â¿Ã Â¤Â¤ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š';
+      'à¤¸à¥à¤Ÿà¥‰à¤• à¤¸à¤®à¤¾à¤¯à¥‹à¤œà¤¿à¤¤ à¤•à¤°à¥‡à¤‚';
 
   @override
   String get storesDialogCustomerHandover =>
-      'Ã Â¤â€”Ã Â¥ÂÃ Â¤Â°Ã Â¤Â¾Ã Â¤Â¹Ã Â¤â€¢ Ã Â¤â€¢Ã Â¥â€¹ Ã Â¤Â¸Ã Â¥Å’Ã Â¤â€šÃ Â¤ÂªÃ Â¤Â¨Ã Â¤Â¾';
+      'à¤—à¥à¤°à¤¾à¤¹à¤• à¤•à¥‹ à¤¸à¥Œà¤‚à¤ªà¤¨à¤¾';
 
   @override
   String get storesDialogCompletePacking =>
-      'Ã Â¤ÂªÃ Â¥Ë†Ã Â¤â€¢Ã Â¤Â¿Ã Â¤â€šÃ Â¤â€” Ã Â¤ÂªÃ Â¥â€šÃ Â¤Â°Ã Â¥â‚¬ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š';
+      'à¤ªà¥ˆà¤•à¤¿à¤‚à¤— à¤ªà¥‚à¤°à¥€ à¤•à¤°à¥‡à¤‚';
 
   @override
-  String get storesDialogNewPromotion =>
-      'Ã Â¤Â¨Ã Â¤Â¯Ã Â¤Â¾ Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â°Ã Â¥â€¹Ã Â¤Â®Ã Â¥â€¹Ã Â¤Â¶Ã Â¤Â¨';
+  String get storesDialogNewPromotion => 'à¤¨à¤¯à¤¾ à¤ªà¥à¤°à¥‹à¤®à¥‹à¤¶à¤¨';
 
   @override
   String get storesDialogRejectPlacement =>
-      'Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â²Ã Â¥â€¡Ã Â¤Â¸Ã Â¤Â®Ã Â¥â€¡Ã Â¤â€šÃ Â¤Å¸ Ã Â¤â€¦Ã Â¤Â¸Ã Â¥ÂÃ Â¤ÂµÃ Â¥â‚¬Ã Â¤â€¢Ã Â¤Â¾Ã Â¤Â° Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š';
+      'à¤ªà¥à¤²à¥‡à¤¸à¤®à¥‡à¤‚à¤Ÿ à¤…à¤¸à¥à¤µà¥€à¤•à¤¾à¤° à¤•à¤°à¥‡à¤‚';
 
   @override
   String get storesDialogReportFailure =>
-      'Ã Â¤ÂµÃ Â¤Â¿Ã Â¤Â«Ã Â¤Â²Ã Â¤Â¤Ã Â¤Â¾ Ã Â¤Â¦Ã Â¤Â°Ã Â¥ÂÃ Â¤Å“ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š';
+      'à¤µà¤¿à¤«à¤²à¤¤à¤¾ à¤¦à¤°à¥à¤œ à¤•à¤°à¥‡à¤‚';
 
   @override
-  String get storesDialogSubstituteItem =>
-      'Ã Â¤ÂµÃ Â¤Â¿Ã Â¤â€¢Ã Â¤Â²Ã Â¥ÂÃ Â¤Âª Ã Â¤â€ Ã Â¤â€¡Ã Â¤Å¸Ã Â¤Â®';
+  String get storesDialogSubstituteItem => 'à¤µà¤¿à¤•à¤²à¥à¤ª à¤†à¤‡à¤Ÿà¤®';
 
   @override
   String storesOrderNumber(String number) {
-    return 'Ã Â¤â€˜Ã Â¤Â°Ã Â¥ÂÃ Â¤Â¡Ã Â¤Â° #$number';
+    return 'à¤‘à¤°à¥à¤¡à¤° #$number';
   }
 
   @override
   String storesSettlementNumber(String number) {
-    return 'Ã Â¤Â¨Ã Â¤Â¿Ã Â¤ÂªÃ Â¤Å¸Ã Â¤Â¾Ã Â¤Â¨ #$number';
+    return 'à¤¨à¤¿à¤ªà¤Ÿà¤¾à¤¨ #$number';
   }
 
   @override
   String storesWizardStep(int current, int total, String label) {
-    return 'Ã Â¤Å¡Ã Â¤Â°Ã Â¤Â£ $current/$total: $label';
+    return 'à¤šà¤°à¤£ $current/$total: $label';
   }
 
   @override
   String storesNowWorkingIn(String name) {
-    return '$name Ã Â¤Â®Ã Â¥â€¡Ã Â¤â€š Ã Â¤â€¦Ã Â¤Â¬ Ã Â¤â€¢Ã Â¤Â¾Ã Â¤Â® Ã Â¤â€¢Ã Â¤Â° Ã Â¤Â°Ã Â¤Â¹Ã Â¥â€¡ Ã Â¤Â¹Ã Â¥Ë†Ã Â¤â€š';
+    return '$name à¤®à¥‡à¤‚ à¤…à¤¬ à¤•à¤¾à¤® à¤•à¤° à¤°à¤¹à¥‡ à¤¹à¥ˆà¤‚';
   }
 
   @override
   String storesVariantAxes(String axes, int limit) {
-    return 'Ã Â¤ÂµÃ Â¥â€¡Ã Â¤Â°Ã Â¤Â¿Ã Â¤ÂÃ Â¤â€šÃ Â¤Å¸ Ã Â¤â€¦Ã Â¤â€¢Ã Â¥ÂÃ Â¤Â·: $axes (Ã Â¤â€¦Ã Â¤Â§Ã Â¤Â¿Ã Â¤â€¢Ã Â¤Â¤Ã Â¤Â® $limit Ã Â¤Â¸Ã Â¤â€šÃ Â¤Â¯Ã Â¥â€¹Ã Â¤Å“Ã Â¤Â¨)';
+    return 'à¤µà¥‡à¤°à¤¿à¤à¤‚à¤Ÿ à¤…à¤•à¥à¤·: $axes (à¤…à¤§à¤¿à¤•à¤¤à¤® $limit à¤¸à¤‚à¤¯à¥‹à¤œà¤¨)';
   }
 
   @override
-  String get storesFallbackProduct => 'Ã Â¤â€°Ã Â¤Â¤Ã Â¥ÂÃ Â¤ÂªÃ Â¤Â¾Ã Â¤Â¦';
+  String get storesFallbackProduct => 'à¤‰à¤¤à¥à¤ªà¤¾à¤¦';
 
   @override
-  String get storesFallbackDriver =>
-      'Ã Â¤Â¡Ã Â¥ÂÃ Â¤Â°Ã Â¤Â¾Ã Â¤â€¡Ã Â¤ÂµÃ Â¤Â°';
+  String get storesFallbackDriver => 'à¤¡à¥à¤°à¤¾à¤‡à¤µà¤°';
 
   @override
-  String get storesFallbackMember => 'Ã Â¤Â¸Ã Â¤Â¦Ã Â¤Â¸Ã Â¥ÂÃ Â¤Â¯';
+  String get storesFallbackMember => 'à¤¸à¤¦à¤¸à¥à¤¯';
 
   @override
-  String get storesFallbackClaim => 'Ã Â¤Â¦Ã Â¤Â¾Ã Â¤ÂµÃ Â¤Â¾';
+  String get storesFallbackClaim => 'à¤¦à¤¾à¤µà¤¾';
 
   @override
-  String get storesFallbackComplaint => 'Ã Â¤Â¶Ã Â¤Â¿Ã Â¤â€¢Ã Â¤Â¾Ã Â¤Â¯Ã Â¤Â¤';
+  String get storesFallbackComplaint => 'à¤¶à¤¿à¤•à¤¾à¤¯à¤¤';
 
   @override
-  String get storesFallbackOutlet => 'Ã Â¤â€ Ã Â¤â€°Ã Â¤Å¸Ã Â¤Â²Ã Â¥â€¡Ã Â¤Å¸';
+  String get storesFallbackOutlet => 'à¤†à¤‰à¤Ÿà¤²à¥‡à¤Ÿ';
 
   @override
-  String get storesFallbackReturn => 'Ã Â¤Â°Ã Â¤Â¿Ã Â¤Å¸Ã Â¤Â°Ã Â¥ÂÃ Â¤Â¨';
+  String get storesFallbackReturn => 'à¤°à¤¿à¤Ÿà¤°à¥à¤¨';
 
   @override
-  String get storesFallbackItem => 'Ã Â¤â€ Ã Â¤â€¡Ã Â¤Å¸Ã Â¤Â®';
+  String get storesFallbackItem => 'à¤†à¤‡à¤Ÿà¤®';
 
   @override
-  String get storesFallbackPlacement =>
-      'Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â²Ã Â¥â€¡Ã Â¤Â¸Ã Â¤Â®Ã Â¥â€¡Ã Â¤â€šÃ Â¤Å¸';
+  String get storesFallbackPlacement => 'à¤ªà¥à¤²à¥‡à¤¸à¤®à¥‡à¤‚à¤Ÿ';
 
   @override
-  String get storesNavMore => 'Ã Â¤â€Ã Â¤Â°';
+  String get storesNavMore => 'à¤”à¤°';
 
   @override
-  String get storesTitlePayments => 'Ã Â¤Â­Ã Â¥ÂÃ Â¤â€”Ã Â¤Â¤Ã Â¤Â¾Ã Â¤Â¨';
+  String get storesTitlePayments => 'à¤­à¥à¤—à¤¤à¤¾à¤¨';
 
   @override
-  String get storesTitleManualOrder =>
-      'Ã Â¤â€¢Ã Â¤Â¾Ã Â¤â€°Ã Â¤â€šÃ Â¤Å¸Ã Â¤Â° Ã Â¤Â¬Ã Â¤Â¿Ã Â¤â€¢Ã Â¥ÂÃ Â¤Â°Ã Â¥â‚¬';
+  String get storesTitleManualOrder => 'à¤•à¤¾à¤‰à¤‚à¤Ÿà¤° à¤¬à¤¿à¤•à¥à¤°à¥€';
 
   @override
   String get storesManualEntryDisabled =>
-      'Ã Â¤â€¡Ã Â¤Â¸ Ã Â¤Â¸Ã Â¤Â¦Ã Â¤Â¸Ã Â¥ÂÃ Â¤Â¯Ã Â¤Â¤Ã Â¤Â¾ Ã Â¤Â¸Ã Â¥ÂÃ Â¤Â¥Ã Â¤Â¿Ã Â¤Â¤Ã Â¤Â¿ Ã Â¤Â®Ã Â¥â€¡Ã Â¤â€š Ã Â¤Â¨Ã Â¤Â Ã Â¤â€˜Ã Â¤Â°Ã Â¥ÂÃ Â¤Â¡Ã Â¤Â° Ã Â¤Â°Ã Â¥â€¹Ã Â¤â€¢Ã Â¥â€¡ Ã Â¤â€”Ã Â¤Â Ã Â¤Â¹Ã Â¥Ë†Ã Â¤â€šÃ Â¥Â¤';
+      'à¤‡à¤¸ à¤¸à¤¦à¤¸à¥à¤¯à¤¤à¤¾ à¤¸à¥à¤¥à¤¿à¤¤à¤¿ à¤®à¥‡à¤‚ à¤¨à¤ à¤‘à¤°à¥à¤¡à¤° à¤°à¥‹à¤•à¥‡ à¤—à¤ à¤¹à¥ˆà¤‚à¥¤';
 
   @override
-  String get storesActionPlaceOrder =>
-      'Ã Â¤â€˜Ã Â¤Â°Ã Â¥ÂÃ Â¤Â¡Ã Â¤Â° Ã Â¤Â¦Ã Â¥â€¡Ã Â¤â€š';
+  String get storesActionPlaceOrder => 'à¤‘à¤°à¥à¤¡à¤° à¤¦à¥‡à¤‚';
 
   @override
   String get storesBannerSubscriptionPastDue =>
-      'Ã Â¤Â¸Ã Â¤Â¦Ã Â¤Â¸Ã Â¥ÂÃ Â¤Â¯Ã Â¤Â¤Ã Â¤Â¾ Ã Â¤Â­Ã Â¥ÂÃ Â¤â€”Ã Â¤Â¤Ã Â¤Â¾Ã Â¤Â¨ Ã Â¤Â¬Ã Â¤â€¢Ã Â¤Â¾Ã Â¤Â¯Ã Â¤Â¾ Ã Â¤Â¹Ã Â¥Ë† Ã¢â‚¬â€ Ã Â¤Â­Ã Â¥ÂÃ Â¤â€”Ã Â¤Â¤Ã Â¤Â¾Ã Â¤Â¨ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š Ã Â¤Â¤Ã Â¤Â¾Ã Â¤â€¢Ã Â¤Â¿ Ã Â¤Â¨Ã Â¤Â Ã Â¤â€˜Ã Â¤Â°Ã Â¥ÂÃ Â¤Â¡Ã Â¤Â° Ã Â¤â€ Ã Â¤Â¤Ã Â¥â€¡ Ã Â¤Â°Ã Â¤Â¹Ã Â¥â€¡Ã Â¤â€šÃ Â¥Â¤';
+      'à¤¸à¤¦à¤¸à¥à¤¯à¤¤à¤¾ à¤­à¥à¤—à¤¤à¤¾à¤¨ à¤¬à¤•à¤¾à¤¯à¤¾ à¤¹à¥ˆ â€” à¤­à¥à¤—à¤¤à¤¾à¤¨ à¤•à¤°à¥‡à¤‚ à¤¤à¤¾à¤•à¤¿ à¤¨à¤ à¤‘à¤°à¥à¤¡à¤° à¤†à¤¤à¥‡ à¤°à¤¹à¥‡à¤‚à¥¤';
 
   @override
   String get storesBannerSubscriptionGracePeriod =>
-      'Ã Â¤Â¸Ã Â¤Â¦Ã Â¤Â¸Ã Â¥ÂÃ Â¤Â¯Ã Â¤Â¤Ã Â¤Â¾ Ã Â¤â€¦Ã Â¤Â¨Ã Â¥ÂÃ Â¤â€”Ã Â¥ÂÃ Â¤Â°Ã Â¤Â¹ Ã Â¤â€¦Ã Â¤ÂµÃ Â¤Â§Ã Â¤Â¿ Ã Â¤Â®Ã Â¥â€¡Ã Â¤â€š Ã Â¤Â¹Ã Â¥Ë† Ã¢â‚¬â€ Ã Â¤Â­Ã Â¥ÂÃ Â¤â€”Ã Â¤Â¤Ã Â¤Â¾Ã Â¤Â¨ Ã Â¤Â¬Ã Â¤Â¹Ã Â¤Â¾Ã Â¤Â² Ã Â¤Â¹Ã Â¥â€¹Ã Â¤Â¨Ã Â¥â€¡ Ã Â¤Â¤Ã Â¤â€¢ Ã Â¤Â¨Ã Â¤Â Ã Â¤â€˜Ã Â¤Â°Ã Â¥ÂÃ Â¤Â¡Ã Â¤Â° Ã Â¤Â°Ã Â¥ÂÃ Â¤â€¢Ã Â¥â€¡ Ã Â¤Â°Ã Â¤Â¹Ã Â¥â€¡Ã Â¤â€šÃ Â¤â€”Ã Â¥â€¡Ã Â¥Â¤';
+      'à¤¸à¤¦à¤¸à¥à¤¯à¤¤à¤¾ à¤…à¤¨à¥à¤—à¥à¤°à¤¹ à¤…à¤µà¤§à¤¿ à¤®à¥‡à¤‚ à¤¹à¥ˆ â€” à¤­à¥à¤—à¤¤à¤¾à¤¨ à¤¬à¤¹à¤¾à¤² à¤¹à¥‹à¤¨à¥‡ à¤¤à¤• à¤¨à¤ à¤‘à¤°à¥à¤¡à¤° à¤°à¥à¤•à¥‡ à¤°à¤¹à¥‡à¤‚à¤—à¥‡à¥¤';
 
   @override
   String get storesBannerSubscriptionSuspended =>
-      'Ã Â¤Â¸Ã Â¤Â¦Ã Â¤Â¸Ã Â¥ÂÃ Â¤Â¯Ã Â¤Â¤Ã Â¤Â¾ Ã Â¤Â¨Ã Â¤Â¿Ã Â¤Â²Ã Â¤â€šÃ Â¤Â¬Ã Â¤Â¿Ã Â¤Â¤ Ã Â¤Â¹Ã Â¥Ë† Ã¢â‚¬â€ Ã Â¤Â®Ã Â¥Å’Ã Â¤Å“Ã Â¥â€šÃ Â¤Â¦Ã Â¤Â¾ Ã Â¤â€˜Ã Â¤Â°Ã Â¥ÂÃ Â¤Â¡Ã Â¤Â° Ã Â¤ÂªÃ Â¥â€šÃ Â¤Â°Ã Â¥â€¡ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š Ã Â¤â€Ã Â¤Â° Ã Â¤Â¹Ã Â¤Â¿Ã Â¤Â¸Ã Â¤Â¾Ã Â¤Â¬ Ã Â¤Â¨Ã Â¤Â¿Ã Â¤ÂªÃ Â¤Å¸Ã Â¤Â¾Ã Â¤ÂÃ Â¤Â; Ã Â¤Â¨Ã Â¤Â Ã Â¤â€˜Ã Â¤Â°Ã Â¥ÂÃ Â¤Â¡Ã Â¤Â° Ã Â¤Â¬Ã Â¤â€šÃ Â¤Â¦ Ã Â¤Â¹Ã Â¥Ë†Ã Â¤â€šÃ Â¥Â¤';
+      'à¤¸à¤¦à¤¸à¥à¤¯à¤¤à¤¾ à¤¨à¤¿à¤²à¤‚à¤¬à¤¿à¤¤ à¤¹à¥ˆ â€” à¤®à¥Œà¤œà¥‚à¤¦à¤¾ à¤‘à¤°à¥à¤¡à¤° à¤ªà¥‚à¤°à¥‡ à¤•à¤°à¥‡à¤‚ à¤”à¤° à¤¹à¤¿à¤¸à¤¾à¤¬ à¤¨à¤¿à¤ªà¤Ÿà¤¾à¤à¤; à¤¨à¤ à¤‘à¤°à¥à¤¡à¤° à¤¬à¤‚à¤¦ à¤¹à¥ˆà¤‚à¥¤';
 
   @override
   String get realEstateExecAccept => 'Accept';
@@ -1068,7 +1025,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get realEstateExecCancelVisitReason =>
-      'Cancel visit â€” reason required';
+      'Cancel visit — reason required';
 
   @override
   String get realEstateExecCheckedIn => 'Checked in';
@@ -1152,7 +1109,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String realEstateExecLeadSummary(int visits, int followUps) {
-    return 'Visits: $visits Â· Follow-ups: $followUps';
+    return 'Visits: $visits · Follow-ups: $followUps';
   }
 
   @override
@@ -1165,7 +1122,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get realEstateExecLoansEmpty => 'No loans yet';
 
   @override
-  String get realEstateExecLocating => 'Locatingâ€¦';
+  String get realEstateExecLocating => 'Locating…';
 
   @override
   String get realEstateExecLocationPermissionCheckIn =>
@@ -1364,7 +1321,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get jhatkaCloseFailed =>
-      'Close failed â€” the fan-out may be incomplete. Retry.';
+      'Close failed — the fan-out may be incomplete. Retry.';
 
   @override
   String get jhatkaPodCaptureFailed => 'POD capture failed. Retry.';
@@ -1380,14 +1337,14 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get jhatkaAlreadyWeighed =>
-      'Already weighed â€” showing the saved confirmation';
+      'Already weighed — showing the saved confirmation';
 
   @override
   String get jhatkaReasonRequired => 'A reason is required.';
 
   @override
   String get jhatkaReasonRequiredCustomer =>
-      'A reason is required â€” the customer reads it.';
+      'A reason is required — the customer reads it.';
 
   @override
   String get jhatkaClientRefRequired => 'Client ref is required.';
@@ -1422,7 +1379,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get jhatkaLineMissingVariant =>
-      'A line is missing its variant â€” cannot save.';
+      'A line is missing its variant — cannot save.';
 
   @override
   String get jhatkaNothingToSave => 'Nothing to save.';
@@ -1607,10 +1564,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get jhatkaActionQuarantineBatch =>
-      'Quarantine batch â€” reason required';
+      'Quarantine batch — reason required';
 
   @override
-  String get jhatkaActionRecallNotify => 'Recall â€” notify customers';
+  String get jhatkaActionRecallNotify => 'Recall — notify customers';
 
   @override
   String get jhatkaActionRecordAdjustWastage => 'Record adjust / wastage';
@@ -1628,7 +1585,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get jhatkaActionRelease => 'Release';
 
   @override
-  String get jhatkaActionReleaseBatch => 'Release batch â€” reason required';
+  String get jhatkaActionReleaseBatch => 'Release batch — reason required';
 
   @override
   String get jhatkaActionRemoveLine => 'Remove line';
@@ -1700,7 +1657,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get jhatkaFieldCode => 'Code (unique per outlet)';
 
   @override
-  String get jhatkaFieldDeliveredTemp => 'Delivered temp Â°C';
+  String get jhatkaFieldDeliveredTemp => 'Delivered temp °C';
 
   @override
   String get jhatkaFieldEmail => 'Email';
@@ -1722,7 +1679,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get jhatkaFieldNameOrPhone =>
-      'Name or phone (this outletâ€™s customers)';
+      'Name or phone (this outlet’s customers)';
 
   @override
   String get jhatkaFieldNoteOptional => 'Note (optional)';
@@ -1734,7 +1691,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get jhatkaFieldOutletName => 'Outlet name';
 
   @override
-  String get jhatkaFieldPackingTemp => 'Packing temp Â°C (optional)';
+  String get jhatkaFieldPackingTemp => 'Packing temp °C (optional)';
 
   @override
   String get jhatkaFieldPeriodEnd => 'Period end (yyyy-mm-dd)';
@@ -1762,11 +1719,11 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get jhatkaFieldReasonCustomer =>
-      'Reason (required â€” the customer reads this)';
+      'Reason (required — the customer reads this)';
 
   @override
   String get jhatkaFieldReasonOutlet =>
-      'Reason (required â€” the outlet reads this)';
+      'Reason (required — the outlet reads this)';
 
   @override
   String get jhatkaFieldReasonShown => 'Reason (shown to the customer)';
@@ -1811,13 +1768,13 @@ class AppLocalizationsHi extends AppLocalizations {
   String get jhatkaFieldVehicleNo => 'Vehicle no (optional)';
 
   @override
-  String get jhatkaSeverityAdvisory => 'Advisory â€” in-house';
+  String get jhatkaSeverityAdvisory => 'Advisory — in-house';
 
   @override
-  String get jhatkaSeverityWithdraw => 'Withdraw â€” pull from sale';
+  String get jhatkaSeverityWithdraw => 'Withdraw — pull from sale';
 
   @override
-  String get jhatkaAwaitingResponse => 'Awaiting response â€” one only';
+  String get jhatkaAwaitingResponse => 'Awaiting response — one only';
 
   @override
   String get jhatkaBlankUnchanged => 'Blank fields are left unchanged.';
@@ -1886,7 +1843,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get jhatkaStatusLow => 'low';
 
   @override
-  String get jhatkaStatusSkippedCredited => 'skipped Â· credited';
+  String get jhatkaStatusSkippedCredited => 'skipped · credited';
 
   @override
   String jhatkaVariantCount(Object count) {
@@ -1931,7 +1888,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String jhatkaCollectCollected(Object collect, Object collected) {
-    return 'Collect $collect Â· collected ${collect}ed';
+    return 'Collect $collect · collected ${collect}ed';
   }
 
   @override
@@ -1941,7 +1898,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String jhatkaDeliveryStatus(Object no, Object status) {
-    return 'Delivery $no Â· $status';
+    return 'Delivery $no · $status';
   }
 
   @override
@@ -1976,7 +1933,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get jhatkaPickupOrderNote =>
-      'Pickup order â€” the customer collects here. No rider is dispatched.';
+      'Pickup order — the customer collects here. No rider is dispatched.';
 
   @override
   String get jhatkaSupplyTitle => 'Request stock';
@@ -1993,7 +1950,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get jhatkaSupplySubmitted =>
-      'Request sent â€” LocalWala will approve and deliver.';
+      'Request sent — LocalWala will approve and deliver.';
 
   @override
   String get jhatkaSupplyPayFailed => 'Payment could not start. Retry.';
@@ -2050,7 +2007,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get jhatkaAreaNoOuterBand => 'No paid band';
 
   @override
-  String get jhatkaAreaFee => 'Flat fee (â‚¹)';
+  String get jhatkaAreaFee => 'Flat fee (₹)';
 
   @override
   String get jhatkaAreaReason => 'Why this change?';
@@ -2060,7 +2017,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get jhatkaAreaSubmitted =>
-      'Area change requested â€” LocalWala will review.';
+      'Area change requested — LocalWala will review.';
 
   @override
   String get jhatkaAreaSubmitFailed =>
@@ -2087,7 +2044,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get jhatkaAreaFeeRequired => 'A paid band needs a fee above zero.';
 
   @override
-  String get jhatkaAreaReasonRequired => 'Say why â€” the admin reads it.';
+  String get jhatkaAreaReasonRequired => 'Say why — the admin reads it.';
 
   @override
   String get earningsToday => 'Today';
@@ -2445,7 +2402,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String livePreSettlementSummary(int count) {
-    return '$count delivered orders Â· live, pre-settlement';
+    return '$count delivered orders · live, pre-settlement';
   }
 
   @override
@@ -2559,123 +2516,111 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get storesTitleCustomerSubscriptions =>
-      'Ã Â¤â€”Ã Â¥ÂÃ Â¤Â°Ã Â¤Â¾Ã Â¤Â¹Ã Â¤â€¢ Ã Â¤Â¸Ã Â¤Â¬Ã Â¥ÂÃ Â¤Â¸Ã Â¤â€¢Ã Â¥ÂÃ Â¤Â°Ã Â¤Â¿Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â¶Ã Â¤Â¨';
+      'à¤—à¥à¤°à¤¾à¤¹à¤• à¤¸à¤¬à¥à¤¸à¤•à¥à¤°à¤¿à¤ªà¥à¤¶à¤¨';
 
   @override
   String get storesTitleRecurringPlans =>
-      'Ã Â¤Â°Ã Â¤Â¿Ã Â¤â€¢Ã Â¤Â°Ã Â¤Â¿Ã Â¤â€šÃ Â¤â€” Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â²Ã Â¤Â¾Ã Â¤Â¨';
+      'à¤°à¤¿à¤•à¤°à¤¿à¤‚à¤— à¤ªà¥à¤²à¤¾à¤¨';
 
   @override
-  String get storesTitleAnalytics =>
-      'Ã Â¤ÂÃ Â¤Â¨Ã Â¤Â¾Ã Â¤Â²Ã Â¤Â¿Ã Â¤Å¸Ã Â¤Â¿Ã Â¤â€¢Ã Â¥ÂÃ Â¤Â¸';
+  String get storesTitleAnalytics => 'à¤à¤¨à¤¾à¤²à¤¿à¤Ÿà¤¿à¤•à¥à¤¸';
 
   @override
-  String get storesTitlePolicies =>
-      'Ã Â¤Â¨Ã Â¥â‚¬Ã Â¤Â¤Ã Â¤Â¿Ã Â¤Â¯Ã Â¤Â¾Ã Â¤Â';
+  String get storesTitlePolicies => 'à¤¨à¥€à¤¤à¤¿à¤¯à¤¾à¤';
 
   @override
-  String get storesTitleReviews => 'Ã Â¤Â°Ã Â¤Â¿Ã Â¤ÂµÃ Â¥ÂÃ Â¤Â¯Ã Â¥â€š';
+  String get storesTitleReviews => 'à¤°à¤¿à¤µà¥à¤¯à¥‚';
 
   @override
   String get storesTitleStoreProfile =>
-      'Ã Â¤Â¸Ã Â¥ÂÃ Â¤Å¸Ã Â¥â€¹Ã Â¤Â° Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â°Ã Â¥â€¹Ã Â¤Â«Ã Â¤Â¾Ã Â¤â€¡Ã Â¤Â²';
+      'à¤¸à¥à¤Ÿà¥‹à¤° à¤ªà¥à¤°à¥‹à¤«à¤¾à¤‡à¤²';
 
   @override
-  String get storesTitleCategories =>
-      'Ã Â¤Â¶Ã Â¥ÂÃ Â¤Â°Ã Â¥â€¡Ã Â¤Â£Ã Â¤Â¿Ã Â¤Â¯Ã Â¤Â¾Ã Â¤Â';
+  String get storesTitleCategories => 'à¤¶à¥à¤°à¥‡à¤£à¤¿à¤¯à¤¾à¤';
 
   @override
-  String get storesTitleProducts => 'Ã Â¤â€°Ã Â¤Â¤Ã Â¥ÂÃ Â¤ÂªÃ Â¤Â¾Ã Â¤Â¦';
+  String get storesTitleProducts => 'à¤‰à¤¤à¥à¤ªà¤¾à¤¦';
 
   @override
-  String get storesTitleDispatch =>
-      'Ã Â¤Â¡Ã Â¤Â¿Ã Â¤Â¸Ã Â¥ÂÃ Â¤ÂªÃ Â¥Ë†Ã Â¤Å¡';
+  String get storesTitleDispatch => 'à¤¡à¤¿à¤¸à¥à¤ªà¥ˆà¤š';
 
   @override
-  String get storesTitleExchanges =>
-      'Ã Â¤ÂÃ Â¤â€¢Ã Â¥ÂÃ Â¤Â¸Ã Â¤Å¡Ã Â¥â€¡Ã Â¤â€šÃ Â¤Å“';
+  String get storesTitleExchanges => 'à¤à¤•à¥à¤¸à¤šà¥‡à¤‚à¤œ';
 
   @override
-  String get storesMoney => 'Ã Â¤ÂªÃ Â¥Ë†Ã Â¤Â¸Ã Â¤Â¾';
+  String get storesMoney => 'à¤ªà¥ˆà¤¸à¤¾';
 
   @override
-  String get storesOperations => 'Ã Â¤Â¸Ã Â¤â€šÃ Â¤Å¡Ã Â¤Â¾Ã Â¤Â²Ã Â¤Â¨';
+  String get storesOperations => 'à¤¸à¤‚à¤šà¤¾à¤²à¤¨';
 
   @override
-  String get storesAccount => 'Ã Â¤â€“Ã Â¤Â¾Ã Â¤Â¤Ã Â¤Â¾';
+  String get storesAccount => 'à¤–à¤¾à¤¤à¤¾';
 
   @override
-  String get storesSubscribers =>
-      'Ã Â¤Â¸Ã Â¤Â¬Ã Â¥ÂÃ Â¤Â¸Ã Â¤â€¢Ã Â¥ÂÃ Â¤Â°Ã Â¤Â¾Ã Â¤â€¡Ã Â¤Â¬Ã Â¤Â°';
+  String get storesSubscribers => 'à¤¸à¤¬à¥à¤¸à¤•à¥à¤°à¤¾à¤‡à¤¬à¤°';
 
   @override
-  String get storesNext7Days =>
-      'Ã Â¤â€¦Ã Â¤â€”Ã Â¤Â²Ã Â¥â€¡ 7 Ã Â¤Â¦Ã Â¤Â¿Ã Â¤Â¨';
+  String get storesNext7Days => 'à¤…à¤—à¤²à¥‡ 7 à¤¦à¤¿à¤¨';
 
   @override
-  String get storesSkipped => 'Ã Â¤Â¸Ã Â¥ÂÃ Â¤â€¢Ã Â¤Â¿Ã Â¤Âª';
+  String get storesSkipped => 'à¤¸à¥à¤•à¤¿à¤ª';
 
   @override
   String get storesNoCategories =>
-      'Ã Â¤â€¦Ã Â¤Â­Ã Â¥â‚¬ Ã Â¤â€¢Ã Â¥â€¹Ã Â¤Ë† Ã Â¤Â¶Ã Â¥ÂÃ Â¤Â°Ã Â¥â€¡Ã Â¤Â£Ã Â¥â‚¬ Ã Â¤Â¨Ã Â¤Â¹Ã Â¥â‚¬Ã Â¤â€šÃ Â¥Â¤';
+      'à¤…à¤­à¥€ à¤•à¥‹à¤ˆ à¤¶à¥à¤°à¥‡à¤£à¥€ à¤¨à¤¹à¥€à¤‚à¥¤';
 
   @override
   String get storesNoProducts =>
-      'Ã Â¤â€¦Ã Â¤Â­Ã Â¥â‚¬ Ã Â¤â€¢Ã Â¥â€¹Ã Â¤Ë† Ã Â¤â€°Ã Â¤Â¤Ã Â¥ÂÃ Â¤ÂªÃ Â¤Â¾Ã Â¤Â¦ Ã Â¤Â¨Ã Â¤Â¹Ã Â¥â‚¬Ã Â¤â€šÃ Â¥Â¤';
+      'à¤…à¤­à¥€ à¤•à¥‹à¤ˆ à¤‰à¤¤à¥à¤ªà¤¾à¤¦ à¤¨à¤¹à¥€à¤‚à¥¤';
 
   @override
   String get storesNoPolicies =>
-      'Ã Â¤â€¦Ã Â¤Â­Ã Â¥â‚¬ Ã Â¤â€¢Ã Â¥â€¹Ã Â¤Ë† Ã Â¤Â¨Ã Â¥â‚¬Ã Â¤Â¤Ã Â¤Â¿ Ã Â¤Â¨Ã Â¤Â¹Ã Â¥â‚¬Ã Â¤â€šÃ Â¥Â¤';
+      'à¤…à¤­à¥€ à¤•à¥‹à¤ˆ à¤¨à¥€à¤¤à¤¿ à¤¨à¤¹à¥€à¤‚à¥¤';
 
   @override
   String get storesNoReviews =>
-      'Ã Â¤â€¦Ã Â¤Â­Ã Â¥â‚¬ Ã Â¤â€¢Ã Â¥â€¹Ã Â¤Ë† Ã Â¤Â°Ã Â¤Â¿Ã Â¤ÂµÃ Â¥ÂÃ Â¤Â¯Ã Â¥â€š Ã Â¤Â¨Ã Â¤Â¹Ã Â¥â‚¬Ã Â¤â€šÃ Â¥Â¤';
+      'à¤…à¤­à¥€ à¤•à¥‹à¤ˆ à¤°à¤¿à¤µà¥à¤¯à¥‚ à¤¨à¤¹à¥€à¤‚à¥¤';
 
   @override
   String get storesNoExchanges =>
-      'Ã Â¤â€¦Ã Â¤Â­Ã Â¥â‚¬ Ã Â¤â€¢Ã Â¥â€¹Ã Â¤Ë† Ã Â¤ÂÃ Â¤â€¢Ã Â¥ÂÃ Â¤Â¸Ã Â¤Å¡Ã Â¥â€¡Ã Â¤â€šÃ Â¤Å“ Ã Â¤Â¨Ã Â¤Â¹Ã Â¥â‚¬Ã Â¤â€šÃ Â¥Â¤';
+      'à¤…à¤­à¥€ à¤•à¥‹à¤ˆ à¤à¤•à¥à¤¸à¤šà¥‡à¤‚à¤œ à¤¨à¤¹à¥€à¤‚à¥¤';
 
   @override
   String get storesNoDispatch =>
-      'Ã Â¤Â¡Ã Â¤Â¿Ã Â¤Â¸Ã Â¥ÂÃ Â¤ÂªÃ Â¥Ë†Ã Â¤Å¡ Ã Â¤â€¢Ã Â¥â€¡ Ã Â¤Â²Ã Â¤Â¿Ã Â¤Â Ã Â¤â€¢Ã Â¥â€¹Ã Â¤Ë† Ã Â¤â€˜Ã Â¤Â°Ã Â¥ÂÃ Â¤Â¡Ã Â¤Â° Ã Â¤Â¤Ã Â¥Ë†Ã Â¤Â¯Ã Â¤Â¾Ã Â¤Â° Ã Â¤Â¨Ã Â¤Â¹Ã Â¥â‚¬Ã Â¤â€šÃ Â¥Â¤';
+      'à¤¡à¤¿à¤¸à¥à¤ªà¥ˆà¤š à¤•à¥‡ à¤²à¤¿à¤ à¤•à¥‹à¤ˆ à¤‘à¤°à¥à¤¡à¤° à¤¤à¥ˆà¤¯à¤¾à¤° à¤¨à¤¹à¥€à¤‚à¥¤';
 
   @override
-  String get storesNoOutlet =>
-      'Ã Â¤â€¢Ã Â¥â€¹Ã Â¤Ë† Ã Â¤â€ Ã Â¤â€°Ã Â¤Å¸Ã Â¤Â²Ã Â¥â€¡Ã Â¤Å¸ Ã Â¤Â¨Ã Â¤Â¹Ã Â¥â‚¬Ã Â¤â€š';
+  String get storesNoOutlet => 'à¤•à¥‹à¤ˆ à¤†à¤‰à¤Ÿà¤²à¥‡à¤Ÿ à¤¨à¤¹à¥€à¤‚';
 
   @override
   String get storesNoSkipped =>
-      'Ã Â¤â€¦Ã Â¤â€”Ã Â¤Â²Ã Â¥â€¡ 7 Ã Â¤Â¦Ã Â¤Â¿Ã Â¤Â¨Ã Â¥â€¹Ã Â¤â€š Ã Â¤Â®Ã Â¥â€¡Ã Â¤â€š Ã Â¤â€¢Ã Â¥â€¹Ã Â¤Ë† Ã Â¤Â¸Ã Â¥ÂÃ Â¤â€¢Ã Â¤Â¿Ã Â¤Âª Ã Â¤Â¡Ã Â¤Â¿Ã Â¤Â²Ã Â¥â‚¬Ã Â¤ÂµÃ Â¤Â°Ã Â¥â‚¬ Ã Â¤Â¨Ã Â¤Â¹Ã Â¥â‚¬Ã Â¤â€šÃ Â¥Â¤';
+      'à¤…à¤—à¤²à¥‡ 7 à¤¦à¤¿à¤¨à¥‹à¤‚ à¤®à¥‡à¤‚ à¤•à¥‹à¤ˆ à¤¸à¥à¤•à¤¿à¤ª à¤¡à¤¿à¤²à¥€à¤µà¤°à¥€ à¤¨à¤¹à¥€à¤‚à¥¤';
 
   @override
   String get storesNoUpcoming =>
-      'Ã Â¤â€¦Ã Â¤â€”Ã Â¤Â²Ã Â¥â€¡ 7 Ã Â¤Â¦Ã Â¤Â¿Ã Â¤Â¨Ã Â¥â€¹Ã Â¤â€š Ã Â¤Â®Ã Â¥â€¡Ã Â¤â€š Ã Â¤â€¢Ã Â¥â€¹Ã Â¤Ë† Ã Â¤â€ Ã Â¤â€”Ã Â¤Â¾Ã Â¤Â®Ã Â¥â‚¬ Ã Â¤Â¡Ã Â¤Â¿Ã Â¤Â²Ã Â¥â‚¬Ã Â¤ÂµÃ Â¤Â°Ã Â¥â‚¬ Ã Â¤Â¨Ã Â¤Â¹Ã Â¥â‚¬Ã Â¤â€šÃ Â¥Â¤';
+      'à¤…à¤—à¤²à¥‡ 7 à¤¦à¤¿à¤¨à¥‹à¤‚ à¤®à¥‡à¤‚ à¤•à¥‹à¤ˆ à¤†à¤—à¤¾à¤®à¥€ à¤¡à¤¿à¤²à¥€à¤µà¤°à¥€ à¤¨à¤¹à¥€à¤‚à¥¤';
 
   @override
-  String get storesLoadMore =>
-      'Ã Â¤â€Ã Â¤Â° Ã Â¤Â²Ã Â¥â€¹Ã Â¤Â¡ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š';
+  String get storesLoadMore => 'à¤”à¤° à¤²à¥‹à¤¡ à¤•à¤°à¥‡à¤‚';
 
   @override
-  String get storesRetry =>
-      'Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â¨: Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â°Ã Â¤Â¯Ã Â¤Â¾Ã Â¤Â¸';
+  String get storesRetry => 'à¤ªà¥à¤¨: à¤ªà¥à¤°à¤¯à¤¾à¤¸';
 
   @override
-  String get storesPause => 'Ã Â¤Â°Ã Â¥â€¹Ã Â¤â€¢Ã Â¥â€¡Ã Â¤â€š';
+  String get storesPause => 'à¤°à¥‹à¤•à¥‡à¤‚';
 
   @override
-  String get storesResume =>
-      'Ã Â¤Â«Ã Â¤Â¿Ã Â¤Â° Ã Â¤Â¶Ã Â¥ÂÃ Â¤Â°Ã Â¥â€š Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š';
+  String get storesResume => 'à¤«à¤¿à¤° à¤¶à¥à¤°à¥‚ à¤•à¤°à¥‡à¤‚';
 
   @override
-  String get storesActivate =>
-      'Ã Â¤Â¸Ã Â¤â€¢Ã Â¥ÂÃ Â¤Â°Ã Â¤Â¿Ã Â¤Â¯ Ã Â¤â€¢Ã Â¤Â°Ã Â¥â€¡Ã Â¤â€š';
+  String get storesActivate => 'à¤¸à¤•à¥à¤°à¤¿à¤¯ à¤•à¤°à¥‡à¤‚';
 
   @override
-  String get storesReview => 'Ã Â¤Â°Ã Â¤Â¿Ã Â¤ÂµÃ Â¥ÂÃ Â¤Â¯Ã Â¥â€š';
+  String get storesReview => 'à¤°à¤¿à¤µà¥à¤¯à¥‚';
 
   @override
   String get storesNoRecurringPlans =>
-      'Ã Â¤â€¦Ã Â¤Â­Ã Â¥â‚¬ Ã Â¤â€¢Ã Â¥â€¹Ã Â¤Ë† Ã Â¤Â°Ã Â¤Â¿Ã Â¤â€¢Ã Â¤Â°Ã Â¤Â¿Ã Â¤â€šÃ Â¤â€” Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â²Ã Â¤Â¾Ã Â¤Â¨ Ã Â¤Â¨Ã Â¤Â¹Ã Â¥â‚¬Ã Â¤â€šÃ Â¥Â¤';
+      'à¤…à¤­à¥€ à¤•à¥‹à¤ˆ à¤°à¤¿à¤•à¤°à¤¿à¤‚à¤— à¤ªà¥à¤²à¤¾à¤¨ à¤¨à¤¹à¥€à¤‚à¥¤';
 
   @override
   String get storesMsgBrandCertSubmitted =>
@@ -2825,11 +2770,11 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get storesMsgCashSaleHint =>
-      'Cash sale â€” add items from the list above';
+      'Cash sale — add items from the list above';
 
   @override
   String storesMsgCashDue(Object orderNo, Object total) {
-    return 'Order #$orderNo â€” cash due $total';
+    return 'Order #$orderNo — cash due $total';
   }
 
   @override
@@ -3405,6 +3350,21 @@ class AppLocalizationsHi extends AppLocalizations {
   String get ls_service_areas => 'Service areas (comma-separated)';
 
   @override
+  String get ls_contact_name => 'Contact name';
+
+  @override
+  String get ls_contact_phone => 'Contact phone';
+
+  @override
+  String get ls_gstin_optional => 'GSTIN (optional)';
+
+  @override
+  String get ls_gst_state_code_optional => 'GST state code (optional, e.g. 27)';
+
+  @override
+  String get ls_document_file_required => 'Document kind and file are required';
+
+  @override
   String get ls_document_kind => 'Document kind (e.g. license)';
 
   @override
@@ -3724,4 +3684,61 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get ls_setup_publish => 'Set up & publish services';
+
+  @override
+  String get jhatkaActionAcceptLine => 'Accept line';
+
+  @override
+  String get jhatkaActionRejectLine => 'Reject line';
+
+  @override
+  String get jhatkaActionPostReceipt => 'Post receipt';
+
+  @override
+  String get jhatkaReceiptDecisionPending => 'Pending decision';
+
+  @override
+  String get jhatkaReceiptAcceptTitle => 'Accept line?';
+
+  @override
+  String get jhatkaReceiptAcceptBody =>
+      'Accepting makes the received quantity saleable and payable when the receipt posts.';
+
+  @override
+  String get jhatkaReceiptRejectTitle => 'Reject this line';
+
+  @override
+  String get jhatkaReceiptRejectReasons => 'Rejection reasons';
+
+  @override
+  String get jhatkaReceiptNoReasons =>
+      'No rejection reasons are active. Contact Admin.';
+
+  @override
+  String get jhatkaReceiptReasonsUnavailable =>
+      'Could not load rejection reasons. Retry.';
+
+  @override
+  String get jhatkaReceiptDecisionSaved => 'Quality decision saved.';
+
+  @override
+  String get jhatkaReceiptPostBlocked =>
+      'Decide every pending line before posting.';
+
+  @override
+  String get jhatkaReceiptPostTitle => 'Post receipt?';
+
+  @override
+  String get jhatkaReceiptPostBody =>
+      'Posting creates batches, moves stock and makes accepted lines payable.';
+
+  @override
+  String get jhatkaReceiptPosted => 'Receipt posted.';
+
+  @override
+  String get jhatkaReceiptReverseBatchFirst =>
+      'This line already has a batch. Reverse the batch first.';
+
+  @override
+  String get jhatkaReceiptAlreadyPosted => 'This receipt is already posted.';
 }

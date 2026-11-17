@@ -1,28 +1,9 @@
-/*
- * WeWorkLocal
- * Hyperlocal Commerce, Delivery & Service Platform
- *
- * Copyright © 2026 WeWorkLocal.
- * All Rights Reserved.
- *
- * Website: https://localwala.tech
- * Email: weworklocal1@gmail.com
- *
- * Proprietary and Confidential.
- *
- * Unauthorized copying, modification, distribution,
- * publication, resale, reverse engineering, or use of
- * this software without prior written authorization is
- * strictly prohibited.
- */
-
 import 'package:flutter/material.dart';
 import 'package:partner/app/core/config/api_request_service.dart';
+import 'package:partner/app/modules/local_services/partner/shared/ls_ui.dart';
 import 'package:partner/app/modules/local_services/repository/provider_repository.dart';
 import 'package:partner/gen/l10n/app_localizations.dart';
 
-/// Recurring agreements screen for partners.
-/// Shows recurring agreements and allows creation/management.
 class RecurringScreen extends StatefulWidget {
   const RecurringScreen({super.key});
 
@@ -33,23 +14,11 @@ class RecurringScreen extends StatefulWidget {
 class _RecurringScreenState extends State<RecurringScreen> {
   final LocalServicesProviderRepository _repository =
       LocalServicesProviderRepository();
-  final TextEditingController _agreementName = TextEditingController();
-  final TextEditingController _interval = TextEditingController();
-  final TextEditingController _price = TextEditingController();
-  final TextEditingController _occurrences = TextEditingController();
 
   bool _loading = true;
   String? _error;
+  String _filter = '';
   List<dynamic> _agreements = const <dynamic>[];
-
-  @override
-  void dispose() {
-    _agreementName.dispose();
-    _interval.dispose();
-    _price.dispose();
-    _occurrences.dispose();
-    super.dispose();
-  }
 
   @override
   void initState() {
@@ -63,7 +32,7 @@ class _RecurringScreenState extends State<RecurringScreen> {
       _error = null;
     });
     try {
-      final DioApiResponse response = await _repository.recurring();
+      final DioApiResponse response = await _repository.recurring(status: _filter);
       final Map<String, dynamic> body = decodeBody(response);
       setState(() {
         _agreements = body['results'] ?? body['data'] ?? [];
@@ -77,134 +46,104 @@ class _RecurringScreenState extends State<RecurringScreen> {
     }
   }
 
-  Future<void> _createAgreement() async {
-    if (_agreementName.text.trim().isEmpty || _price.text.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context)?.ls_agreement_name_price_required ?? 'Agreement name and price required')),
-      );
-      return;
-    }
-    try {
-      await _repository.createOffering(<String, dynamic>{
-        'service': _agreementName.text.trim(),
-        'price': double.tryParse(_price.text.trim()) ?? 0,
-      });
-      _agreementName.clear();
-      _price.clear();
-      _interval.clear();
-      _occurrences.clear();
-      await _load();
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context)?.ls_failed_error('$e') ?? 'Failed: $e'))
-        );
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    final AppLocalizations? l10n = AppLocalizations.of(context);
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Recurring'),
+        actions: <Widget>[
+          IconButton(
+            onPressed: _loading ? null : _load,
+            icon: const Icon(Icons.refresh),
+            tooltip: l10n?.ls_refresh ?? 'Refresh',
+          ),
+        ],
+      ),
+      body: Column(
         children: <Widget>[
-          Text(
-            AppLocalizations.of(context)?.ls_recurring_agreements ?? 'Recurring Agreements',
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 12),
-          // Create new agreement
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  TextField(
-                    controller: _agreementName,
-                    decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)?.ls_agreement_name ?? 'Agreement name',
-                      border: const OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: <Widget>[
-      Expanded(
-        child: TextField(
-          controller: _interval,
-          decoration: InputDecoration(
-            labelText: AppLocalizations.of(context)?.ls_interval ?? 'Interval (e.g. weekly, monthly)',
-            border: const OutlineInputBorder(),
-          ),
-        ),
-      ),
-      const SizedBox(width: 8),
-      Expanded(
-        child: TextField(
-          controller: _occurrences,
-          decoration: InputDecoration(
-            labelText: AppLocalizations.of(context)?.ls_occurrences ?? 'Occurrences',
-            border: const OutlineInputBorder(),
-            hintText: 'e.g. 12',
-          ),
-          keyboardType: TextInputType.number,
-        ),
-      ),
-    ],
-                  ),
-                  const SizedBox(height: 12),
-                  TextField(
-                    controller: _price,
-                    decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)?.ls_price ?? 'Price',
-                      border: const OutlineInputBorder(),
-                      hintText: 'e.g. 499',
-                    ),
-                    keyboardType: TextInputType.number,
-                  ),
-                  const SizedBox(height: 12),
-                  ElevatedButton(
-                    onPressed: _createAgreement,
-                    child: Text(AppLocalizations.of(context)?.ls_create_agreement ?? 'Create Agreement'),
-                  ),
-                ],
-              ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
+            child: Row(
+              children: <String>['', 'active', 'paused', 'cancelled', 'completed']
+                  .map((String s) => Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: ChoiceChip(
+                          label: Text(s.isEmpty ? 'All' : s[0].toUpperCase() + s.substring(1)),
+                          selected: _filter == s,
+                          onSelected: (_) {
+                            setState(() => _filter = s);
+                            _load();
+                          },
+                        ),
+                      ))
+                  .toList(),
             ),
           ),
-          const SizedBox(height: 24),
-          // Existing agreements list
-          Text(
-            AppLocalizations.of(context)?.ls_existing_agreements ?? 'Existing Agreements',
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          Expanded(
+            child: _loading
+                ? const Center(child: CircularProgressIndicator())
+                : _error != null
+                    ? LsErrorState(message: _error!, onRetry: _load)
+                    : _agreements.isEmpty
+                        ? const LsEmptyState(
+                            icon: Icons.autorenew_outlined,
+                            title: 'No recurring agreements yet',
+                            subtitle: 'Agreements created by customers appear here.',
+                          )
+                        : RefreshIndicator(
+                            onRefresh: _load,
+                            child: ListView.builder(
+                              padding: const EdgeInsets.all(12),
+                              itemCount: _agreements.length,
+                              itemBuilder: (BuildContext context, int i) {
+                                final dynamic a = _agreements[i];
+                                final String status = '${a['status'] ?? ''}';
+                                final String cadence = '${a['cadence'] ?? 'weekly'}';
+                                final String next = '${a['nextOccurrenceDate'] ?? ''}';
+                                final String nextShort = next.length >= 10 ? next.substring(0, 10) : next;
+                                return Card(
+                                  margin: const EdgeInsets.only(bottom: 10),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(14),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(14),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Row(
+                                          children: <Widget>[
+                                            Expanded(
+                                              child: Text(
+                                                'Recurring visit · $cadence',
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 14,
+                                                ),
+                                              ),
+                                            ),
+                                            LsStatusBadge(status: status),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 6),
+                                        Text(
+                                          'Next: $nextShort · '
+                                          'Labour ${a['labourAmount'] ?? 0} · Parts ${a['partsAmount'] ?? 0}',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Theme.of(context).textTheme.bodySmall?.color,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
           ),
-          const SizedBox(height: 8),
-          _loading
-              ? const Center(child: CircularProgressIndicator())
-              : _error != null
-                  ? Center(child: Text(_error!))
-                  : _agreements.isEmpty
-                      ? Center(child: Text(AppLocalizations.of(context)?.ls_no_recurring_agreements ?? 'No recurring agreements yet'))
-                      : ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: _agreements.length,
-                          itemBuilder: (BuildContext context, int i) {
-                            final dynamic a = _agreements[i];
-                            return Card(
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 4),
-                              child: ListTile(
-                                title: Text(a['agreementCode'] ?? (AppLocalizations.of(context)?.ls_agreement ?? 'Agreement')),
-                                subtitle: Text(
-                                  'Interval: ${a['interval'] ?? 'weekly'} · '
-                                  'Occurrences: ${a['occurrences'] ?? 0} · '
-                                  'Price: ₹${a['price'] ?? 0}',
-                                ),
-                              ),
-                            );
-                          }),
         ],
       ),
     );

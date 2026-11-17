@@ -13,6 +13,9 @@ import 'package:partner/app/modules/realestate/models/property_document.dart';
 import 'package:partner/app/modules/realestate/vendor/listings/detail/bloc/listing_detail_bloc.dart';
 import 'package:partner/app/modules/realestate/vendor/listings/form/bloc/listing_form_bloc.dart';
 import 'package:partner/app/modules/realestate/vendor/listings/form/listing_form_view.dart';
+import 'package:partner/app/modules/realestate/vendor/modals/vendor_gallery_modal.dart';
+import 'package:partner/app/modules/realestate/vendor/modals/vendor_report_issue_modal.dart';
+import 'package:partner/app/modules/realestate/vendor/modals/vendor_share_listing_modal.dart';
 import 'package:partner/app/modules/realestate/vendor/widgets/listing_status_chip.dart';
 import 'package:partner/app/presentation/styles/theme.dart';
 import 'package:partner/gen/l10n/app_localizations.dart';
@@ -50,6 +53,34 @@ class ListingDetailScreen extends StatelessWidget {
               appBar: AppBar(
                 title: Text(state.property?.propertyCode ?? l10n.realEstateNavListings),
                 actions: <Widget>[
+                  if (state.status == ListingDetailStatus.loaded && state.property != null && (state.property!.media.isNotEmpty))
+                    IconButton(
+                      icon: const Icon(Icons.photo_library_outlined),
+                      tooltip: 'Gallery',
+                      onPressed: () => VendorGalleryModal.show(
+                        context,
+                        images: state.property!.media
+                            .map((Map<String, dynamic> m) => (m['url'] ?? m['path'] ?? '').toString())
+                            .where((String u) => u.isNotEmpty)
+                            .toList(),
+                      ),
+                    ),
+                  if (state.status == ListingDetailStatus.loaded && state.property != null)
+                    IconButton(
+                      icon: const Icon(Icons.share_outlined),
+                      tooltip: 'Share',
+                      onPressed: () => VendorShareListingModal.show(
+                        context,
+                        title: state.property!.propertyCode ?? 'Listing',
+                        url: '',
+                      ),
+                    ),
+                  if (state.status == ListingDetailStatus.loaded && state.property != null)
+                    IconButton(
+                      icon: const Icon(Icons.flag_outlined),
+                      tooltip: 'Report issue',
+                      onPressed: () => VendorReportIssueModal.show(context),
+                    ),
                   if (state.status == ListingDetailStatus.loaded && state.property != null)
                     IconButton(
                       icon: const Icon(Icons.edit_outlined),

@@ -66,6 +66,61 @@ class JhatkaProcurementRepository {
     );
   }
 
+  /// The controlled vocabulary for the receipt rejection picker.
+  Future<DioApiResponse> rejectionReasons() async {
+    return ApiRequestService.makeRequest(
+      JhatkaPartnerEndpoints.rejectionReasons,
+      method: 'GET',
+      token: await _authRepository.authToken(),
+    );
+  }
+
+  /// Accept one pending line. The face value is the received quantity, so the
+  /// server makes that quantity saleable and payable when the receipt posts.
+  Future<DioApiResponse> acceptReceiptLine(
+    String receiptId,
+    int lineIndex, {
+    String? note,
+  }) async {
+    return ApiRequestService.makeRequest(
+      JhatkaPartnerEndpoints.resolve(
+        JhatkaPartnerEndpoints.receiptAccept,
+        <String, String>{'receipt': receiptId},
+      ),
+      method: 'POST',
+      token: await _authRepository.authToken(),
+      body: <String, dynamic>{
+        'lineIndex': lineIndex,
+        if (note != null && note.isNotEmpty) 'note': note,
+      },
+    );
+  }
+
+  /// Reject one pending line with governed reason codes. A line that already
+  /// owns a batch is refused by the server with `REVERSE_BATCH_FIRST`.
+  Future<DioApiResponse> rejectReceiptLine(
+    String receiptId,
+    int lineIndex,
+    List<String> reasonCodes, {
+    String? note,
+  }) async {
+    return ApiRequestService.makeRequest(
+      JhatkaPartnerEndpoints.resolve(
+        JhatkaPartnerEndpoints.receiptReject,
+        <String, String>{'receipt': receiptId},
+      ),
+      method: 'POST',
+      token: await _authRepository.authToken(),
+      body: <String, dynamic>{
+        'lineIndex': lineIndex,
+        'rejectionReasons': reasonCodes
+            .map((String code) => <String, String>{'code': code})
+            .toList(growable: false),
+        if (note != null && note.isNotEmpty) 'note': note,
+      },
+    );
+  }
+
   /// Post a draft receipt: batches, stock, ledger and allocations commit
   /// together, and the purchase order advances. `expiresAtByLine` optionally
   /// pins per-line expiries (supplier printed dates).

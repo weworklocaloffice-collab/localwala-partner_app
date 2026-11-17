@@ -66,7 +66,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navManifest => 'Manifest';
 
   @override
-  String get checkingDriverApproval => 'Checking driver approvalâ€¦';
+  String get checkingDriverApproval => 'Checking driver approval…';
 
   @override
   String get approvalStatusUnavailable => 'Approval status unavailable';
@@ -265,7 +265,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get canScanActiveRunRequired =>
-      'Start todayâ€™s run from Manifest before scanning cans.';
+      'Start today’s run from Manifest before scanning cans.';
 
   @override
   String get canScanSelectStop => 'Select an active customer stop first.';
@@ -301,7 +301,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get canScannerHint =>
-      'Align the canâ€™s QR code or barcode inside the frame.';
+      'Align the can’s QR code or barcode inside the frame.';
 
   @override
   String get depotReconciliation => 'Depot reconciliation';
@@ -423,7 +423,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get realEstateDashVerificationPending =>
-      'Verification pending â€” listings cannot be published yet';
+      'Verification pending — listings cannot be published yet';
 
   @override
   String get realEstateNavListings => 'Listings';
@@ -963,15 +963,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get storesBannerSubscriptionPastDue =>
-      'Subscription payment is past due â€” settle it to keep new orders flowing.';
+      'Subscription payment is past due — settle it to keep new orders flowing.';
 
   @override
   String get storesBannerSubscriptionGracePeriod =>
-      'Subscription is in grace period â€” new orders are paused until payment resumes.';
+      'Subscription is in grace period — new orders are paused until payment resumes.';
 
   @override
   String get storesBannerSubscriptionSuspended =>
-      'Subscription suspended â€” fulfil existing orders and settle; new orders are blocked.';
+      'Subscription suspended — fulfil existing orders and settle; new orders are blocked.';
 
   @override
   String get realEstateExecAccept => 'Accept';
@@ -1008,7 +1008,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get realEstateExecCancelVisitReason =>
-      'Cancel visit â€” reason required';
+      'Cancel visit — reason required';
 
   @override
   String get realEstateExecCheckedIn => 'Checked in';
@@ -1092,7 +1092,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String realEstateExecLeadSummary(int visits, int followUps) {
-    return 'Visits: $visits Â· Follow-ups: $followUps';
+    return 'Visits: $visits · Follow-ups: $followUps';
   }
 
   @override
@@ -1105,7 +1105,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get realEstateExecLoansEmpty => 'No loans yet';
 
   @override
-  String get realEstateExecLocating => 'Locatingâ€¦';
+  String get realEstateExecLocating => 'Locating…';
 
   @override
   String get realEstateExecLocationPermissionCheckIn =>
@@ -1304,7 +1304,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get jhatkaCloseFailed =>
-      'Close failed â€” the fan-out may be incomplete. Retry.';
+      'Close failed — the fan-out may be incomplete. Retry.';
 
   @override
   String get jhatkaPodCaptureFailed => 'POD capture failed. Retry.';
@@ -1320,14 +1320,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get jhatkaAlreadyWeighed =>
-      'Already weighed â€” showing the saved confirmation';
+      'Already weighed — showing the saved confirmation';
 
   @override
   String get jhatkaReasonRequired => 'A reason is required.';
 
   @override
   String get jhatkaReasonRequiredCustomer =>
-      'A reason is required â€” the customer reads it.';
+      'A reason is required — the customer reads it.';
 
   @override
   String get jhatkaClientRefRequired => 'Client ref is required.';
@@ -1362,7 +1362,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get jhatkaLineMissingVariant =>
-      'A line is missing its variant â€” cannot save.';
+      'A line is missing its variant — cannot save.';
 
   @override
   String get jhatkaNothingToSave => 'Nothing to save.';
@@ -1547,10 +1547,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get jhatkaActionQuarantineBatch =>
-      'Quarantine batch â€” reason required';
+      'Quarantine batch — reason required';
 
   @override
-  String get jhatkaActionRecallNotify => 'Recall â€” notify customers';
+  String get jhatkaActionRecallNotify => 'Recall — notify customers';
 
   @override
   String get jhatkaActionRecordAdjustWastage => 'Record adjust / wastage';
@@ -1568,7 +1568,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get jhatkaActionRelease => 'Release';
 
   @override
-  String get jhatkaActionReleaseBatch => 'Release batch â€” reason required';
+  String get jhatkaActionReleaseBatch => 'Release batch — reason required';
 
   @override
   String get jhatkaActionRemoveLine => 'Remove line';
@@ -1640,7 +1640,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get jhatkaFieldCode => 'Code (unique per outlet)';
 
   @override
-  String get jhatkaFieldDeliveredTemp => 'Delivered temp Â°C';
+  String get jhatkaFieldDeliveredTemp => 'Delivered temp °C';
 
   @override
   String get jhatkaFieldEmail => 'Email';
@@ -1662,7 +1662,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get jhatkaFieldNameOrPhone =>
-      'Name or phone (this outletâ€™s customers)';
+      'Name or phone (this outlet’s customers)';
 
   @override
   String get jhatkaFieldNoteOptional => 'Note (optional)';
@@ -1674,7 +1674,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get jhatkaFieldOutletName => 'Outlet name';
 
   @override
-  String get jhatkaFieldPackingTemp => 'Packing temp Â°C (optional)';
+  String get jhatkaFieldPackingTemp => 'Packing temp °C (optional)';
 
   @override
   String get jhatkaFieldPeriodEnd => 'Period end (yyyy-mm-dd)';
@@ -1702,11 +1702,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get jhatkaFieldReasonCustomer =>
-      'Reason (required â€” the customer reads this)';
+      'Reason (required — the customer reads this)';
 
   @override
   String get jhatkaFieldReasonOutlet =>
-      'Reason (required â€” the outlet reads this)';
+      'Reason (required — the outlet reads this)';
 
   @override
   String get jhatkaFieldReasonShown => 'Reason (shown to the customer)';
@@ -1751,13 +1751,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get jhatkaFieldVehicleNo => 'Vehicle no (optional)';
 
   @override
-  String get jhatkaSeverityAdvisory => 'Advisory â€” in-house';
+  String get jhatkaSeverityAdvisory => 'Advisory — in-house';
 
   @override
-  String get jhatkaSeverityWithdraw => 'Withdraw â€” pull from sale';
+  String get jhatkaSeverityWithdraw => 'Withdraw — pull from sale';
 
   @override
-  String get jhatkaAwaitingResponse => 'Awaiting response â€” one only';
+  String get jhatkaAwaitingResponse => 'Awaiting response — one only';
 
   @override
   String get jhatkaBlankUnchanged => 'Blank fields are left unchanged.';
@@ -1826,7 +1826,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get jhatkaStatusLow => 'low';
 
   @override
-  String get jhatkaStatusSkippedCredited => 'skipped Â· credited';
+  String get jhatkaStatusSkippedCredited => 'skipped · credited';
 
   @override
   String jhatkaVariantCount(Object count) {
@@ -1871,7 +1871,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String jhatkaCollectCollected(Object collect, Object collected) {
-    return 'Collect $collect Â· collected $collected';
+    return 'Collect $collect · collected $collected';
   }
 
   @override
@@ -1881,7 +1881,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String jhatkaDeliveryStatus(Object no, Object status) {
-    return 'Delivery $no Â· $status';
+    return 'Delivery $no · $status';
   }
 
   @override
@@ -1916,7 +1916,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get jhatkaPickupOrderNote =>
-      'Pickup order â€” the customer collects here. No rider is dispatched.';
+      'Pickup order — the customer collects here. No rider is dispatched.';
 
   @override
   String get jhatkaSupplyTitle => 'Request stock';
@@ -1933,7 +1933,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get jhatkaSupplySubmitted =>
-      'Request sent â€” LocalWala will approve and deliver.';
+      'Request sent — LocalWala will approve and deliver.';
 
   @override
   String get jhatkaSupplyPayFailed => 'Payment could not start. Retry.';
@@ -1990,7 +1990,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get jhatkaAreaNoOuterBand => 'No paid band';
 
   @override
-  String get jhatkaAreaFee => 'Flat fee (â‚¹)';
+  String get jhatkaAreaFee => 'Flat fee (₹)';
 
   @override
   String get jhatkaAreaReason => 'Why this change?';
@@ -2000,7 +2000,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get jhatkaAreaSubmitted =>
-      'Area change requested â€” LocalWala will review.';
+      'Area change requested — LocalWala will review.';
 
   @override
   String get jhatkaAreaSubmitFailed =>
@@ -2027,7 +2027,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get jhatkaAreaFeeRequired => 'A paid band needs a fee above zero.';
 
   @override
-  String get jhatkaAreaReasonRequired => 'Say why â€” the admin reads it.';
+  String get jhatkaAreaReasonRequired => 'Say why — the admin reads it.';
 
   @override
   String get earningsToday => 'Today';
@@ -2385,7 +2385,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String livePreSettlementSummary(int count) {
-    return '$count delivered orders Â· live, pre-settlement';
+    return '$count delivered orders · live, pre-settlement';
   }
 
   @override
@@ -2741,11 +2741,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get storesMsgCashSaleHint =>
-      'Cash sale â€” add items from the list above';
+      'Cash sale — add items from the list above';
 
   @override
   String storesMsgCashDue(Object orderNo, Object total) {
-    return 'Order #$orderNo â€” cash due $total';
+    return 'Order #$orderNo — cash due $total';
   }
 
   @override
@@ -3321,6 +3321,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ls_service_areas => 'Service areas (comma-separated)';
 
   @override
+  String get ls_contact_name => 'Contact name';
+
+  @override
+  String get ls_contact_phone => 'Contact phone';
+
+  @override
+  String get ls_gstin_optional => 'GSTIN (optional)';
+
+  @override
+  String get ls_gst_state_code_optional => 'GST state code (optional, e.g. 27)';
+
+  @override
+  String get ls_document_file_required => 'Document kind and file are required';
+
+  @override
   String get ls_document_kind => 'Document kind (e.g. license)';
 
   @override
@@ -3640,4 +3655,61 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ls_setup_publish => 'Set up & publish services';
+
+  @override
+  String get jhatkaActionAcceptLine => 'Accept line';
+
+  @override
+  String get jhatkaActionRejectLine => 'Reject line';
+
+  @override
+  String get jhatkaActionPostReceipt => 'Post receipt';
+
+  @override
+  String get jhatkaReceiptDecisionPending => 'Pending decision';
+
+  @override
+  String get jhatkaReceiptAcceptTitle => 'Accept line?';
+
+  @override
+  String get jhatkaReceiptAcceptBody =>
+      'Accepting makes the received quantity saleable and payable when the receipt posts.';
+
+  @override
+  String get jhatkaReceiptRejectTitle => 'Reject this line';
+
+  @override
+  String get jhatkaReceiptRejectReasons => 'Rejection reasons';
+
+  @override
+  String get jhatkaReceiptNoReasons =>
+      'No rejection reasons are active. Contact Admin.';
+
+  @override
+  String get jhatkaReceiptReasonsUnavailable =>
+      'Could not load rejection reasons. Retry.';
+
+  @override
+  String get jhatkaReceiptDecisionSaved => 'Quality decision saved.';
+
+  @override
+  String get jhatkaReceiptPostBlocked =>
+      'Decide every pending line before posting.';
+
+  @override
+  String get jhatkaReceiptPostTitle => 'Post receipt?';
+
+  @override
+  String get jhatkaReceiptPostBody =>
+      'Posting creates batches, moves stock and makes accepted lines payable.';
+
+  @override
+  String get jhatkaReceiptPosted => 'Receipt posted.';
+
+  @override
+  String get jhatkaReceiptReverseBatchFirst =>
+      'This line already has a batch. Reverse the batch first.';
+
+  @override
+  String get jhatkaReceiptAlreadyPosted => 'This receipt is already posted.';
 }

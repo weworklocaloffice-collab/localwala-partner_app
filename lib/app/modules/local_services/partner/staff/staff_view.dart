@@ -18,6 +18,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:partner/app/core/config/api_request_service.dart';
+import 'package:partner/app/modules/local_services/partner/shared/ls_ui.dart';
 import 'package:partner/app/modules/local_services/repository/provider_repository.dart';
 import 'package:partner/gen/l10n/app_localizations.dart';
 
@@ -322,15 +323,7 @@ class _StaffScreenState extends State<StaffScreen> {
       return const Center(child: CircularProgressIndicator());
     }
     if (_error != null) {
-      return Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text(_error!),
-            TextButton(onPressed: _load, child: Text(AppLocalizations.of(context)?.ls_retry ?? 'Retry')),
-          ],
-        ),
-      );
+      return LsErrorState(message: _error!, onRetry: _load);
     }
     return DefaultTabController(
       length: 2,
@@ -359,7 +352,11 @@ class _StaffScreenState extends State<StaffScreen> {
         body: TabBarView(
           children: <Widget>[
             _staff.isEmpty
-                ? Center(child: Text(AppLocalizations.of(context)?.ls_no_staff ?? 'No staff found'))
+                ? LsEmptyState(
+                    icon: Icons.people_outline,
+                    title: AppLocalizations.of(context)?.ls_no_staff ?? 'No staff yet',
+                    subtitle: 'Add your first staff member.',
+                  )
                 : ListView.builder(
                     itemCount: _staff.length,
                     itemBuilder: (BuildContext context, int index) {
@@ -378,7 +375,11 @@ class _StaffScreenState extends State<StaffScreen> {
                     },
                   ),
             _resources.isEmpty
-                ? Center(child: Text(AppLocalizations.of(context)?.ls_no_resources ?? 'No resources found'))
+                ? LsEmptyState(
+                    icon: Icons.inventory_2_outlined,
+                    title: AppLocalizations.of(context)?.ls_no_resources ?? 'No resources yet',
+                    subtitle: 'Add resources like rooms or equipment.',
+                  )
                 : ListView.builder(
                     itemCount: _resources.length,
                     itemBuilder: (BuildContext context, int index) {

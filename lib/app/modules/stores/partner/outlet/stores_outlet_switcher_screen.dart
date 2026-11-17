@@ -99,7 +99,7 @@ class _StoresOutletSwitcherScreenState extends State<StoresOutletSwitcherScreen>
 
           return ListView.separated(
             itemCount: outlets.length,
-            separatorBuilder: (_, __) => const Divider(height: 1),
+            separatorBuilder: (_, _) => const Divider(height: 1),
             itemBuilder: (BuildContext context, int index) {
               final Map<String, dynamic> outlet = outlets[index];
               final String id = '${outlet['_id'] ?? outlet['id'] ?? ''}';

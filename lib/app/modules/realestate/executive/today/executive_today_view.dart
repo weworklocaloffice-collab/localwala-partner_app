@@ -1,8 +1,8 @@
-﻿/*
+/*
  * WeWorkLocal
  * Hyperlocal Commerce, Delivery & Service Platform
  *
- * Copyright Â© 2026 WeWorkLocal.
+ * Copyright © 2026 WeWorkLocal.
  * All Rights Reserved.
  */
 
@@ -10,6 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:partner/app/modules/realestate/executive/customers/executive_customers_view.dart';
 import 'package:partner/app/modules/realestate/executive/followups/executive_followups_view.dart';
+import 'package:partner/app/modules/realestate/executive/holds/executive_holds_view.dart';
+import 'package:partner/app/modules/realestate/executive/loan_status/executive_loan_status_view.dart';
+import 'package:partner/app/modules/realestate/executive/notifications/executive_notifications_view.dart';
+import 'package:partner/app/modules/realestate/executive/sales/executive_sales_view.dart';
+import 'package:partner/app/modules/realestate/executive/settlements/executive_settlements_view.dart';
 import 'package:partner/app/modules/realestate/executive/today/bloc/executive_today_bloc.dart';
 import 'package:partner/app/modules/realestate/models/commission.dart';
 import 'package:partner/app/modules/realestate/models/hold.dart';
@@ -20,7 +25,7 @@ import 'package:partner/gen/l10n/app_localizations.dart';
 /// Executive home: identity, assignment counters, latest holds and
 /// earnings, plus notifications.
 ///
-/// Holds and commissions are read-only here (plan Â§11.4) — work
+/// Holds and commissions are read-only here (plan §11.4) - work
 /// happens in the Visits and Follow-ups tabs. Amounts arrive in
 /// rupees and are never recomputed on device.
 class ExecutiveTodayScreen extends StatelessWidget {
@@ -159,6 +164,51 @@ class _TodayBody extends StatelessWidget {
                   label: l10n.realEstateExecActiveLeads,
                   value: ExecutiveTodayScreen._count(state.dashboard, 'activeLeads').toString(),
                 ),
+                _MetricTile(
+                  theme: theme,
+                  label: 'Today visits',
+                  value: ExecutiveTodayScreen._count(state.dashboard, 'todayVisits').toString(),
+                ),
+                _MetricTile(
+                  theme: theme,
+                  label: 'Upcoming',
+                  value: ExecutiveTodayScreen._count(state.dashboard, 'upcomingVisits').toString(),
+                ),
+                _MetricTile(
+                  theme: theme,
+                  label: 'New leads',
+                  value: ExecutiveTodayScreen._count(state.dashboard, 'newLeads').toString(),
+                ),
+                _MetricTile(
+                  theme: theme,
+                  label: 'Follow-ups',
+                  value: ExecutiveTodayScreen._count(state.dashboard, 'followUps').toString(),
+                ),
+                _MetricTile(
+                  theme: theme,
+                  label: 'Overdue',
+                  value: ExecutiveTodayScreen._count(state.dashboard, 'overdueFollowUps').toString(),
+                ),
+                _MetricTile(
+                  theme: theme,
+                  label: 'Interested',
+                  value: ExecutiveTodayScreen._count(state.dashboard, 'interestedCustomers').toString(),
+                ),
+                _MetricTile(
+                  theme: theme,
+                  label: 'Loan leads',
+                  value: ExecutiveTodayScreen._count(state.dashboard, 'loanLeads').toString(),
+                ),
+                _MetricTile(
+                  theme: theme,
+                  label: 'Held',
+                  value: ExecutiveTodayScreen._count(state.dashboard, 'heldProperties').toString(),
+                ),
+                _MetricTile(
+                  theme: theme,
+                  label: 'Sales',
+                  value: ExecutiveTodayScreen._count(state.dashboard, 'sales').toString(),
+                ),
               ],
             ),
             const SizedBox(height: 16),
@@ -191,6 +241,68 @@ class _TodayBody extends StatelessWidget {
                 ),
               ],
             ),
+            const SizedBox(height: 8),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: OutlinedButton.icon(
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(builder: (_) => const ExecutiveHoldsScreen()),
+                    ),
+                    icon: const Icon(Icons.lock_clock_outlined),
+                    label: Text(l10n.realEstateExecLatestHolds),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: OutlinedButton.icon(
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(builder: (_) => const ExecutiveLoanStatusScreen()),
+                    ),
+                    icon: const Icon(Icons.account_balance_outlined),
+                    label: Text(l10n.realEstateExecLoans),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: OutlinedButton.icon(
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(builder: (_) => const ExecutiveSalesScreen()),
+                    ),
+                    icon: const Icon(Icons.sell_outlined),
+                    label: Text(l10n.realEstateExecSales),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: OutlinedButton.icon(
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(builder: (_) => const ExecutiveSettlementsScreen()),
+                    ),
+                    icon: const Icon(Icons.receipt_long_outlined),
+                    label: Text(l10n.realEstateExecSettlements),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: OutlinedButton.icon(
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(builder: (_) => const ExecutiveNotificationsScreen()),
+                    ),
+                    icon: const Icon(Icons.notifications_outlined),
+                    label: Text(l10n.realEstateExecNotifications),
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: 16),
             Text(l10n.realEstateExecVisitsByStatus, style: Theme.of(context).textTheme.titleSmall),
             const SizedBox(height: 8),
@@ -216,7 +328,7 @@ class _TodayBody extends StatelessWidget {
                   contentPadding: EdgeInsets.zero,
                   dense: true,
                   title: Text(h.holdCode ?? h.id),
-                  trailing: Text(h.status ?? '—'),
+                  trailing: Text(h.status ?? '-'),
                 ),
               ),
             const SizedBox(height: 16),
@@ -231,7 +343,7 @@ class _TodayBody extends StatelessWidget {
                   dense: true,
                   title: Text(c.commissionNo ?? c.id),
                   subtitle: Text(c.status ?? ''),
-                  trailing: Text('₹${c.amount?.toStringAsFixed(2) ?? '—'}'),
+                  trailing: Text('?${c.amount?.toStringAsFixed(2) ?? '-'}'),
                 ),
               ),
           ],

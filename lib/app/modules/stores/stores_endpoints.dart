@@ -110,6 +110,7 @@ class StoresPartnerEndpoints {
 
   static const String deliveryAssign = 'v1/stores/delivery/assign';
   static const String deliveryByOrder = 'v1/stores/delivery/order/{order}';
+  static const String deliveryPartnerList = 'v1/stores/delivery';
   static const String deliveryAvailableDrivers =
       'v1/stores/delivery/drivers/available';
 
@@ -231,8 +232,6 @@ class StoresPartnerEndpoints {
 class StoresDriverEndpoints {
   const StoresDriverEndpoints._();
 
-  static const String available = 'v1/stores/delivery/drivers/available';
-
   static const String deliveryList = 'v1/stores/deliveries';
   static const String deliveryDetail = 'v1/stores/deliveries/{delivery}';
 
@@ -245,6 +244,10 @@ class StoresDriverEndpoints {
       'v1/stores/deliveries/{delivery}/deliver';
 
   static const String deliveryFail = 'v1/stores/deliveries/{delivery}/fail';
+
+  /// The drop-off address lives on the ORDER, and the partner order route rejects a
+  /// driver token. This read returns only the handover fields (address, payment, note).
+  static const String deliveryOrder = 'v1/stores/deliveries/{delivery}/order';
 
   static const String earnings = 'v1/stores/earnings';
 }

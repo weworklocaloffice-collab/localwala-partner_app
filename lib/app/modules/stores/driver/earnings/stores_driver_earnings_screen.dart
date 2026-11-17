@@ -63,32 +63,45 @@ class _StoresDriverEarningsScreenState extends State<StoresDriverEarningsScreen>
       body: StoresAsyncView<Map<String, dynamic>>(
         future: repo.earnings(),
         builder: (BuildContext context, Map<String, dynamic> data) {
-          final Map<String, dynamic> totals =
-              (data['totals'] as Map<String, dynamic>?) ?? data;
+          // Backend shape (stores.driver.route.js `getDriverEarnings`):
+          // `{ driver: { driverCode, rating }, earnings: { totalDeliveries, totalEarnings, totalTips } }`.
+          final Map<String, dynamic> earnings =
+              (data['earnings'] as Map<String, dynamic>?) ?? data;
+          final Map<String, dynamic> driver =
+              (data['driver'] as Map<String, dynamic>?) ?? const <String, dynamic>{};
 
           return ListView(
             children: <Widget>[
-              const StoresSectionHeader(title: 'Reconciled'),
+              const StoresSectionHeader(title: 'Earned'),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
-                  '${totals['net'] ?? totals['reconciled'] ?? totals['total'] ?? 0}',
+                  '${earnings['totalEarnings'] ?? earnings['net'] ?? earnings['reconciled'] ?? 0}',
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
-              ),
-              const StoresSectionHeader(title: 'Awaiting reconciliation'),
-              // COD the driver has taken in but the outlet has not yet settled. Shown
-              // separately so it is never mistaken for earned money.
-              ListTile(
-                leading: const Icon(Icons.account_balance_wallet_outlined),
-                title: const Text('Collected, not yet reconciled'),
-                trailing: Text('${totals['codPending'] ?? totals['collected'] ?? 0}'),
               ),
               ListTile(
                 leading: const Icon(Icons.route_outlined),
                 title: const Text('Deliveries completed'),
-                trailing: Text('${totals['deliveries'] ?? totals['count'] ?? 0}'),
+                trailing: Text('${earnings['totalDeliveries'] ?? 0}'),
               ),
+              ListTile(
+                leading: const Icon(Icons.volunteer_activism_outlined),
+                title: const Text('Tips'),
+                trailing: Text('${earnings['totalTips'] ?? 0}'),
+              ),
+              if (driver['driverCode'] != null)
+                ListTile(
+                  leading: const Icon(Icons.badge_outlined),
+                  title: const Text('Driver code'),
+                  trailing: Text('${driver['driverCode']}'),
+                ),
+              if (driver['rating'] != null)
+                ListTile(
+                  leading: const Icon(Icons.star_outline),
+                  title: const Text('Rating'),
+                  trailing: Text('${driver['rating']}'),
+                ),
             ],
           );
         },

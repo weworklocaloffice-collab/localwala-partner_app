@@ -24,6 +24,7 @@ import 'package:partner/gen/l10n/app_localizations.dart';
 import 'package:partner/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -250,6 +251,7 @@ void main() {
 
     setUp(() async {
       SharedPreferences.setMockInitialValues(<String, Object>{});
+      FlutterSecureStorage.setMockInitialValues(<String, String>{});
       repository = AuthRepository(prefs: await SharedPreferences.getInstance());
     });
 

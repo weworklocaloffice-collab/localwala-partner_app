@@ -18,6 +18,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:partner/app/core/config/api_request_service.dart';
+import 'package:partner/app/modules/local_services/partner/shared/ls_ui.dart';
 import 'package:partner/app/modules/local_services/models/provider.dart';
 import 'package:partner/app/modules/local_services/repository/provider_repository.dart';
 import 'package:partner/gen/l10n/app_localizations.dart';
@@ -198,25 +199,23 @@ class _VariantsScreenState extends State<VariantsScreen> {
           const SizedBox(height: 16),
           if (_loading || _loadingVariants)
             const Center(child: CircularProgressIndicator())
-          else if (_error != null)
-            Expanded(
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text(_error!, textAlign: TextAlign.center),
-                    TextButton(onPressed: _load, child: Text(AppLocalizations.of(context)?.ls_retry ?? 'Retry')),
-                  ],
-                ),
-              ),
-            )
+            else if (_error != null)
+            Expanded(child: LsErrorState(message: _error!, onRetry: _load))
           else if (_serviceId == null)
             Expanded(
-              child: Center(child: Text(AppLocalizations.of(context)?.ls_choose_service_to_see_variants ?? 'Choose a service to see variants')),
+              child: LsEmptyState(
+                icon: Icons.format_list_bulleted_outlined,
+                title: AppLocalizations.of(context)?.ls_choose_service_to_see_variants ?? 'Choose a service',
+                subtitle: 'Select a service above to view its variants.',
+              ),
             )
           else if (_variants.isEmpty)
             Expanded(
-              child: Center(child: Text(AppLocalizations.of(context)?.ls_no_variants ?? 'This service has no variants')),
+              child: LsEmptyState(
+                icon: Icons.format_list_bulleted_outlined,
+                title: AppLocalizations.of(context)?.ls_no_variants ?? 'No variants',
+                subtitle: 'This service has no variants.',
+              ),
             )
           else
             Expanded(

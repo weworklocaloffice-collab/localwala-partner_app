@@ -17,7 +17,7 @@
  */
 
 import 'package:partner/app/core/config/api_request_service.dart';
-import 'package:partner/app/modules/jhatka/jhatka_media.dart';
+import 'package:partner/app/core/media/evidence_media.dart';
 import 'package:partner/app/modules/jhatka/partner/driver/jhatka_rider_repository.dart';
 import 'package:partner/app/modules/jhatka/partner/weighing/jhatka_money.dart'
     as jhatka_money;
@@ -211,7 +211,7 @@ class _RiderDeliveryScreenState extends State<RiderDeliveryScreen> {
               const SizedBox(height: 12),
               OutlinedButton.icon(
                 onPressed: () async {
-                  final String? path = await JhatkaMedia().takeAndUploadPhoto();
+                  final String? path = await EvidenceMedia().takeAndUploadPhoto();
                   if (!context.mounted) return;
                   if (path == null) {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -258,7 +258,7 @@ class _RiderDeliveryScreenState extends State<RiderDeliveryScreen> {
                     );
                     return;
                   }
-                  final String? path = await JhatkaMedia().takeAndUploadPhoto();
+                  final String? path = await EvidenceMedia().takeAndUploadPhoto();
                   if (!context.mounted) return;
                   if (path == null) {
                     ScaffoldMessenger.of(context).showSnackBar(

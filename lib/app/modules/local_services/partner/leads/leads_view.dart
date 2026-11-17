@@ -18,6 +18,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:partner/app/core/config/api_request_service.dart';
+import 'package:partner/app/modules/local_services/partner/shared/ls_ui.dart';
 import 'package:partner/app/modules/local_services/repository/provider_repository.dart';
 import 'package:partner/gen/l10n/app_localizations.dart';
 
@@ -157,13 +158,17 @@ class _LeadsScreenState extends State<LeadsScreen> {
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
-          _loading
-              ? const Center(child: CircularProgressIndicator())
-              : _error != null
-                  ? Center(child: Text(_error!))
-                  : _leads.isEmpty
-                      ? Center(child: Text(AppLocalizations.of(context)?.ls_no_leads ?? 'No leads found'))
-                      : ListView.builder(
+            _loading
+               ? const Center(child: CircularProgressIndicator())
+               : _error != null
+                   ? LsErrorState(message: _error!, onRetry: _load)
+                   : _leads.isEmpty
+                       ? LsEmptyState(
+                           icon: Icons.list_outlined,
+                           title: AppLocalizations.of(context)?.ls_no_leads ?? 'No leads yet',
+                           subtitle: 'New leads will appear here.',
+                         )
+                       : ListView.builder(
                           shrinkWrap: true,
                           itemCount: _leads.length,
                           itemBuilder: (BuildContext context, int i) {

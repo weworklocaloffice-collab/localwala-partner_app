@@ -200,6 +200,10 @@ class AuthRepository {
 
     final UserSessionModel? current = await session();
 
+    final bool? dairy = await _probeShell(
+      DairyPartnerEndpoints.availableRoles,
+      token,
+    );
     final bool? jhatka = await _probeShell(
       JhatkaAuthEndpoints.availableRoles,
       token,
@@ -217,18 +221,33 @@ class AuthRepository {
       'v1/stores/partner/scope',
       token,
     );
-    if (jhatka == null ||
+    // BR-05: a store driver is an outlet's own rider, not a partner. Probing
+    // only the partner scope would answer 403 for them and the stores vertical
+    // would be dropped on refresh, sending the driver to the dairy fallback.
+    final bool? storeDriver = await _probeShell(
+      'v1/stores/deliveries',
+      token,
+    );
+    if (dairy == null ||
+        jhatka == null ||
         vendor == null ||
         executive == null ||
         lsProvider == null ||
-        storePartner == null) {
+        storePartner == null ||
+        storeDriver == null) {
       return null;
     }
 
     // Start from the cached (login-provided) verticals so verticals we
     // cannot probe (stores) survive a refresh instead of being wiped.
     final List<String> verticals = <String>[...?current?.availableVerticals];
-    if (!verticals.contains('dairy')) verticals.add('dairy');
+    if (dairy == true) {
+      if (!verticals.contains('dairy')) verticals.add('dairy');
+    } else {
+      final bool claimsDairy =
+          current?.availableVerticals.contains('dairy') ?? false;
+      if (!claimsDairy) verticals.remove('dairy');
+    }
     if (jhatka) {
       if (!verticals.contains('jhatka')) verticals.add('jhatka');
     } else {
@@ -249,9 +268,11 @@ class AuthRepository {
         verticals.add('local_services');
       }
     } else {
-      verticals.remove('local_services');
+      final bool claimsLocalServices =
+          current?.availableVerticals.contains('local_services') ?? false;
+      if (!claimsLocalServices) verticals.remove('local_services');
     }
-    if (storePartner) {
+    if (storePartner || storeDriver) {
       if (!verticals.contains('stores')) verticals.add('stores');
     } else {
       verticals.remove('stores');

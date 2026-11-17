@@ -142,7 +142,6 @@ class JhatkaPartnerEndpoints {
   static const String payouts = 'v1/jhatka/partner/money/payouts';
   static const String payoutDetail = 'v1/jhatka/partner/money/payouts/{id}';
   static const String payables = 'v1/jhatka/partner/money/payables';
-  static const String payablePay = 'v1/jhatka/partner/money/payables/{id}/pay';
 
   //// Subscriptions ////
   static const String subscriptions = 'v1/jhatka/partner/subscriptions';
@@ -175,6 +174,12 @@ class JhatkaPartnerEndpoints {
   static const String purchaseOrderPlace =
       'v1/jhatka/partner/inventory/purchase-orders/{po}/place';
   static const String receipts = 'v1/jhatka/partner/inventory/receipts';
+  static const String rejectionReasons =
+      'v1/jhatka/partner/inventory/rejection-reasons';
+  static const String receiptAccept =
+      'v1/jhatka/partner/inventory/receipts/{receipt}/accept';
+  static const String receiptReject =
+      'v1/jhatka/partner/inventory/receipts/{receipt}/reject';
   static const String receiptPost =
       'v1/jhatka/partner/inventory/receipts/{receipt}/post';
 

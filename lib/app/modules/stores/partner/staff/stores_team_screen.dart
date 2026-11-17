@@ -79,7 +79,7 @@ class _StoresTeamScreenState extends State<StoresTeamScreen> {
 
           return ListView.separated(
             itemCount: rows.length,
-            separatorBuilder: (_, __) => const Divider(height: 1),
+            separatorBuilder: (_, _) => const Divider(height: 1),
             itemBuilder: (BuildContext context, int index) {
               final Map<String, dynamic> member = rows[index];
               final String role = '${member['role'] ?? 'staff'}';

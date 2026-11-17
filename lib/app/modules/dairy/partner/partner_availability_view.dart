@@ -358,7 +358,11 @@ class _PartnerAvailabilityScreenState extends State<PartnerAvailabilityScreen> {
                         return CheckboxListTile(
                           value: _serviceable.contains(id),
                           onChanged: _saving || isPrimary ? null : (bool? selected) => setState(() {
-                            if (selected == true) _serviceable.add(id); else _serviceable.remove(id);
+                            if (selected == true) {
+                              _serviceable.add(id);
+                            } else {
+                              _serviceable.remove(id);
+                            }
                           }),
                           title: Text('${locality['name']?.toString() ?? 'Locality'}${isPrimary ? ' · Primary locality' : ''}'),
                           subtitle: Text(isPrimary

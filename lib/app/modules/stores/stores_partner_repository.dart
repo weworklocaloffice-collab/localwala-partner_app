@@ -149,16 +149,18 @@ class StoresPartnerRepository {
   }
 
   Future<Map<String, dynamic>> transitionRecurringPlan(String id, String status) async {
-    final String path = '${StoresPartnerEndpoints.recurringPlan.replaceAll('{plan}', id)}/$status';
-    return _call(path, method: 'PATCH');
+    return _call(
+      '${StoresPartnerEndpoints.recurringPlan.replaceAll('{plan}', id)}/$status',
+      method: 'PATCH',
+    );
   }
 
   Future<Map<String, dynamic>> listProducts() async {
-    return _call('v1/stores/catalog/products');
+    return _call(StoresPartnerEndpoints.catalogProducts);
   }
 
   Future<Map<String, dynamic>> listCategories() async {
-    return _call('v1/stores/catalog/categories');
+    return _call(StoresPartnerEndpoints.catalogCategories);
   }
 
   Future<Map<String, dynamic>> exchanges({int page = 1, int limit = 20}) async {
@@ -215,23 +217,17 @@ class StoresPartnerRepository {
       _call(StoresPartnerEndpoints.chainAnalytics);
 
   Future<Map<String, dynamic>> listPolicies({int page = 1, int limit = 20}) async {
-    final StringBuffer path = StringBuffer(StoresPartnerEndpoints.policies);
-    path.write('?page=$page&limit=$limit');
-    return _call(path.toString());
+    return _call('${StoresPartnerEndpoints.policies}?page=$page&limit=$limit');
   }
 
   Future<Map<String, dynamic>> listReviews({int page = 1, int limit = 20}) async {
-    final StringBuffer path = StringBuffer(StoresPartnerEndpoints.reviews);
-    path.write('?page=$page&limit=$limit');
-    return _call(path.toString());
+    return _call('${StoresPartnerEndpoints.reviews}?page=$page&limit=$limit');
   }
 
   Future<Map<String, dynamic>> deliveries({int page = 1, int limit = 20, String? status}) async {
-    final StringBuffer path = StringBuffer('v1/stores/delivery');
     final List<String> q = <String>['page=$page', 'limit=$limit'];
     if (status != null && status.isNotEmpty) q.add('status=${Uri.encodeQueryComponent(status)}');
-    path.write('?${q.join('&')}');
-    return _call(path.toString());
+    return _call('${StoresPartnerEndpoints.deliveryPartnerList}?${q.join('&')}');
   }
 
   //// Orders ////
@@ -284,7 +280,7 @@ class StoresPartnerRepository {
       'paymentMode': paymentMode,
       if (instructions != null && instructions.isNotEmpty)
         'instructions': instructions,
-      if (addressSnapshot != null) 'addressSnapshot': addressSnapshot,
+      'addressSnapshot': ?addressSnapshot,
     },
   );
 
@@ -862,26 +858,15 @@ class StoresDriverRepository {
     throw _storesApiError(response);
   }
 
-  Future<Map<String, dynamic>> availableDrivers() =>
-      _call(StoresDriverEndpoints.available);
-
-  Future<Map<String, dynamic>> deliveries({
-    int page = 1,
-    int limit = 20,
-    String? status,
-  }) async {
-    final Map<String, String> query = <String, String>{
-      'page': '$page',
-      'limit': '$limit',
-      'status': ?status,
-    };
-    return _call(
-      '${StoresDriverEndpoints.deliveryList}?${query.entries.map((e) => '${e.key}=${e.value}').join('&')}',
-    );
-  }
+  Future<Map<String, dynamic>> deliveries() =>
+      _call(StoresDriverEndpoints.deliveryList);
 
   Future<Map<String, dynamic>> delivery(String deliveryId) => _call(
     storesResolve(StoresDriverEndpoints.deliveryDetail, delivery: deliveryId),
+  );
+
+  Future<Map<String, dynamic>> deliveryOrder(String deliveryId) => _call(
+    storesResolve(StoresDriverEndpoints.deliveryOrder, delivery: deliveryId),
   );
 
   Future<Map<String, dynamic>> transition(String deliveryId, String status) =>
@@ -891,7 +876,7 @@ class StoresDriverRepository {
           delivery: deliveryId,
           status: status,
         ),
-        method: 'PATCH',
+        method: 'POST',
       );
 
   /// BR-29 — the handover cannot complete without the customer's OTP. The app must not

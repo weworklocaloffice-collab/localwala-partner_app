@@ -439,7 +439,7 @@ class _StoresPromotionsScreenState extends State<StoresPromotionsScreen> {
                 ),
                 subtitle: Text(
                   '${isCoupon ? 'coupon' : row['type'] ?? ''}'
-                  '${row['code'] != null ? ' A� code ${row['code']}' : ''}',
+                  '${row['code'] != null ? ' • code ${row['code']}' : ''}',
                 ),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,

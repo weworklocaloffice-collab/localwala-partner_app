@@ -1,6 +1,5 @@
 import 'package:partner/gen/l10n/app_localizations.dart';
 import 'package:partner/app/modules/stores/stores_partner_repository.dart';
-import 'package:partner/app/presentation/styles/theme.dart';
 import 'package:flutter/material.dart';
 
 class StoresPartnerSubscriptionsScreen extends StatefulWidget {
@@ -19,7 +18,7 @@ class _StoresPartnerSubscriptionsScreenState
   List<Map<String, dynamic>> _rows = <Map<String, dynamic>>[];
   int _page = 1;
   int _totalPages = 1;
-  String _status = '';
+  final String _status = '';
 
   bool _demandLoading = true;
   String? _demandError;

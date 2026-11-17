@@ -1,4 +1,4 @@
-﻿/*
+/*
  * WeWorkLocal
  * Hyperlocal Commerce, Delivery & Service Platform
  *
@@ -446,7 +446,7 @@ class _PartnerInventoryScreenState extends State<PartnerInventoryScreen> {
       leading: image.isEmpty ? const CircleAvatar(child: Icon(Icons.water_drop_outlined)) : ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: Image.network(_imageUrl(image), width: 44, height: 44, fit: BoxFit.cover,
-          errorBuilder: (_, __, ___) => const CircleAvatar(child: Icon(Icons.broken_image_outlined))),
+          errorBuilder: (_, _, _) => const CircleAvatar(child: Icon(Icons.broken_image_outlined))),
       ),
       title: Text(name, style: Theme.of(context).textTheme.titleMedium),
       subtitle: Text(
@@ -1002,7 +1002,7 @@ class _SkuEditDialogState extends State<_SkuEditDialog> {
       'inStock': widget.quantity > 0 && _inStock,
       'stockAlertThreshold': alertThreshold,
       'status': _active,
-      if (mrp != null) 'mrp': mrp,
+      'mrp': ?mrp,
     });
   }
 

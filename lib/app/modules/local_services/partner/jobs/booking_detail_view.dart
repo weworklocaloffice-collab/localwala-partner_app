@@ -24,6 +24,7 @@ import 'package:partner/app/core/config/api_request_service.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:partner/app/modules/local_services/models/booking.dart';
+import 'package:partner/app/modules/local_services/partner/shared/ls_ui.dart';
 import 'package:partner/app/modules/local_services/models/quote.dart';
 import 'package:partner/app/modules/local_services/repository/provider_repository.dart';
 import 'package:partner/gen/l10n/app_localizations.dart';
@@ -311,22 +312,44 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : _error != null
-          ? Center(child: Text(_error!))
+          ? LsErrorState(message: _error!, onRetry: _load)
           : _booking == null
-          ? Center(child: Text(AppLocalizations.of(context)?.ls_not_found ?? 'Not found'))
+          ? LsEmptyState(
+              icon: Icons.work_outline,
+              title: AppLocalizations.of(context)?.ls_not_found ?? 'Not found',
+              subtitle: 'This booking could not be loaded.',
+            )
           : RefreshIndicator(
               onRefresh: _load,
               child: ListView(
                 padding: const EdgeInsets.all(12),
                 children: <Widget>[
-                  Card(
-                    child: ListTile(
-                      title: Text(_booking!.code),
-                      subtitle: Text(
-                        '${_booking!.status} · ${_booking!.bookingMode}\nLabour ₹${_booking!.labourAmount} · Parts ₹${_booking!.partsAmount}',
-                      ),
-                    ),
-                  ),
+                   Card(
+                     child: Padding(
+                       padding: const EdgeInsets.all(14),
+                       child: Column(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         children: <Widget>[
+                           Row(
+                             children: <Widget>[
+                               Expanded(
+                                 child: Text(
+                                   _booking!.code,
+                                   style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                                 ),
+                               ),
+                               LsStatusBadge(status: _booking!.status),
+                             ],
+                           ),
+                           const SizedBox(height: 6),
+                           Text(
+                             '${_booking!.bookingMode} · Labour ₹${_booking!.labourAmount} · Parts ₹${_booking!.partsAmount}',
+                             style: TextStyle(fontSize: 12, color: Theme.of(context).textTheme.bodySmall?.color),
+                           ),
+                         ],
+                       ),
+                     ),
+                   ),
                   const SizedBox(height: 8),
                   Text(
                     AppLocalizations.of(context)?.ls_actions ?? 'Actions',

@@ -18,6 +18,8 @@
 
 import 'package:partner/app/core/config/api_request_service.dart';
 import 'package:partner/app/modules/jhatka/partner/procurement/jhatka_procurement_repository.dart';
+import 'package:partner/app/modules/jhatka/partner/procurement/jhatka_receipt_decision_models.dart';
+import 'package:partner/app/modules/jhatka/partner/procurement/receipt_detail_screen.dart';
 import 'package:partner/app/modules/jhatka/partner/stock/receipt_create_screen.dart';
 import 'package:partner/app/presentation/styles/theme.dart';
 import 'package:partner/app/presentation/styles/widgets.dart';
@@ -26,7 +28,8 @@ import 'package:partner/gen/l10n/app_localizations.dart';
 
 /// Suppliers, purchase orders and receipts for the outlet.
 ///
-/// Draft POs are placed from here; draft receipts are posted from here.
+/// Draft POs are placed here; receipts open their detail screen, where every
+/// pending line needs a quality decision before posting.
 /// Posting is the point of no return for stock — batches, ledger, allocations
 /// and the PO advance commit together — so a refusal reloads state rather
 /// than optimistically flipping the row.
@@ -221,23 +224,40 @@ class _ProcurementScreenState extends State<ProcurementScreen> {
   }
 
   Widget _receiptTile(dynamic raw) {
-    final Map<String, dynamic> receipt = Map<String, dynamic>.from(raw as Map);
-    final String id = (receipt['id'] ?? receipt['_id'] ?? '').toString();
-    final String status = (receipt['status'] ?? '').toString();
-    final bool busy = _actingOn == 'rc:$id';
+    final Map<String, dynamic> rawReceipt = Map<String, dynamic>.from(
+      raw as Map,
+    );
+    final JhatkaReceipt receipt = JhatkaReceipt.fromJson(rawReceipt);
+    final AppLocalizations l10n = AppLocalizations.of(context)!;
+    final int pending = receipt.pendingLineCount;
+    final String quality = receipt.qualityStatus.isEmpty
+        ? '-'
+        : receipt.qualityStatus.replaceAll('_', ' ');
     return Card(
       child: ListTile(
-        title: Text('Receipt ${receipt['receiptNo'] ?? '—'}'),
-        subtitle: Text('${receipt['qualityStatus'] ?? ''} · $status'.trim()),
-        trailing: busy
-            ? _busy()
-            : status == 'draft'
-            ? TextButton(
-                onPressed: () =>
-                    _act('rc:$id', () => _repository.postReceipt(id)),
-                child: Text(AppLocalizations.of(context)!.jhatkaActionPost),
+        title: Text('Receipt ${receipt.receiptNo}'),
+        subtitle: Text('$quality - ${receipt.status}'),
+        trailing: receipt.isDraft
+            ? Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  if (pending > 0)
+                    StatusChip(
+                      label: '${l10n.jhatkaReceiptDecisionPending} $pending',
+                      color: AppColors.accent,
+                    ),
+                  const Icon(Icons.chevron_right),
+                ],
               )
-            : StatusChip(label: status, color: AppColors.grey),
+            : StatusChip(label: receipt.status, color: AppColors.grey),
+        onTap: () async {
+          final bool? changed = await Navigator.of(context).push<bool>(
+            MaterialPageRoute<bool>(
+              builder: (_) => ReceiptDecisionScreen(receipt: rawReceipt),
+            ),
+          );
+          if (changed == true && mounted) await _load();
+        },
       ),
     );
   }

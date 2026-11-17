@@ -9,6 +9,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:partner/app/modules/realestate/executive/leads/bloc/executive_leads_bloc.dart';
+import 'package:partner/app/modules/realestate/executive/lead_detail/executive_lead_detail_view.dart';
 import 'package:partner/app/modules/realestate/models/lead.dart';
 import 'package:partner/app/modules/realestate/models/lead_detail.dart';
 import 'package:partner/app/modules/realestate/repository/executive_repository.dart';
@@ -95,7 +96,11 @@ class ExecutiveLeadsScreen extends StatelessWidget {
                                 '${l10n.realEstateExecLeadSummary(lead.visitCount, lead.followUpCount)}',
                               ),
                               trailing: Text(lead.status ?? '—'),
-                              onTap: () => _showDetail(context, lead.id),
+                              onTap: () => Navigator.of(context).push(
+                                MaterialPageRoute<void>(
+                                  builder: (_) => ExecutiveLeadDetailScreen(leadId: lead.id),
+                                ),
+                              ),
                             );
                           },
                         ),
@@ -110,13 +115,7 @@ class ExecutiveLeadsScreen extends StatelessWidget {
     );
   }
 
-  void _showDetail(BuildContext context, String leadId) {
-    showModalBottomSheet<void>(
-      context: context,
-      showDragHandle: true,
-      builder: (_) => _LeadDetailSheet(leadId: leadId),
-    );
-  }
+
 }
 
 class _LeadDetailSheet extends StatefulWidget {

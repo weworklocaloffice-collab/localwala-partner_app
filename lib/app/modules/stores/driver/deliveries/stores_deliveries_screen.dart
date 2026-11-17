@@ -19,6 +19,7 @@
 import 'package:partner/app/presentation/styles/theme.dart';
 import 'package:partner/gen/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:partner/app/modules/stores/stores_partner_repository.dart';
 import 'package:partner/app/modules/stores/widgets/stores_ui_states.dart';
 
@@ -42,10 +43,15 @@ class StoresDeliveriesScreen extends StatefulWidget {
 
 class _StoresDeliveriesScreenState extends State<StoresDeliveriesScreen> {
   StoresDriverRepository? _repo;
+
+  /// Cached once per load. A bare `repo.deliveries()` inside `build` creates a new Future
+  /// on every rebuild, so tapping a status chip would re-hit the API just to redraw.
+  Future<Map<String, dynamic>>? _future;
   String? _status;
 
   static const List<String> _filters = <String>[
     'assigned',
+    'accepted',
     'picked_up',
     'out_for_delivery',
     'delivered',
@@ -56,14 +62,41 @@ class _StoresDeliveriesScreenState extends State<StoresDeliveriesScreen> {
   void initState() {
     super.initState();
     _repo = StoresDriverRepository();
+    _future = _repo!.deliveries();
   }
 
   void _reload() {
-    setState(() => _repo = StoresDriverRepository());
+    setState(() {
+      _repo = StoresDriverRepository();
+      _future = _repo!.deliveries();
+    });
+  }
+
+  /// Advances the delivery one step along the server's state machine
+  /// (`assigned → accepted → picked_up → out_for_delivery`). `delivered` is
+  /// deliberately unreachable here: BR-29 requires the customer OTP.
+  Future<void> _advance(
+    BuildContext context,
+    Map<String, dynamic> delivery,
+    String next,
+  ) async {
+    final StoresDriverRepository repo = _repo ?? StoresDriverRepository();
+    final ScaffoldMessengerState messenger = ScaffoldMessenger.of(context);
+    final String? id = delivery['_id']?.toString();
+    if (id == null) return;
+
+    try {
+      await repo.transition(id, next);
+      messenger.showSnackBar(
+        SnackBar(content: Text('Delivery marked ${next.replaceAll('_', ' ')}')),
+      );
+      _reload();
+    } on StoresApiException catch (e) {
+      messenger.showSnackBar(SnackBar(content: Text(e.message)));
+    }
   }
 
   Future<void> _verifyOtp(BuildContext context, Map<String, dynamic> delivery) async {
-    final AppLocalizations l10n = AppLocalizations.of(context)!;
     final StoresDriverRepository repo = _repo ?? StoresDriverRepository();
     final ScaffoldMessengerState messenger = ScaffoldMessenger.of(context);
     final String? id = delivery['_id']?.toString() ?? delivery['order']?.toString();
@@ -74,7 +107,7 @@ class _StoresDeliveriesScreenState extends State<StoresDeliveriesScreen> {
     final String? submitted = await showDialog<String>(
       context: context,
       builder: (BuildContext dialogContext) {
-    final AppLocalizations l10n = AppLocalizations.of(context)!;
+        final AppLocalizations l10n = AppLocalizations.of(context)!;
         return AlertDialog(
           title: Text(l10n.storesDialogCustomerHandover),
           content: Column(
@@ -119,7 +152,6 @@ class _StoresDeliveriesScreenState extends State<StoresDeliveriesScreen> {
   }
 
   Future<void> _fail(BuildContext context, Map<String, dynamic> delivery) async {
-    final AppLocalizations l10n = AppLocalizations.of(context)!;
     final StoresDriverRepository repo = _repo ?? StoresDriverRepository();
     final ScaffoldMessengerState messenger = ScaffoldMessenger.of(context);
     final String? id = delivery['_id']?.toString();
@@ -129,7 +161,7 @@ class _StoresDeliveriesScreenState extends State<StoresDeliveriesScreen> {
     final String? submitted = await showDialog<String>(
       context: context,
       builder: (BuildContext dialogContext) {
-    final AppLocalizations l10n = AppLocalizations.of(context)!;
+        final AppLocalizations l10n = AppLocalizations.of(context)!;
         return AlertDialog(
           title: Text(l10n.storesDialogReportFailure),
           content: TextField(
@@ -162,11 +194,197 @@ class _StoresDeliveriesScreenState extends State<StoresDeliveriesScreen> {
     }
   }
 
+  /// Per-status lifecycle controls, mirroring `DELIVERY_TRANSITIONS` on the
+  /// server (`assigned → accepted → picked_up → out_for_delivery`).
+  ///
+  /// The `out_for_delivery` row is the ONLY one that can complete: BR-29
+  /// requires the customer's OTP, so there is no bare "Delivered" button.
+  Widget? _actions(BuildContext context, Map<String, dynamic> row, String status) {
+    switch (status) {
+      case 'assigned':
+        return ElevatedButton(
+          onPressed: () => _advance(context, row, 'accepted'),
+          child: const Text('Accept'),
+        );
+      case 'accepted':
+        return ElevatedButton(
+          onPressed: () => _advance(context, row, 'picked_up'),
+          child: const Text('Pick up'),
+        );
+      case 'picked_up':
+        return ElevatedButton(
+          onPressed: () => _advance(context, row, 'out_for_delivery'),
+          child: const Text('Out for delivery'),
+        );
+      case 'out_for_delivery':
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            IconButton(
+              tooltip: 'Report failure',
+              onPressed: () => _fail(context, row),
+              icon: const Icon(Icons.report_gmailerrorred_outlined),
+            ),
+            IconButton(
+              tooltip: 'Customer OTP',
+              onPressed: () => _verifyOtp(context, row),
+              icon: const Icon(Icons.qr_code_scanner_outlined),
+            ),
+          ],
+        );
+      default:
+        return null;
+    }
+  }
+
+  /// The drop-off address lives on the ORDER, and the partner order routes are
+  /// `storeAuth`-scoped (a driver token cannot pass them). This sheet is the one place the
+  /// rider sees WHERE to go, fetched lazily on tap so the list stays a single request.
+  Future<void> _showOrder(
+    BuildContext context,
+    Map<String, dynamic> delivery,
+  ) async {
+    final StoresDriverRepository repo = _repo ?? StoresDriverRepository();
+    final String? id = delivery['_id']?.toString();
+    if (id == null) return;
+    final String status = '${delivery['status'] ?? ''}';
+
+    await showModalBottomSheet<void>(
+      context: context,
+      showDragHandle: true,
+      isScrollControlled: true,
+      builder: (BuildContext sheetContext) {
+        return SafeArea(
+          child: FutureBuilder<Map<String, dynamic>>(
+            future: repo.deliveryOrder(id),
+            builder:
+                (
+                  BuildContext context,
+                  AsyncSnapshot<Map<String, dynamic>> snapshot,
+                ) {
+                  if (snapshot.connectionState != ConnectionState.done) {
+                    return const SizedBox(
+                      height: 180,
+                      child: Center(child: CircularProgressIndicator()),
+                    );
+                  }
+                  if (snapshot.hasError) {
+                    return SizedBox(
+                      height: 220,
+                      child: StoresErrorView(error: snapshot.error),
+                    );
+                  }
+
+                  final Map<String, dynamic> order =
+                      (snapshot.data?['order'] as Map?)
+                          ?.cast<String, dynamic>() ??
+                      <String, dynamic>{};
+                  final Map<String, dynamic> address =
+                      (order['address'] as Map?)?.cast<String, dynamic>() ??
+                      <String, dynamic>{};
+                  final String addressText = <dynamic>[
+                    address['line1'],
+                    address['line2'],
+                    address['area'],
+                    address['locality'],
+                    address['city'],
+                    address['pincode'],
+                  ]
+                      .whereType<String>()
+                      .where((String part) => part.trim().isNotEmpty)
+                      .join(', ');
+                  final dynamic location = address['location'];
+                  final List<dynamic>? coordinates =
+                      location is Map ? location['coordinates'] as List<dynamic>? : null;
+                  final String? contact = address['contact']?.toString();
+                  final dynamic note = order['customerNote'];
+                  final num? cod = order['codAmount'] as num?;
+
+                  return SingleChildScrollView(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Text(
+                          'Order #${order['orderNo'] ?? ''}',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                        if (address['name'] != null) ...<Widget>[
+                          const SizedBox(height: 12),
+                          Text(
+                            'Deliver to: ${address['name']}',
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                        ],
+                        if (addressText.isNotEmpty) ...<Widget>[
+                          const SizedBox(height: 4),
+                          Text(addressText),
+                        ],
+                        if (contact != null) ...<Widget>[
+                          const SizedBox(height: 4),
+                          SelectableText('Contact: $contact'),
+                        ],
+                        const SizedBox(height: 12),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: <Widget>[
+                            Chip(label: Text('${order['paymentMode'] ?? ''}')),
+                            Chip(label: Text('${order['itemCount'] ?? 0} items')),
+                            if (order['grandTotal'] != null)
+                              Chip(label: Text('Total ${order['grandTotal']}')),
+                            if (cod != null && cod != 0)
+                              Chip(label: Text('Collect COD $cod')),
+                          ],
+                        ),
+                        if (note != null && '$note'.trim().isNotEmpty) ...<Widget>[
+                          const SizedBox(height: 12),
+                          Text(
+                            'Customer note: $note',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ],
+                        const SizedBox(height: 16),
+                        Row(
+                          children: <Widget>[
+                            if (coordinates != null && coordinates.length == 2)
+                              OutlinedButton.icon(
+                                onPressed: () => launchUrl(
+                                  Uri.parse(
+                                    'https://www.google.com/maps/search/?api=1&query='
+                                    '${coordinates[1]},${coordinates[0]}',
+                                  ),
+                                  mode: LaunchMode.externalApplication,
+                                ),
+                                icon: const Icon(Icons.map_outlined),
+                                label: const Text('Navigate'),
+                              ),
+                            const Spacer(),
+                            if (status == 'out_for_delivery')
+                              ElevatedButton.icon(
+                                onPressed: () {
+                                  Navigator.of(sheetContext).pop();
+                                  _verifyOtp(context, delivery);
+                                },
+                                icon: const Icon(Icons.qr_code_scanner_outlined),
+                                label: const Text('Handover OTP'),
+                              ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                },
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final AppLocalizations l10n = AppLocalizations.of(context)!;
-
-    final StoresDriverRepository repo = _repo ?? StoresDriverRepository();
 
     return Scaffold(
       appBar: AppBar(
@@ -189,8 +407,10 @@ class _StoresDeliveriesScreenState extends State<StoresDeliveriesScreen> {
                     label: Text(status.replaceAll('_', ' ')),
                     selected: _status == status,
                     onSelected: (bool selected) {
+                      // The list endpoint returns the driver's latest 50 with no server-side
+                      // status filter, so filtering is local - and therefore the chip must
+                      // NOT trigger a refetch.
                       setState(() => _status = selected ? status : null);
-                      _reload();
                     },
                   ),
                 );
@@ -199,14 +419,19 @@ class _StoresDeliveriesScreenState extends State<StoresDeliveriesScreen> {
           ),
           Expanded(
             child: StoresAsyncView<Map<String, dynamic>>(
-              future: repo.deliveries(status: _status),
+              future: _future!,
               builder: (BuildContext context, Map<String, dynamic> data) {
                 final dynamic raw = data['items'] ?? data['deliveries'] ?? data['results'] ?? data;
                 final List<Map<String, dynamic>> rows = raw is List
                     ? raw.whereType<Map<String, dynamic>>().toList()
                     : <Map<String, dynamic>>[];
+                final List<Map<String, dynamic>> visible = _status == null
+                    ? rows
+                    : rows
+                          .where((Map<String, dynamic> row) => '${row['status']}' == _status)
+                          .toList();
 
-                if (rows.isEmpty) {
+                if (visible.isEmpty) {
                   return const StoresEmptyView(
                     message: 'Nothing assigned right now.',
                     icon: Icons.list_alt_outlined,
@@ -214,37 +439,26 @@ class _StoresDeliveriesScreenState extends State<StoresDeliveriesScreen> {
                 }
 
                 return ListView.separated(
-                  itemCount: rows.length,
-                  separatorBuilder: (_, __) => const Divider(height: 1),
+                  itemCount: visible.length,
+                  separatorBuilder: (_, _) => const Divider(height: 1),
                   itemBuilder: (BuildContext context, int index) {
-                    final Map<String, dynamic> row = rows[index];
+                    final Map<String, dynamic> row = visible[index];
                     final String status = '${row['status'] ?? 'unknown'}';
+                    final String statusLabel = status.replaceAll('_', ' ');
                     final bool isCod = (row['codAmount'] ?? 0) != 0 || row['codStatus'] == 'pending';
 
                     return ListTile(
+                      onTap: () => _showOrder(context, row),
                       leading: Icon(
                         isCod ? Icons.payments_outlined : Icons.shopping_bag_outlined,
                         color: isCod ? AppColors.expirySoon : null,
                       ),
-                      title: Text('Delivery #${row['_id']?.toString().substring(0, 6) ?? '—'}'),
-                      subtitle: Text(isCod ? '$status · COD ${row['codAmount'] ?? 0}' : status),
-                      trailing: status == 'out_for_delivery'
-                          ? Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                IconButton(
-                                  tooltip: 'Report failure',
-                                  onPressed: () => _fail(context, row),
-                                  icon: const Icon(Icons.report_gmailerrorred_outlined),
-                                ),
-                                IconButton(
-                                  tooltip: 'Customer OTP',
-                                  onPressed: () => _verifyOtp(context, row),
-                                  icon: const Icon(Icons.qr_code_scanner_outlined),
-                                ),
-                              ],
-                            )
-                          : null,
+                      title: Text('Delivery #${row['_id']?.toString().substring(0, 6) ?? '-'}'),
+                      subtitle: Text(
+                        isCod ? '$statusLabel - COD ${row['codAmount'] ?? 0}' : statusLabel,
+                      ),
+                      isThreeLine: false,
+                      trailing: _actions(context, row, status),
                     );
                   },
                 );

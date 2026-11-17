@@ -63,7 +63,7 @@ class AuthKeys {
   String get dairyDriver => '_dairyDriverProfile';
   String get ownDeliveryPartner => '_dairyOwnDeliveryPartner';
   String get driverPayoutMode => '_dairyDriverPayoutMode';
-  String get activeDairyOutlet => '_activeDairyOutlet';
+  String get activeDairyOutlet => '_dairyActiveOutlet';
 
   /// Keys cleared on logout.
   List<String> get sessionScoped => <String>[

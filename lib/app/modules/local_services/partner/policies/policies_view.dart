@@ -18,6 +18,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:partner/app/core/config/api_request_service.dart';
+import 'package:partner/app/modules/local_services/partner/shared/ls_ui.dart';
 import 'package:partner/app/modules/local_services/repository/provider_repository.dart';
 import 'package:partner/gen/l10n/app_localizations.dart';
 
@@ -144,11 +145,11 @@ class _PoliciesScreenState extends State<PoliciesScreen> {
             const SizedBox(height: 8),
             _row(
               l10n?.ls_policy_cancellation ?? 'Cancellation',
-              '${_number(policy['cancellationCutoffHours'])}h A� ₹$fee',
+              '${_number(policy['cancellationCutoffHours'])}h • ₹$fee',
             ),
             _row(
               l10n?.ls_policy_reschedule ?? 'Reschedule',
-              '${_number(policy['rescheduleCutoffHours'])}h A� '
+              '${_number(policy['rescheduleCutoffHours'])}h • '
               '${l10n?.ls_limit ?? 'Limit'} '
               '${_number(policy['rescheduleCountLimit'])}',
             ),
@@ -159,7 +160,7 @@ class _PoliciesScreenState extends State<PoliciesScreen> {
             ),
             _row(
               l10n?.ls_policy_booking_window ?? 'Booking window',
-              '${_number(policy['advanceBookingDays'])}d A� '
+              '${_number(policy['advanceBookingDays'])}d • '
               '${l10n?.ls_min_notice ?? 'Min notice'} '
               '${_number(policy['minNoticeHours'])}h',
             ),
@@ -195,19 +196,7 @@ class _PoliciesScreenState extends State<PoliciesScreen> {
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : _error != null
-              ? Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Text(_error!, textAlign: TextAlign.center),
-                      const SizedBox(height: 8),
-                      TextButton(
-                        onPressed: _load,
-                        child: Text(l10n?.ls_retry ?? 'Retry'),
-                      ),
-                    ],
-                  ),
-                )
+               ? LsErrorState(message: _error!, onRetry: _load)
               : RefreshIndicator(
                   onRefresh: _load,
                   child: ListView(

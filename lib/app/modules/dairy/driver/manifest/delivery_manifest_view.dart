@@ -29,7 +29,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:partner/app/shell/role_gate/bloc/role_gate_bloc.dart';
-import 'package:partner/app/modules/jhatka/jhatka_media.dart';
+import 'package:partner/app/core/media/evidence_media.dart';
 
 /// Rider home. A run is assigned, never bid for, so this is a manifest with a
 /// progress bar rather than an inbox of offers (which is what
@@ -50,7 +50,7 @@ class DeliveryManifestScreen extends StatefulWidget {
 
 class _DeliveryManifestScreenState extends State<DeliveryManifestScreen> {
   final DeliveryRepository _deliveryRepository = DeliveryRepository();
-  final JhatkaMedia _media = JhatkaMedia();
+  final EvidenceMedia _media = EvidenceMedia();
   final OfflineDeliveryQueue _offlineQueue = OfflineDeliveryQueue();
   String? _pendingProofLocalPath;
   bool _loading = true;

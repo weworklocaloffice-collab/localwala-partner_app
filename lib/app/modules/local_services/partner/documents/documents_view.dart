@@ -20,6 +20,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:partner/app/core/config/api_request_service.dart';
 import 'package:partner/app/env.dart';
+import 'package:partner/app/modules/local_services/partner/shared/ls_ui.dart';
 import 'package:partner/app/modules/local_services/repository/provider_repository.dart';
 import 'package:partner/gen/l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -255,36 +256,18 @@ class _DocumentsScreenState extends State<DocumentsScreen> {
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : _error != null
-          ? Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text(_error!, textAlign: TextAlign.center),
-                  const SizedBox(height: 8),
-                  TextButton(onPressed: _load, child: Text(l10n?.ls_retry ?? 'Retry')),
-                ],
-              ),
-            )
+          ? LsErrorState(message: _error!, onRetry: _load)
           : Column(
               children: <Widget>[
                 if (_uploading) const LinearProgressIndicator(),
                 Expanded(
                   child: _documents.isEmpty
-                      ? Center(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              const Icon(Icons.folder_open, size: 48),
-                              const SizedBox(height: 12),
-                              Text(l10n?.ls_no_documents ?? 'No documents uploaded yet'),
-                              const SizedBox(height: 12),
-                              FilledButton.icon(
-                                onPressed: _uploading ? null : _upload,
-                                icon: const Icon(Icons.upload_file),
-                                label: Text(l10n?.ls_upload_document ?? 'Upload document'),
-                              ),
-                            ],
-                          ),
+                      ? LsEmptyState(
+                          icon: Icons.folder_open_outlined,
+                          title: l10n?.ls_no_documents ?? 'No documents yet',
+                          subtitle: 'Upload your verification documents to get approved.',
+                          actionLabel: l10n?.ls_upload_document ?? 'Upload document',
+                          onAction: _uploading ? null : _upload,
                         )
                       : RefreshIndicator(
                           onRefresh: _load,

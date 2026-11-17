@@ -16,11 +16,15 @@
  * strictly prohibited.
  */
 
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:partner/app/core/config/api_request_service.dart';
 import 'package:partner/app/env.dart';
 import 'package:partner/app/modules/local_services/models/provider.dart';
+import 'package:partner/app/modules/local_services/partner/shared/ls_ui.dart';
 import 'package:partner/app/modules/local_services/repository/provider_repository.dart';
 import 'package:partner/gen/l10n/app_localizations.dart';
 
@@ -45,11 +49,16 @@ class _OfferingsScreenState extends State<OfferingsScreen> {
   bool _saving = false;
   bool _loadingVariants = false;
   bool _uploadingImage = false;
+  double _imageProgress = 0.0;
   String? _error;
+  String? _categoryId;
+  String? _subcategoryId;
   String? _serviceId;
   String? _variantId;
   String? _imagePath;
   List<LsCatalogueService> _services = const <LsCatalogueService>[];
+  List<LsCatalogueCategory> _categories = const <LsCatalogueCategory>[];
+  List<LsCatalogueCategory> _subcategories = const <LsCatalogueCategory>[];
   List<LsCatalogueVariant> _variants = const <LsCatalogueVariant>[];
   List<LsOffering> _items = const <LsOffering>[];
 
@@ -72,22 +81,72 @@ class _OfferingsScreenState extends State<OfferingsScreen> {
       _error = null;
     });
     try {
-      final List<DioApiResponse> responses = await Future.wait(
-        <Future<DioApiResponse>>[
-          _repository.offerings(),
-          _repository.publicServices(),
-        ],
-      );
-      _ensureOk(responses[0]);
-      _ensureOk(responses[1]);
+      final DioApiResponse offeringsRes = await _repository.offerings();
+      _ensureOk(offeringsRes);
       final List<dynamic> offeringRows =
-          (decodeBody(responses[0])['results'] ?? <dynamic>[]) as List<dynamic>;
-      final List<dynamic> serviceRows =
-          (decodeBody(responses[1])['results'] ?? <dynamic>[]) as List<dynamic>;
+          (decodeBody(offeringsRes)['results'] ?? <dynamic>[]) as List<dynamic>;
+
+      // Fetch the full service catalogue (paginated) so it is not truncated at
+      // the first page.
+      final List<dynamic> serviceRows = <dynamic>[];
+      int page = 1;
+      bool hasMore = true;
+      while (hasMore) {
+        final DioApiResponse svcRes =
+            await _repository.publicServices(page: page, limit: 100);
+        _ensureOk(svcRes);
+        final Map<String, dynamic> body = decodeBody(svcRes);
+        final List<dynamic> rows =
+            (body['results'] ?? <dynamic>[]) as List<dynamic>;
+        serviceRows.addAll(rows);
+        hasMore = body['hasMore'] == true;
+        page++;
+        if (rows.isEmpty) break;
+      }
       final List<LsCatalogueService> services = serviceRows
           .whereType<Map<String, dynamic>>()
           .map(LsCatalogueService.fromJson)
-          .toList();
+          .toList()
+        ..sort((LsCatalogueService a, LsCatalogueService b) {
+          final int c = a.categoryKey.compareTo(b.categoryKey);
+          if (c != 0) return c;
+          return a.name.compareTo(b.name);
+        });
+      // Taxonomy is optional: if the categories endpoint is unavailable the
+      // catalogue still works as a flat service list.
+      List<LsCatalogueCategory> parentCategories =
+          const <LsCatalogueCategory>[];
+      List<LsCatalogueCategory> childCategories =
+          const <LsCatalogueCategory>[];
+      try {
+        final DioApiResponse categoriesRes =
+            await _repository.publicCategories();
+        if ((categoriesRes.statusCode ?? 0) < 400) {
+          final List<dynamic> categoryRows =
+              (decodeBody(categoriesRes)['results'] ?? <dynamic>[])
+                  as List<dynamic>;
+          final List<LsCatalogueCategory> categories = categoryRows
+              .whereType<Map<String, dynamic>>()
+              .map(LsCatalogueCategory.fromJson)
+              .toList();
+          parentCategories = categories
+              .where((LsCatalogueCategory c) => c.parent.isEmpty)
+              .toList()
+            ..sort(
+              (LsCatalogueCategory a, LsCatalogueCategory b) =>
+                  a.name.compareTo(b.name),
+            );
+          childCategories = categories
+              .where((LsCatalogueCategory c) => c.parent.isNotEmpty)
+              .toList()
+            ..sort(
+              (LsCatalogueCategory a, LsCatalogueCategory b) =>
+                  a.name.compareTo(b.name),
+            );
+        }
+      } catch (_) {
+        // Keep the flat catalogue when taxonomy cannot be loaded.
+      }
       final bool selectedExists = services.any(
         (LsCatalogueService s) => s.id == _serviceId,
       );
@@ -97,7 +156,26 @@ class _OfferingsScreenState extends State<OfferingsScreen> {
             .map(LsOffering.fromJson)
             .toList();
         _services = services;
+        _categories = parentCategories;
+        _subcategories = childCategories;
+        if (!_categories.any(
+          (LsCatalogueCategory c) => c.id == _categoryId,
+        )) {
+          _categoryId = null;
+          _subcategoryId = null;
+        }
+        if (!_subcategories.any(
+          (LsCatalogueCategory c) => c.id == _subcategoryId,
+        )) {
+          _subcategoryId = null;
+        }
         if (!selectedExists) {
+          _serviceId = null;
+          _variantId = null;
+          _variants = const <LsCatalogueVariant>[];
+        } else if (!_filteredServices.any(
+          (LsCatalogueService s) => s.id == _serviceId,
+        )) {
           _serviceId = null;
           _variantId = null;
           _variants = const <LsCatalogueVariant>[];
@@ -165,6 +243,72 @@ class _OfferingsScreenState extends State<OfferingsScreen> {
     }
   }
 
+  void _selectCategory(String? id) {
+    setState(() {
+      _categoryId = id;
+      _subcategoryId = null;
+      _serviceId = null;
+      _variantId = null;
+      _variants = const <LsCatalogueVariant>[];
+    });
+  }
+
+  void _selectSubcategory(String? id) {
+    setState(() {
+      _subcategoryId = id;
+      _serviceId = null;
+      _variantId = null;
+      _variants = const <LsCatalogueVariant>[];
+    });
+  }
+
+  List<LsCatalogueCategory> get _childCategories {
+    final String? categoryId = _categoryId;
+    if (categoryId == null) return const <LsCatalogueCategory>[];
+    return _subcategories
+        .where((LsCatalogueCategory c) => c.parent == categoryId)
+        .toList();
+  }
+
+  void _collectDescendants(String parentId, Set<String> out) {
+    for (final LsCatalogueCategory category in _subcategories) {
+      if (category.parent == parentId && out.add(category.id)) {
+        _collectDescendants(category.id, out);
+      }
+    }
+  }
+
+  List<LsCatalogueService> get _filteredServices {
+    final String? categoryId = _subcategoryId ?? _categoryId;
+    if (categoryId == null || categoryId.isEmpty) {
+      return _services;
+    }
+    final Set<String> allowed = <String>{categoryId};
+    _collectDescendants(categoryId, allowed);
+    return _services
+        .where((LsCatalogueService s) => allowed.contains(s.category))
+        .toList();
+  }
+
+  String _categoryLabel(String categoryId) {
+    for (final LsCatalogueCategory category in _categories) {
+      if (category.id == categoryId) return category.name;
+    }
+    for (final LsCatalogueCategory category in _subcategories) {
+      if (category.id == categoryId) return category.name;
+    }
+    return '';
+  }
+
+  String _serviceLabel(LsCatalogueService service) {
+    final String resolved = _categoryLabel(service.category);
+    final String category =
+        resolved.isNotEmpty ? resolved : service.categoryKey;
+    return category.isEmpty
+        ? '${service.name} · ${service.pricingMode}'
+        : '${service.name} · $category · ${service.pricingMode}';
+  }
+
   Future<XFile?> _pickOfferingPhoto() async {
     final AppLocalizations? l10n = AppLocalizations.of(context);
     final ImageSource? source = await showModalBottomSheet<ImageSource>(
@@ -199,12 +343,13 @@ class _OfferingsScreenState extends State<OfferingsScreen> {
     }
   }
 
-  Future<String?> _uploadOfferingPhoto(XFile photo) async {
+  Future<String?> _uploadOfferingPhoto(XFile photo, {void Function(int sent, int total)? onSendProgress}) async {
     final AppLocalizations? l10n = AppLocalizations.of(context);
     try {
       final DioApiResponse response = await _repository.uploadOfferingImage(
         filePath: photo.path,
         filename: photo.name,
+        onSendProgress: onSendProgress,
       );
       _ensureOk(response);
       final Map<String, dynamic> upload = decodeBody(response);
@@ -222,8 +367,33 @@ class _OfferingsScreenState extends State<OfferingsScreen> {
   Future<void> _addImage() async {
     final XFile? photo = await _pickOfferingPhoto();
     if (photo == null || !mounted) return;
-    setState(() => _uploadingImage = true);
-    final String? path = await _uploadOfferingPhoto(photo);
+    // Compress to keep uploads under the 10 MB server cap.
+    XFile uploadPhoto = photo;
+    try {
+      final Directory tmp = await getTemporaryDirectory();
+      final String target = '${tmp.path}/offering_${DateTime.now().millisecondsSinceEpoch}.jpg';
+      final XFile? compressed = await FlutterImageCompress.compressAndGetFile(
+        photo.path,
+        target,
+        quality: 80,
+        minWidth: 1600,
+      );
+      if (compressed != null) uploadPhoto = compressed;
+    } catch (_) {
+      // fall back to original
+    }
+    if (!mounted) return;
+    setState(() {
+      _uploadingImage = true;
+      _imageProgress = 0.0;
+    });
+    final String? path = await _uploadOfferingPhoto(
+      uploadPhoto,
+      onSendProgress: (int sent, int total) {
+        if (!mounted || total <= 0) return;
+        setState(() => _imageProgress = sent / total);
+      },
+    );
     if (!mounted) return;
     setState(() {
       if (path != null) _imagePath = path;
@@ -242,6 +412,10 @@ class _OfferingsScreenState extends State<OfferingsScreen> {
 
   Future<void> _create() async {
     final AppLocalizations? l10n = AppLocalizations.of(context);
+    if (_categories.isNotEmpty && _categoryId == null) {
+      _show('Choose a category first');
+      return;
+    }
     final LsCatalogueService? service = _serviceById(_serviceId);
     final double? price = double.tryParse(_price.text.trim());
     if (service == null || price == null) {
@@ -477,6 +651,64 @@ class _OfferingsScreenState extends State<OfferingsScreen> {
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 12),
+                if (_categories.isNotEmpty) ...<Widget>[
+                  InputDecorator(
+                    decoration: const InputDecoration(
+                      labelText: 'Category',
+                      border: OutlineInputBorder(),
+                    ),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: _categoryId,
+                        isExpanded: true,
+                        hint: const Text('Choose a category'),
+                        items: _categories
+                            .map(
+                              (LsCatalogueCategory category) =>
+                                  DropdownMenuItem<String>(
+                                    value: category.id,
+                                    child: Text(
+                                      category.name,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                            )
+                            .toList(),
+                        onChanged: _selectCategory,
+                      ),
+                    ),
+                  ),
+                  if (_categoryId != null && _childCategories.isNotEmpty) ...<Widget>[
+                    const SizedBox(height: 12),
+                    InputDecorator(
+                      decoration: const InputDecoration(
+                        labelText: 'Subcategory (optional)',
+                        border: OutlineInputBorder(),
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: _subcategoryId,
+                          isExpanded: true,
+                          hint: const Text('All subcategories'),
+                          items: _childCategories
+                              .map(
+                                (LsCatalogueCategory category) =>
+                                    DropdownMenuItem<String>(
+                                      value: category.id,
+                                      child: Text(
+                                        category.name,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                              )
+                              .toList(),
+                          onChanged: _selectSubcategory,
+                        ),
+                      ),
+                    ),
+                  ],
+                  const SizedBox(height: 12),
+                ],
                 InputDecorator(
                   decoration: InputDecoration(
                     labelText: AppLocalizations.of(context)?.ls_service ?? 'Service',
@@ -486,20 +718,26 @@ class _OfferingsScreenState extends State<OfferingsScreen> {
                     child: DropdownButton<String>(
                       value: _serviceId,
                       isExpanded: true,
-                       hint: Text(AppLocalizations.of(context)?.ls_choose_service ?? 'Choose a service'),
-                      items: _services
+                      hint: Text(
+                        _categories.isNotEmpty && _categoryId == null
+                            ? 'Choose a category first'
+                            : AppLocalizations.of(context)?.ls_choose_service ?? 'Choose a service',
+                      ),
+                      items: _filteredServices
                           .map(
                             (LsCatalogueService service) =>
                                 DropdownMenuItem<String>(
                                   value: service.id,
                                   child: Text(
-                                    '${service.name} · ${service.pricingMode}',
+                                    _serviceLabel(service),
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
                           )
                           .toList(),
-                      onChanged: _selectService,
+                      onChanged: (_categories.isNotEmpty && _categoryId == null)
+                          ? null
+                          : _selectService,
                     ),
                   ),
                 ),
@@ -620,10 +858,10 @@ class _OfferingsScreenState extends State<OfferingsScreen> {
                       ),
                     ],
                   ),
-                if (_uploadingImage) ...<Widget>[
-                  const SizedBox(height: 8),
-                  const LinearProgressIndicator(),
-                ],
+                 if (_uploadingImage) ...<Widget>[
+                   const SizedBox(height: 8),
+                   LinearProgressIndicator(value: _imageProgress > 0 ? _imageProgress : null),
+                 ],
               ],
             ),
           ),
@@ -631,19 +869,15 @@ class _OfferingsScreenState extends State<OfferingsScreen> {
         Expanded(
           child: _loading
               ? const Center(child: CircularProgressIndicator())
-              : _error != null
-              ? Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Text(_error!, textAlign: TextAlign.center),
-                      TextButton(onPressed: _load, child: Text(AppLocalizations.of(context)?.ls_retry ?? 'Retry')),
-                    ],
-                  ),
-                )
-              : _items.isEmpty
-              ? Center(child: Text(AppLocalizations.of(context)?.ls_no_offerings ?? 'No offerings yet'))
-              : RefreshIndicator(
+               : _error != null
+               ? LsErrorState(message: _error!, onRetry: _load)
+               : _items.isEmpty
+               ? LsEmptyState(
+                   icon: Icons.storefront_outlined,
+                   title: AppLocalizations.of(context)?.ls_no_offerings ?? 'No offerings yet',
+                   subtitle: 'Publish your first offering above.',
+                 )
+               : RefreshIndicator(
                   onRefresh: _load,
                   child: ListView.builder(
                     itemCount: _items.length,
@@ -655,46 +889,69 @@ class _OfferingsScreenState extends State<OfferingsScreen> {
                       final String variantName = o.variantName.isEmpty
                           ? ''
                           : ' · ${o.variantName}';
-                      return ListTile(
-                        leading: o.image.isEmpty
-                            ? const Icon(Icons.miscellaneous_services_outlined)
-                            : ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.network(
-                                  _resolveImageUrl(o.image),
-                                  width: 44,
-                                  height: 44,
-                                  fit: BoxFit.cover,
-                                  errorBuilder:
-                                      (
-                                        BuildContext context,
-                                        Object error,
-                                        StackTrace? stack,
-                                      ) => const Icon(
-                                        Icons.broken_image_outlined,
-                                      ),
-                                ),
-                              ),
-                        title: Text('$serviceName$variantName'),
-                        subtitle: Text(
-                          '₹${o.price} · ${o.durationMinutes} min · ${o.status}',
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            IconButton(
-                              onPressed: () => _edit(o),
-                              icon: const Icon(Icons.edit_outlined),
-                              tooltip: AppLocalizations.of(context)?.ls_edit_price ?? 'Edit price',
-                            ),
-                            if (o.status == 'draft')
-                              TextButton(
-                                onPressed: () => _submit(o),
-                                child: Text(AppLocalizations.of(context)?.ls_submit ?? 'SUBMIT'),
-                              ),
-                          ],
-                        ),
-                      );
+                       return Card(
+                         margin: const EdgeInsets.only(bottom: 8),
+                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                         child: Padding(
+                           padding: const EdgeInsets.all(12),
+                           child: Column(
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: <Widget>[
+                               Row(
+                                 children: <Widget>[
+                                   o.image.isEmpty
+                                       ? const Icon(Icons.miscellaneous_services_outlined)
+                                       : ClipRRect(
+                                           borderRadius: BorderRadius.circular(8),
+                                           child: Image.network(
+                                             _resolveImageUrl(o.image),
+                                             width: 44,
+                                             height: 44,
+                                             fit: BoxFit.cover,
+                                             errorBuilder:
+                                                 (
+                                                   BuildContext context,
+                                                   Object error,
+                                                   StackTrace? stack,
+                                                 ) => const Icon(
+                                                   Icons.broken_image_outlined,
+                                                 ),
+                                           ),
+                                         ),
+                                   const SizedBox(width: 12),
+                                   Expanded(
+                                     child: Column(
+                                       crossAxisAlignment: CrossAxisAlignment.start,
+                                       children: <Widget>[
+                                         Text('$serviceName$variantName', style: const TextStyle(fontWeight: FontWeight.w600)),
+                                         const SizedBox(height: 2),
+                                         Text('₹${o.price} · ${o.durationMinutes} min', style: const TextStyle(fontSize: 12)),
+                                       ],
+                                     ),
+                                   ),
+                                   LsStatusBadge(status: o.status),
+                                 ],
+                               ),
+                               const SizedBox(height: 8),
+                               Row(
+                                 mainAxisAlignment: MainAxisAlignment.end,
+                                 children: <Widget>[
+                                   IconButton(
+                                     onPressed: () => _edit(o),
+                                     icon: const Icon(Icons.edit_outlined),
+                                     tooltip: AppLocalizations.of(context)?.ls_edit_price ?? 'Edit price',
+                                   ),
+                                   if (o.status == 'draft')
+                                     TextButton(
+                                       onPressed: () => _submit(o),
+                                       child: Text(AppLocalizations.of(context)?.ls_submit ?? 'SUBMIT'),
+                                     ),
+                                 ],
+                               ),
+                             ],
+                           ),
+                         ),
+                       );
                     },
                   ),
                 ),

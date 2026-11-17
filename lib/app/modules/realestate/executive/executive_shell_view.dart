@@ -1,4 +1,4 @@
-﻿/*
+/*
  * WeWorkLocal
  * Hyperlocal Commerce, Delivery & Service Platform
  *

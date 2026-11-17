@@ -56,14 +56,13 @@ class _ManualLine {
     required this.variant,
     required this.name,
     required this.price,
-    this.quantity = 1,
   });
 
   final String product;
   final String variant;
   final String name;
   final num price;
-  int quantity;
+  late int quantity;
 
   num get lineTotal => price * quantity;
 }
@@ -229,7 +228,7 @@ class _StoresManualOrderScreenState extends State<StoresManualOrderScreen> {
       }
       if (nextVariantId == null || nextVariantId.isEmpty) return;
 
-      final Map<String, dynamic>? chosen = variants.firstWhere(
+      final Map<String, dynamic> chosen = variants.firstWhere(
         (Map<String, dynamic> v) => _idOf(v) == nextVariantId,
         orElse: () => variants.first,
       );
@@ -245,8 +244,8 @@ class _StoresManualOrderScreenState extends State<StoresManualOrderScreen> {
             _ManualLine(
               product: productId,
               variant: variantKey,
-              name: '${chosen?['name'] ?? product['name'] ?? ''}',
-              price: (chosen?['price'] as num?) ?? 0,
+              name: '${chosen['name'] ?? product['name'] ?? ''}',
+              price: (chosen['price'] as num?) ?? 0,
             ),
           );
         }

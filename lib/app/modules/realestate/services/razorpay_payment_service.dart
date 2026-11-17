@@ -8,4 +8,6 @@
 
 /// Backward-compatible export. Checkout is shared infrastructure, so active
 /// screens should import the neutral `app/core/services` path directly.
+library;
+
 export 'package:partner/app/core/services/razorpay_payment_service.dart';

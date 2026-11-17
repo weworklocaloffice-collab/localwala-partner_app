@@ -30,6 +30,8 @@ class LocalServicesPartnerEndpoints {
   //// Onboarding ////
   static const String register = 'v1/local-services/partner/providers';
   static const String myProvider = 'v1/local-services/partner/providers';
+  static const String providerTypes =
+      'v1/local-services/partner/provider-types';
   static const String updateProvider =
       'v1/local-services/partner/providers/{id}';
   static const String submitProvider =
@@ -44,6 +46,9 @@ class LocalServicesPartnerEndpoints {
   static const String publicServices = 'v1/local-services/public/services';
   static const String publicServiceDetail =
       'v1/local-services/public/services/{id}';
+  static const String publicCategories = 'v1/local-services/public/categories';
+  static const String publicSubcategories =
+      'v1/local-services/public/categories/{id}/subcategories';
 
   //// Jobs (bookings) ////
   static const String bookings = 'v1/local-services/partner/bookings';
@@ -62,7 +67,8 @@ class LocalServicesPartnerEndpoints {
       'v1/local-services/partner/quotes/{id}/revise';
 
   //// Leads (open board; qualify claims + charges lead fee) ////
-  static const String leads = 'v1/local-services/leads?mine=false';
+  static const String leads =
+      'v1/local-services/partner/leads?mine=false&status=NEW';
   static const String leadQualify = 'v1/local-services/leads/{id}/qualify';
   static const String leadInvalidate =
       'v1/local-services/leads/{id}/invalidate';
@@ -70,9 +76,10 @@ class LocalServicesPartnerEndpoints {
   static const String quotes = 'v1/local-services/partner/quotes';
   //// Recurring agreements ////
   static const String settlements = 'v1/local-services/partner/settlements';
+  static const String recurring = 'v1/local-services/partner/recurring';
   static const String recurringStatus =
       'v1/local-services/recurring/{id}/{status}';
-  static const String occurrences = 'v1/local-services/occurrences';
+  static const String occurrences = 'v1/local-services/partner/occurrences';
 
   //// Staff, resources & availability ////
   static const String staff = 'v1/local-services/partner/staff';
@@ -90,7 +97,7 @@ class LocalServicesPartnerEndpoints {
   static const String earnings = 'v1/local-services/partner/earnings';
 
   //// Subscriptions ////
-  static const String subscriptions = 'v1/local-services/partner/subscriptions';
+  static const String subscriptions = 'v1/local-services/subscriptions';
 
   //// Marketing ////
   static const String marketingPackages =

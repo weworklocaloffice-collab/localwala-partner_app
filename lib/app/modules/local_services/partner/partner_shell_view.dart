@@ -16,7 +16,9 @@
  * strictly prohibited.
  */
 
+import 'package:partner/app/core/config/api_request_service.dart';
 import 'package:partner/app/core/models/user_session_model.dart';
+import 'package:partner/app/modules/local_services/repository/provider_repository.dart';
 import 'package:partner/app/modules/local_services/partner/documents/documents_view.dart';
 import 'package:partner/app/modules/local_services/partner/leads/leads_view.dart';
 import 'package:partner/app/modules/local_services/partner/quotes/quotes_view.dart';
@@ -60,7 +62,39 @@ class LocalServicesPartnerShellScreen extends StatefulWidget {
 
 class _LocalServicesPartnerShellScreenState
     extends State<LocalServicesPartnerShellScreen> {
+  final LocalServicesProviderRepository _providerRepository =
+      LocalServicesProviderRepository();
+
   int _index = 0;
+  bool _checkingProvider = true;
+  bool _needsOnboarding = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkProvider();
+  }
+
+  Future<void> _checkProvider() async {
+    final DioApiResponse response = await _providerRepository.myProvider();
+    bool needsOnboarding =
+        response.statusCode == 404 ||
+        response.errorType == NetErrorType.notFound;
+    if (!needsOnboarding && response.statusCode == 200) {
+      final dynamic body = decodeBody(response);
+      final dynamic provider = body is Map ? body['provider'] : null;
+      final String status = provider is Map
+          ? (provider['status'] ?? '').toString()
+          : '';
+      needsOnboarding =
+          status.isNotEmpty && status != 'ACTIVE' && status != 'APPROVED';
+    }
+    if (!mounted) return;
+    setState(() {
+      _checkingProvider = false;
+      _needsOnboarding = needsOnboarding;
+    });
+  }
 
   Future<void> _openMore() async {
     final int? selected = await showModalBottomSheet<int>(
@@ -78,7 +112,26 @@ class _LocalServicesPartnerShellScreenState
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
               ),
-              for (final _MoreEntry entry in _moreEntries)
+              _moreSectionHeader(sheetContext, 'Operations'),
+              for (final _MoreEntry entry in _moreEntries.where((e) => <int>[5, 6, 7, 8, 9, 10].contains(e.index)))
+                ListTile(
+                  leading: Icon(entry.icon),
+                  title: Text(_moreEntryLabel(sheetContext, entry)),
+                  trailing:
+                      _index == entry.index ? const Icon(Icons.check) : null,
+                  onTap: () => Navigator.of(sheetContext).pop(entry.index),
+                ),
+              _moreSectionHeader(sheetContext, 'Catalogue'),
+              for (final _MoreEntry entry in _moreEntries.where((e) => <int>[11, 12, 13, 14].contains(e.index)))
+                ListTile(
+                  leading: Icon(entry.icon),
+                  title: Text(_moreEntryLabel(sheetContext, entry)),
+                  trailing:
+                      _index == entry.index ? const Icon(Icons.check) : null,
+                  onTap: () => Navigator.of(sheetContext).pop(entry.index),
+                ),
+              _moreSectionHeader(sheetContext, 'Settings & more'),
+              for (final _MoreEntry entry in _moreEntries.where((e) => <int>[15, 16, 17, 18, 19, 20, 21, 22].contains(e.index)))
                 ListTile(
                   leading: Icon(entry.icon),
                   title: Text(_moreEntryLabel(sheetContext, entry)),
@@ -98,9 +151,20 @@ class _LocalServicesPartnerShellScreenState
 
   @override
   Widget build(BuildContext context) {
+    if (_checkingProvider) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+    if (_needsOnboarding) {
+      return Scaffold(
+        body: SafeArea(
+          child: OnboardingScreen(session: widget.gate.session),
+        ),
+      );
+    }
     return Scaffold(
-      body: IndexedStack(
-        index: _index,
+      body: SafeArea(
+        child: IndexedStack(
+          index: _index,
         // Not `const`: the list ends with a ProfileScreen built from `widget.gate.session`,
 // which is not a compile-time constant.
         children: <Widget>[
@@ -119,7 +183,7 @@ class _LocalServicesPartnerShellScreenState
           DocumentsScreen(),
           VariantsScreen(),
           AddonsScreen(),
-          OnboardingScreen(),
+          OnboardingScreen(session: widget.gate.session),
           ProfileScreen(
             session: widget.gate.session ?? const UserSessionModel(id: ''),
           ),
@@ -129,9 +193,10 @@ class _LocalServicesPartnerShellScreenState
           const ReviewsScreen(),
           const SupportScreen(),
           const MarketingScreen(),
-        ],
+         ],
+       ),
       ),
-      bottomNavigationBar: NavigationBar(
+       bottomNavigationBar: NavigationBar(
         selectedIndex: _index <= 4 ? _index : 5,
         onDestinationSelected: (int i) {
           if (i == 5) {
@@ -177,6 +242,21 @@ class _MoreEntry {
   final int index;
   final IconData icon;
   final String label;
+}
+
+Widget _moreSectionHeader(BuildContext context, String title) {
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
+    child: Text(
+      title,
+      style: TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w700,
+        color: Theme.of(context).colorScheme.primary,
+        letterSpacing: 0.5,
+      ),
+    ),
+  );
 }
 
 String _moreEntryLabel(BuildContext context, _MoreEntry entry) {

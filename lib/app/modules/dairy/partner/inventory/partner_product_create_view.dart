@@ -369,7 +369,7 @@ class _PartnerProductCreateScreenState
                   ),
                   const SizedBox(height: 12),
                   DropdownButtonFormField<String>(
-                    value: _selectedCategory,
+                    initialValue: _selectedCategory,
                     decoration: const InputDecoration(labelText: 'Admin category'),
                     items: _categories.map((Map<String, dynamic> category) {
                       final String? id = _id(category);
@@ -389,7 +389,7 @@ class _PartnerProductCreateScreenState
                   ),
                   const SizedBox(height: 12),
                   DropdownButtonFormField<String>(
-                    value: _selectedSubCategory,
+                    initialValue: _selectedSubCategory,
                     decoration: InputDecoration(
                       labelText: _loadingSubCategories ? 'Loading sub-categories…' : 'Sub-category (optional)',
                     ),
@@ -406,7 +406,7 @@ class _PartnerProductCreateScreenState
                   ),
                   const SizedBox(height: 12),
                   DropdownButtonFormField<String>(
-                    value: _selectedBrand,
+                    initialValue: _selectedBrand,
                     decoration: const InputDecoration(labelText: 'Brand (optional)'),
                     items: <DropdownMenuItem<String>>[
                       const DropdownMenuItem<String>(value: null, child: Text('No brand')),
@@ -440,7 +440,7 @@ class _PartnerProductCreateScreenState
                       const SizedBox(width: 12),
                       Expanded(
                         child: DropdownButtonFormField<String>(
-                          value: _unit,
+                          initialValue: _unit,
                           decoration: const InputDecoration(labelText: 'Unit'),
                           items: const <DropdownMenuItem<String>>[
                             DropdownMenuItem(value: 'litre', child: Text('litre')),

@@ -63,6 +63,9 @@ class LocalServicesProviderRepository {
   Future<DioApiResponse> myProvider() =>
       _get(LocalServicesPartnerEndpoints.myProvider);
 
+  Future<DioApiResponse> providerTypes() =>
+      _get(LocalServicesPartnerEndpoints.providerTypes);
+
   Future<DioApiResponse> updateProvider(
     String id,
     Map<String, dynamic> payload,
@@ -99,13 +102,23 @@ class LocalServicesProviderRepository {
     payload,
   );
 
-  Future<DioApiResponse> publicServices() =>
-      _get(LocalServicesPartnerEndpoints.publicServices);
+  Future<DioApiResponse> publicServices({int page = 1, int limit = 100}) =>
+      _get('${LocalServicesPartnerEndpoints.publicServices}?page=$page&limit=$limit');
 
   Future<DioApiResponse> publicServiceDetail(String id) => _get(
     LocalServicesPartnerEndpoints.resolve(
       LocalServicesPartnerEndpoints.publicServiceDetail,
       <String, String>{'id': id},
+    ),
+  );
+
+  Future<DioApiResponse> publicCategories() =>
+      _get(LocalServicesPartnerEndpoints.publicCategories);
+
+  Future<DioApiResponse> publicSubcategories(String parentId) => _get(
+    LocalServicesPartnerEndpoints.resolve(
+      LocalServicesPartnerEndpoints.publicSubcategories,
+      <String, String>{'id': parentId},
     ),
   );
 
@@ -119,11 +132,13 @@ class LocalServicesProviderRepository {
   Future<DioApiResponse> uploadOfferingImage({
     required String filePath,
     required String filename,
+    void Function(int sent, int total)? onSendProgress,
   }) async => ApiRequestService.uploadFile(
     'v1/file/uploadImage/',
     filePath: filePath,
     filename: filename,
     token: await _auth.authToken(),
+    onSendProgress: onSendProgress,
   );
 
   //// Jobs ////
@@ -244,12 +259,17 @@ class LocalServicesProviderRepository {
   Future<DioApiResponse> uploadDocumentFile({
     required String filePath,
     required String filename,
+    void Function(int sent, int total)? onSendProgress,
   }) async => ApiRequestService.uploadFile(
     'v1/file/uploadImage/',
     filePath: filePath,
     filename: filename,
     token: await _auth.authToken(),
+    onSendProgress: onSendProgress,
   );
+
+  Future<DioApiResponse> availability() =>
+      _get(LocalServicesPartnerEndpoints.availability);
 
   Future<DioApiResponse> saveAvailability(Map<String, dynamic> payload) =>
       _post(LocalServicesPartnerEndpoints.availability, payload);
@@ -298,7 +318,11 @@ class LocalServicesProviderRepository {
   Future<DioApiResponse> occurrences() =>
       _get(LocalServicesPartnerEndpoints.occurrences);
 
-  Future<DioApiResponse> recurring() => occurrences();
+  Future<DioApiResponse> recurring({String? status}) => _get(
+    status == null || status.isEmpty
+        ? LocalServicesPartnerEndpoints.recurring
+        : '${LocalServicesPartnerEndpoints.recurring}?status=$status',
+  );
 
   Future<DioApiResponse> settlements({String? status}) => _get(
     status == null || status.isEmpty

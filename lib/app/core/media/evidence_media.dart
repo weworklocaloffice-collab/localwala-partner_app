@@ -27,8 +27,8 @@ import 'package:partner/app/core/repositories/auth_repository.dart';
 /// (multipart field `fileName`, responds `{ path }`) and the returned path is
 /// what gets attached. Picking lives here so no screen touches Dio or the
 /// picker directly.
-class JhatkaMedia {
-  JhatkaMedia({AuthRepository? authRepository})
+class EvidenceMedia {
+  EvidenceMedia({AuthRepository? authRepository})
     : _authRepository = authRepository ?? AuthRepository();
 
   final AuthRepository _authRepository;

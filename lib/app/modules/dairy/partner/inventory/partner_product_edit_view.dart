@@ -104,7 +104,7 @@ class _PartnerProductEditScreenState extends State<PartnerProductEditScreen> {
       const SizedBox(height: 8),
       Wrap(spacing: 8, runSpacing: 8, children: <Widget>[
         ..._images.asMap().entries.map((MapEntry<int, String> entry) => Stack(children: <Widget>[
-          ClipRRect(borderRadius: BorderRadius.circular(10), child: Image.network(_url(entry.value), width: 92, height: 92, fit: BoxFit.cover, errorBuilder: (_, __, ___) => Container(width: 92, height: 92, color: Theme.of(context).colorScheme.surfaceContainerHighest, child: const Icon(Icons.broken_image_outlined)))),
+          ClipRRect(borderRadius: BorderRadius.circular(10), child: Image.network(_url(entry.value), width: 92, height: 92, fit: BoxFit.cover, errorBuilder: (_, _, _) => Container(width: 92, height: 92, color: Theme.of(context).colorScheme.surfaceContainerHighest, child: const Icon(Icons.broken_image_outlined)))),
           Positioned(right: 0, top: 0, child: IconButton.filledTonal(onPressed: _saving ? null : () => setState(() => _images.removeAt(entry.key)), icon: const Icon(Icons.close, size: 16))),
         ])),
         if (_images.length < 5) OutlinedButton.icon(onPressed: _uploading ? null : _addImages, icon: const Icon(Icons.add_a_photo_outlined), label: const Text('Add photo')),

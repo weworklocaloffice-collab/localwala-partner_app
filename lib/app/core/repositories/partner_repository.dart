@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'package:partner/app/core/config/api_endpoints.dart';
 import 'package:partner/app/core/config/api_request_service.dart';
@@ -84,8 +84,8 @@ class PartnerRepository {
 
   Future<DioApiResponse> dairySalesReport({String? from, String? to}) async {
     final Map<String, String> query = <String, String>{
-      if (from != null) 'from': from,
-      if (to != null) 'to': to,
+      'from': ?from,
+      'to': ?to,
     };
     return ApiRequestService.makeRequest(
       _withQuery(await _path(DairyPartnerEndpoints.partnerSalesReport), query),
@@ -610,7 +610,7 @@ class PartnerRepository {
       body: <String, dynamic>{
         'page': page,
         'limit': limit,
-        if (status != null) 'status': status,
+        'status': ?status,
       },
     );
   }
@@ -655,8 +655,8 @@ class PartnerRepository {
       method: 'POST',
       token: await _authRepository.authToken(),
       body: <String, dynamic>{
-        if (slotId != null) 'slot': slotId,
-        if (agentId != null) 'agent': agentId,
+        'slot': ?slotId,
+        'agent': ?agentId,
       },
     );
   }
@@ -792,7 +792,7 @@ Future<DioApiResponse> approveDriver(
       ),
       method: 'DELETE',
       token: await _authRepository.authToken(),
-      body: <String, dynamic>{if (reason != null) 'reason': reason},
+      body: <String, dynamic>{'reason': ?reason},
     );
   }
 
@@ -812,7 +812,7 @@ Future<DioApiResponse> approveDriver(
       ),
       method: 'DELETE',
       token: await _authRepository.authToken(),
-      body: <String, dynamic>{if (reason != null) 'reason': reason},
+      body: <String, dynamic>{'reason': ?reason},
     );
   }
 
@@ -835,7 +835,7 @@ Future<DioApiResponse> approveDriver(
       token: await _authRepository.authToken(),
       body: <String, dynamic>{
         'amount': amount,
-        if (reference != null) 'reference': reference,
+        'reference': ?reference,
       },
     );
   }
@@ -864,7 +864,7 @@ Future<DioApiResponse> notifications({bool unreadOnly = false}) async {
       await _path(DairyPartnerEndpoints.markAllRead),
       method: 'PATCH',
       token: await _authRepository.authToken(),
-      body: <String, dynamic>{if (ids != null) 'ids': ids},
+      body: <String, dynamic>{'ids': ?ids},
     );
   }
 
@@ -894,7 +894,7 @@ Future<DioApiResponse> notifications({bool unreadOnly = false}) async {
       body: <String, dynamic>{
         'page': page,
         'limit': limit,
-        if (serviceDate != null) 'serviceDate': serviceDate,
+        'serviceDate': ?serviceDate,
       },
     );
   }
@@ -924,7 +924,7 @@ Future<DioApiResponse> notifications({bool unreadOnly = false}) async {
       body: <String, dynamic>{
         'serviceDate': serviceDate,
         'slot': slotId,
-        if (agentId != null) 'agent': agentId,
+        'agent': ?agentId,
       },
     );
   }
@@ -955,7 +955,7 @@ Future<DioApiResponse> notifications({bool unreadOnly = false}) async {
       body: <String, dynamic>{
         'page': page,
         'limit': limit,
-        if (status != null) 'status': status,
+        'status': ?status,
       },
     );
   }
@@ -982,7 +982,7 @@ Future<DioApiResponse> notifications({bool unreadOnly = false}) async {
       await _path(DairyPartnerEndpoints.partnerManifestPreview),
       method: 'GET',
       token: await _authRepository.authToken(),
-      body: <String, dynamic>{if (serviceDate != null) 'serviceDate': serviceDate},
+      body: <String, dynamic>{'serviceDate': ?serviceDate},
     );
   }
 
@@ -991,7 +991,7 @@ Future<DioApiResponse> notifications({bool unreadOnly = false}) async {
       await _path(DairyPartnerEndpoints.partnerManifestSummary),
       method: 'GET',
       token: await _authRepository.authToken(),
-      body: <String, dynamic>{if (serviceDate != null) 'serviceDate': serviceDate},
+      body: <String, dynamic>{'serviceDate': ?serviceDate},
     );
   }
 
@@ -1076,8 +1076,8 @@ Future<DioApiResponse> notifications({bool unreadOnly = false}) async {
 
   Future<DioApiResponse> earnings({String? from, String? to}) async {
     final Map<String, String> query = <String, String>{
-      if (from != null) 'from': from,
-      if (to != null) 'to': to,
+      'from': ?from,
+      'to': ?to,
     };
     return ApiRequestService.makeRequest(
       _withQuery(await _path(DairyPartnerEndpoints.partnerEarnings), query),

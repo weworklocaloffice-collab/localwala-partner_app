@@ -17,9 +17,9 @@
  */
 
 import 'package:partner/app/core/models/user_session_model.dart';
+import 'package:partner/app/modules/stores/driver/account/stores_driver_account_screen.dart';
 import 'package:partner/app/modules/stores/driver/deliveries/stores_deliveries_screen.dart';
 import 'package:partner/app/modules/stores/driver/earnings/stores_driver_earnings_screen.dart';
-import 'package:partner/app/presentation/pages/account/profile_view.dart';
 import 'package:partner/app/shell/role_gate/bloc/role_gate_bloc.dart';
 import 'package:partner/gen/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +56,7 @@ class _StoresDriverShellScreenState extends State<StoresDriverShellScreen> {
         children: <Widget>[
           const StoresDeliveriesScreen(),
           const StoresDriverEarningsScreen(),
-          ProfileScreen(
+          StoresDriverAccountScreen(
             session: widget.gate.session ?? const UserSessionModel(id: ''),
           ),
         ],

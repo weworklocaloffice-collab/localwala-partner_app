@@ -82,23 +82,6 @@ class JhatkaMoneyRepository {
     );
   }
 
-  Future<DioApiResponse> payPayable(
-    String payableId, {
-    String? paymentReference,
-  }) async {
-    final Map<String, dynamic> body = <String, dynamic>{};
-    if (paymentReference != null) body['paymentReference'] = paymentReference;
-    return ApiRequestService.makeRequest(
-      JhatkaPartnerEndpoints.resolve(
-        JhatkaPartnerEndpoints.payablePay,
-        <String, String>{'id': payableId},
-      ),
-      method: 'POST',
-      token: await _authRepository.authToken(),
-      body: body,
-    );
-  }
-
   /// One payout with its lines and rule snapshot. The list carries totals;
   /// only the detail carries what produced them.
   Future<DioApiResponse> payoutDetail(String payoutId) async {
