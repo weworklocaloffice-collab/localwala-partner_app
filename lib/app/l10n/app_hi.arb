@@ -1225,7 +1225,6 @@
   "ls_pay": "Pay",
   "ls_pause": "Pause",
   "ls_resume": "Resume",
-  "ls_cancel": "Cancel",
   "ls_no_packages": "No packages available",
   "ls_more_marketing": "Marketing",
   "ls_current_subscription": "Current subscription",
@@ -1405,5 +1404,122 @@
   "jhatkaReceiptPostBody": "Posting creates batches, moves stock and makes accepted lines payable.",
   "jhatkaReceiptPosted": "Receipt posted.",
   "jhatkaReceiptReverseBatchFirst": "This line already has a batch. Reverse the batch first.",
-  "jhatkaReceiptAlreadyPosted": "This receipt is already posted."
+  "jhatkaReceiptAlreadyPosted": "This receipt is already posted.",
+  "jhatkaFleetLoadFailed": "Could not load fleet.",
+  "jhatkaFleetSetStatusTitle": "Set {name}",
+  "@jhatkaFleetSetStatusTitle": {
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "jhatkaFleetDeliveryTitle": "Delivery {deliveryNo}",
+  "@jhatkaFleetDeliveryTitle": {
+    "placeholders": {
+      "deliveryNo": {}
+    }
+  },
+  "jhatkaFleetStatusLine": "Status {status}",
+  "@jhatkaFleetStatusLine": {
+    "placeholders": {
+      "status": {}
+    }
+  },
+  "jhatkaFleetCodStatus": "COD {status}",
+  "@jhatkaFleetCodStatus": {
+    "placeholders": {
+      "status": {}
+    }
+  },
+  "jhatkaFleetCodAmounts": "Collect {collect} · collected {collected}",
+  "@jhatkaFleetCodAmounts": {
+    "placeholders": {
+      "collect": {},
+      "collected": {}
+    }
+  },
+  "jhatkaFleetPodLine": "POD: delivered at {temp}°C",
+  "@jhatkaFleetPodLine": {
+    "placeholders": {
+      "temp": {}
+    }
+  },
+  "jhatkaFleetPodBreachSuffix": " — BREACH, complaint raised",
+  "jhatkaFleetRiders": "Riders ({count})",
+  "@jhatkaFleetRiders": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "jhatkaFleetInFlight": "In flight ({count})",
+  "@jhatkaFleetInFlight": {
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "jhatkaFleetDriverIneligible": "{status} · {reason}",
+  "@jhatkaFleetDriverIneligible": {
+    "placeholders": {
+      "status": {},
+      "reason": {}
+    }
+  },
+  "jhatkaFleetUnavailableDriver": "unavailable",
+  "jhatkaFleetStatusCod": "{status} · COD {cod}",
+  "@jhatkaFleetStatusCod": {
+    "placeholders": {
+      "status": {},
+      "cod": {}
+    }
+  },
+  "jhatkaFleetOrderSuffix": " · order {orderNo}",
+  "@jhatkaFleetOrderSuffix": {
+    "placeholders": {
+      "orderNo": {}
+    }
+  },
+  "jhatkaIntakeLoadFailed": "Could not load the order.",
+  "jhatkaIntakeOutletNotTrading": "This outlet cannot take on new work right now — check compliance.",
+  "jhatkaIntakeFssaiNotValid": "FSSAI licence is not valid. Finish what is in flight; take nothing new.",
+  "jhatkaIntakeInsufficientStock": "Not enough stock to prepare this order.",
+  "jhatkaIntakeAlreadyDone": "Already done — refresh.",
+  "jhatkaIntakeReceiveFailed": "Receive failed. Retry.",
+  "jhatkaIntakeAcceptFailed": "Accept failed. Retry.",
+  "jhatkaIntakePrepareFailed": "Preparation failed. Retry.",
+  "jhatkaIntakeRejectFailed": "Reject failed. Retry.",
+  "jhatkaIntakeRejectTitle": "Reject this order?",
+  "jhatkaIntakeRejectBody": "The customer reads the reason. For a paid order the refund is raised as a document — nothing is kept silently.",
+  "jhatkaIntakeRefundRaised": "Rejected. Refund {refundNo} raised — the customer is repaid, not just refused.",
+  "@jhatkaIntakeRefundRaised": {
+    "placeholders": {
+      "refundNo": {}
+    }
+  },
+  "jhatkaIntakeReceiveOrder": "Receive order",
+  "jhatkaIntakeReceiveHint": "Receiving puts the order on this counter and starts the clock.",
+  "jhatkaIntakeAcceptOrder": "Accept order",
+  "jhatkaIntakeStartPreparation": "Start preparation",
+  "jhatkaIntakePreparationHint": "Preparation allocates real stock. Refused when the counter cannot cover it.",
+  "jhatkaIntakeBackToList": "Back to list — weigh from there",
+  "jhatkaIntakeNothingToDo": "Order is {lifecycle} — nothing to do here.",
+  "@jhatkaIntakeNothingToDo": {
+    "placeholders": {
+      "lifecycle": {}
+    }
+  },
+  "jhatkaIntakeEstimated": "Estimated {amount} · {paymentMode}",
+  "@jhatkaIntakeEstimated": {
+    "placeholders": {
+      "amount": {},
+      "paymentMode": {}
+    }
+  },
+  "jhatkaIntakeLine": "• {name} — ~{qty} {unit}",
+  "@jhatkaIntakeLine": {
+    "placeholders": {
+      "name": {},
+      "qty": {},
+      "unit": {}
+    }
+  },
+  "jhatkaIntakeLineFallback": "Line"
 }

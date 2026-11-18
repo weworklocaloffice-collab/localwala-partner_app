@@ -66,7 +66,7 @@ class _FleetScreenState extends State<FleetScreen> {
     if (results.any((DioApiResponse r) => r.errorType != NetErrorType.none)) {
       setState(() {
         _loading = false;
-        _error = 'Could not load fleet.';
+        _error = AppLocalizations.of(context)!.jhatkaFleetLoadFailed;
       });
       return;
     }
@@ -116,7 +116,7 @@ class _FleetScreenState extends State<FleetScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Text(
-                    'Set $name',
+                    AppLocalizations.of(context)!.jhatkaFleetSetStatusTitle(name),
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -229,24 +229,36 @@ class _FleetScreenState extends State<FleetScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Text(
-                'Delivery ${detail['deliveryNo'] ?? '—'}',
+                AppLocalizations.of(context)!.jhatkaFleetDeliveryTitle(
+                  (detail['deliveryNo'] ?? '—').toString(),
+                ),
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 8),
-              Text('Status ${(detail['status'] ?? '—').toString()}'),
-              Text('COD ${(detail['codStatus'] ?? '—').toString()}'),
               Text(
-                'Collect ${detail['codCollectionAmount'] ?? '—'} · '
-                'collected ${detail['codCollectedAmount'] ?? '—'}',
+                AppLocalizations.of(context)!.jhatkaFleetStatusLine(
+                  (detail['status'] ?? '—').toString(),
+                ),
+              ),
+              Text(
+                AppLocalizations.of(context)!.jhatkaFleetCodStatus(
+                  (detail['codStatus'] ?? '—').toString(),
+                ),
+              ),
+              Text(
+                AppLocalizations.of(context)!.jhatkaFleetCodAmounts(
+                  (detail['codCollectionAmount'] ?? '—').toString(),
+                  (detail['codCollectedAmount'] ?? '—').toString(),
+                ),
               ),
               if (pod is Map) ...<Widget>[
                 const SizedBox(height: 8),
                 Text(
-                  'POD: delivered at ${(pod['deliveredTempC'] ?? '?').toString()}°C'
-                  '${pod['coldChainBreached'] == true ? ' — BREACH, complaint raised' : ''}',
+                  '${AppLocalizations.of(context)!.jhatkaFleetPodLine((pod['deliveredTempC'] ?? '?').toString())}'
+                  '${pod['coldChainBreached'] == true ? AppLocalizations.of(context)!.jhatkaFleetPodBreachSuffix : ''}',
                 ),
               ],
               const SizedBox(height: 16),
@@ -276,10 +288,16 @@ class _FleetScreenState extends State<FleetScreen> {
             icon: Icons.cloud_off_outlined,
           )
         else ...<Widget>[
-          _sectionTitle('Riders (${_drivers.length})'),
+          _sectionTitle(
+            AppLocalizations.of(context)!.jhatkaFleetRiders(_drivers.length),
+          ),
           ..._drivers.map(_driverTile),
           const SizedBox(height: 12),
-          _sectionTitle('In flight (${_deliveries.length})'),
+          _sectionTitle(
+            AppLocalizations.of(context)!.jhatkaFleetInFlight(
+              _deliveries.length,
+            ),
+          ),
           ..._deliveries.map(_deliveryTile),
         ],
       ],
@@ -297,16 +315,24 @@ class _FleetScreenState extends State<FleetScreen> {
   }
 
   Widget _driverTile(dynamic raw) {
+    final AppLocalizations l10n = AppLocalizations.of(context)!;
     final Map<String, dynamic> driver = Map<String, dynamic>.from(raw as Map);
     final String id = (driver['id'] ?? '').toString();
     final String status = (driver['status'] ?? '').toString();
+    final String statusText = status.isEmpty ? '—' : status;
     final bool eligible = driver['eligible'] == true;
     final bool busy = _actingOn == 'status:$id';
     return Card(
       child: ListTile(
         title: Text((driver['name'] ?? '—').toString()),
         subtitle: Text(
-          '$status${eligible ? '' : ' · ${(driver['ineligibleReason'] ?? 'unavailable').toString()}'}',
+          eligible
+              ? statusText
+              : l10n.jhatkaFleetDriverIneligible(
+                  statusText,
+                  (driver['ineligibleReason'] ?? l10n.jhatkaFleetUnavailableDriver)
+                      .toString(),
+                ),
         ),
         trailing: busy
             ? const SizedBox(
@@ -318,7 +344,7 @@ class _FleetScreenState extends State<FleetScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   StatusChip(
-                    label: status.isEmpty ? '—' : status,
+                    label: statusText,
                     color: eligible ? AppColors.canInStore : AppColors.grey,
                   ),
                   TextButton(
@@ -333,17 +359,21 @@ class _FleetScreenState extends State<FleetScreen> {
   }
 
   Widget _deliveryTile(dynamic raw) {
+    final AppLocalizations l10n = AppLocalizations.of(context)!;
     final Map<String, dynamic> delivery = Map<String, dynamic>.from(raw as Map);
     final Map<String, dynamic>? order = delivery['order'] is Map
         ? Map<String, dynamic>.from(delivery['order'] as Map)
         : null;
     return Card(
       child: ListTile(
-        title: Text('Delivery ${(delivery['deliveryNo'] ?? '—').toString()}'),
+        title: Text(
+          l10n.jhatkaFleetDeliveryTitle(
+            (delivery['deliveryNo'] ?? '—').toString(),
+          ),
+        ),
         subtitle: Text(
-          '${(delivery['status'] ?? '').toString()} · '
-          'COD ${(delivery['codStatus'] ?? '').toString()}'
-          '${order != null ? ' · order ${order['orderNo'] ?? ''}' : ''}',
+          '${l10n.jhatkaFleetStatusCod((delivery['status'] ?? '').toString(), (delivery['codStatus'] ?? '').toString())}'
+          '${order != null ? l10n.jhatkaFleetOrderSuffix((order['orderNo'] ?? '').toString()) : ''}',
         ),
         trailing: const Icon(Icons.chevron_right),
         onTap: () => _deliverySheet(delivery),

@@ -40,6 +40,17 @@ class JhatkaFulfilmentRepository {
 
   final AuthRepository _authRepository;
 
+  Future<DioApiResponse> orderInvoice({required String orderId}) async {
+    return ApiRequestService.makeRequest(
+      JhatkaPartnerEndpoints.resolve(
+        JhatkaPartnerEndpoints.orderInvoice,
+        <String, String>{'order': orderId},
+      ),
+      method: 'GET',
+      token: await _authRepository.authToken(),
+    );
+  }
+
   /// Riders of this outlet with eligibility spelled out.
   Future<DioApiResponse> outletDrivers() async {
     return ApiRequestService.makeRequest(

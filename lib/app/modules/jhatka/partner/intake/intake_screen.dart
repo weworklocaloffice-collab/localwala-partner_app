@@ -91,7 +91,7 @@ class _IntakeScreenState extends State<IntakeScreen> {
     if (response.errorType != NetErrorType.none) {
       setState(() {
         _loading = false;
-        _error = 'Could not load the order.';
+        _error = AppLocalizations.of(context)!.jhatkaIntakeLoadFailed;
       });
       return;
     }
@@ -105,15 +105,16 @@ class _IntakeScreenState extends State<IntakeScreen> {
   /// Server refusal code → what the operator does next. Every code the intake
   /// endpoints can return is mapped; anything else is an honest "retry".
   String _messageFor(String code, String fallback) {
+    final AppLocalizations l10n = AppLocalizations.of(context)!;
     switch (code) {
       case 'OUTLET_NOT_TRADING':
-        return 'This outlet cannot take on new work right now — check compliance.';
+        return l10n.jhatkaIntakeOutletNotTrading;
       case 'FSSAI_NOT_VALID':
-        return 'FSSAI licence is not valid. Finish what is in flight; take nothing new.';
+        return l10n.jhatkaIntakeFssaiNotValid;
       case 'INSUFFICIENT_RAW_STOCK':
-        return 'Not enough stock to prepare this order.';
+        return l10n.jhatkaIntakeInsufficientStock;
       case 'RECEIPT_ALREADY_POSTED':
-        return 'Already done — refresh.';
+        return l10n.jhatkaIntakeAlreadyDone;
       default:
         return fallback;
     }
@@ -146,17 +147,17 @@ class _IntakeScreenState extends State<IntakeScreen> {
 
   Future<void> _receive() => _run(
     () => _fulfilment.receive(orderId: widget.orderId),
-    'Receive failed. Retry.',
+    AppLocalizations.of(context)!.jhatkaIntakeReceiveFailed,
   );
 
   Future<void> _accept() => _run(
     () => _fulfilment.accept(orderId: widget.orderId),
-    'Accept failed. Retry.',
+    AppLocalizations.of(context)!.jhatkaIntakeAcceptFailed,
   );
 
   Future<void> _prepare() => _run(
     () => _fulfilment.startPreparation(orderId: widget.orderId),
-    'Preparation failed. Retry.',
+    AppLocalizations.of(context)!.jhatkaIntakePrepareFailed,
   );
 
   Future<void> _reject() async {
@@ -176,15 +177,15 @@ class _IntakeScreenState extends State<IntakeScreen> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              const Text(
-                'Reject this order?',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              Text(
+                AppLocalizations.of(context)!.jhatkaIntakeRejectTitle,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(height: 8),
-              const Text(
-                'The customer reads the reason. For a paid order the refund is '
-                'raised as a document — nothing is kept silently.',
-              ),
+              Text(AppLocalizations.of(context)!.jhatkaIntakeRejectBody),
               const SizedBox(height: 16),
               TextField(
                 controller: reason,
@@ -237,7 +238,10 @@ class _IntakeScreenState extends State<IntakeScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            _messageFor(_codeOf(response), 'Reject failed. Retry.'),
+            _messageFor(
+              _codeOf(response),
+              AppLocalizations.of(context)!.jhatkaIntakeRejectFailed,
+            ),
           ),
         ),
       );
@@ -252,7 +256,9 @@ class _IntakeScreenState extends State<IntakeScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'Rejected. Refund ${refund['refundNo'] ?? ''} raised — the customer is repaid, not just refused.',
+              AppLocalizations.of(context)!.jhatkaIntakeRefundRaised(
+                (refund['refundNo'] ?? '').toString(),
+              ),
             ),
           ),
         );
@@ -274,14 +280,17 @@ class _IntakeScreenState extends State<IntakeScreen> {
         return <Widget>[
           FilledButton(
             onPressed: _receive,
-            child: const Padding(
-              padding: EdgeInsets.symmetric(vertical: 14),
-              child: Text('Receive order', style: TextStyle(fontSize: 16)),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              child: Text(
+                AppLocalizations.of(context)!.jhatkaIntakeReceiveOrder,
+                style: const TextStyle(fontSize: 16),
+              ),
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
-            'Receiving puts the order on this counter and starts the clock.',
+          Text(
+            AppLocalizations.of(context)!.jhatkaIntakeReceiveHint,
             textAlign: TextAlign.center,
           ),
         ];
@@ -289,9 +298,12 @@ class _IntakeScreenState extends State<IntakeScreen> {
         return <Widget>[
           FilledButton(
             onPressed: _accept,
-            child: const Padding(
-              padding: EdgeInsets.symmetric(vertical: 14),
-              child: Text('Accept order', style: TextStyle(fontSize: 16)),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              child: Text(
+                AppLocalizations.of(context)!.jhatkaIntakeAcceptOrder,
+                style: const TextStyle(fontSize: 16),
+              ),
             ),
           ),
           const SizedBox(height: 8),
@@ -309,9 +321,12 @@ class _IntakeScreenState extends State<IntakeScreen> {
         return <Widget>[
           FilledButton(
             onPressed: _prepare,
-            child: const Padding(
-              padding: EdgeInsets.symmetric(vertical: 14),
-              child: Text('Start preparation', style: TextStyle(fontSize: 16)),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              child: Text(
+                AppLocalizations.of(context)!.jhatkaIntakeStartPreparation,
+                style: const TextStyle(fontSize: 16),
+              ),
             ),
           ),
           const SizedBox(height: 8),
@@ -325,8 +340,8 @@ class _IntakeScreenState extends State<IntakeScreen> {
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
-            'Preparation allocates real stock. Refused when the counter cannot cover it.',
+          Text(
+            AppLocalizations.of(context)!.jhatkaIntakePreparationHint,
             textAlign: TextAlign.center,
           ),
         ];
@@ -336,11 +351,11 @@ class _IntakeScreenState extends State<IntakeScreen> {
         return <Widget>[
           FilledButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Padding(
-              padding: EdgeInsets.symmetric(vertical: 14),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 14),
               child: Text(
-                'Back to list — weigh from there',
-                style: TextStyle(fontSize: 16),
+                AppLocalizations.of(context)!.jhatkaIntakeBackToList,
+                style: const TextStyle(fontSize: 16),
               ),
             ),
           ),
@@ -350,7 +365,9 @@ class _IntakeScreenState extends State<IntakeScreen> {
           Text(
             _lifecycle.isEmpty
                 ? '—'
-                : 'Order is $_lifecycle — nothing to do here.',
+                : AppLocalizations.of(context)!.jhatkaIntakeNothingToDo(
+                    _lifecycle,
+                  ),
             textAlign: TextAlign.center,
           ),
         ];
@@ -389,8 +406,16 @@ class _IntakeScreenState extends State<IntakeScreen> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          'Estimated ${_order['estimatedTotal'] != null ? formatRupees((_order['estimatedTotal'] as num)) : '—'}'
-                          ' · ${(_order['paymentMode'] ?? '').toString().toUpperCase()}',
+                          AppLocalizations.of(context)!.jhatkaIntakeEstimated(
+                            _order['estimatedTotal'] != null
+                                ? formatRupees(
+                                    (_order['estimatedTotal'] as num),
+                                  )
+                                : '—',
+                            (_order['paymentMode'] ?? '')
+                                .toString()
+                                .toUpperCase(),
+                          ),
                         ),
                         const SizedBox(height: 12),
                         ...items.map((dynamic raw) {
@@ -402,8 +427,16 @@ class _IntakeScreenState extends State<IntakeScreen> {
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 4),
                             child: Text(
-                              '• ${line['name'] ?? line['sku'] ?? 'Line'} — '
-                              '~${qty?['value'] ?? '?'} ${qty?['unit'] ?? ''}',
+                              AppLocalizations.of(context)!.jhatkaIntakeLine(
+                                (line['name'] ??
+                                        line['sku'] ??
+                                        AppLocalizations.of(
+                                          context,
+                                        )!.jhatkaIntakeLineFallback)
+                                    .toString(),
+                                (qty?['value'] ?? '?').toString(),
+                                (qty?['unit'] ?? '').toString(),
+                              ),
                             ),
                           );
                         }),

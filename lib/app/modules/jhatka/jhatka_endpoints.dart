@@ -39,6 +39,7 @@ class JhatkaPartnerEndpoints {
   //// Orders ////
   static const String orderList = 'v1/jhatka/partner/orders';
   static const String orderDetail = 'v1/jhatka/partner/orders/{order}';
+  static const String orderInvoice = 'v1/jhatka/partner/orders/{order}/invoice';
   // Intake — the first half of the pipeline. Without these, an order placed by a
   // customer sits at CREATED forever: the list shows it, weighing needs PREPARING,
   // and nothing in between exists. Added late because the backend's OUTLET_RECEIVED

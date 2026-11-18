@@ -87,6 +87,49 @@ class _FulfilmentScreenState extends State<FulfilmentScreen> {
     super.dispose();
   }
 
+  Future<void> _viewInvoice() async {
+    final DioApiResponse response = await _repository.orderInvoice(
+      orderId: widget.orderId,
+    );
+    if (!mounted) return;
+    if (response.errorType != NetErrorType.none) {
+      _say('Could not load invoice');
+      return;
+    }
+    final Map<String, dynamic> body = decodeBody(response);
+    final Map<String, dynamic> inv = (body['invoice'] is Map)
+        ? Map<String, dynamic>.from(body['invoice'] as Map)
+        : <String, dynamic>{};
+    if (inv.isEmpty) {
+      _say('No invoice issued yet');
+      return;
+    }
+    await showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Invoice ${inv['invoiceNo'] ?? ''}'),
+          content: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text('Status: ${inv['status'] ?? ''}'),
+                if (inv['issuedAt'] != null) Text('Issued: ${inv['issuedAt']}'),
+                if (inv['isVoided'] == true) const Text('VOIDED'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Future<void> _loadDrivers() async {
     final DioApiResponse response = await _repository.outletDrivers();
     if (!mounted || response.errorType != NetErrorType.none) return;
@@ -270,6 +313,13 @@ class _FulfilmentScreenState extends State<FulfilmentScreen> {
               AppLocalizations.of(context)!.jhatkaStageLabel(_lifecycle),
             ),
             subtitle: _notice != null ? Text(_notice!) : null,
+          ),
+        ),
+        OutlinedButton(
+          onPressed: _busy ? null : _viewInvoice,
+          child: const Padding(
+            padding: EdgeInsets.symmetric(vertical: 12),
+            child: Text('View invoice'),
           ),
         ),
         Card(

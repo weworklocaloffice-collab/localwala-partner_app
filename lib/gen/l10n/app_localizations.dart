@@ -7163,6 +7163,222 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This receipt is already posted.'**
   String get jhatkaReceiptAlreadyPosted;
+
+  /// No description provided for @jhatkaFleetLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load fleet.'**
+  String get jhatkaFleetLoadFailed;
+
+  /// No description provided for @jhatkaFleetSetStatusTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set {name}'**
+  String jhatkaFleetSetStatusTitle(Object name);
+
+  /// No description provided for @jhatkaFleetDeliveryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery {deliveryNo}'**
+  String jhatkaFleetDeliveryTitle(Object deliveryNo);
+
+  /// No description provided for @jhatkaFleetStatusLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Status {status}'**
+  String jhatkaFleetStatusLine(Object status);
+
+  /// No description provided for @jhatkaFleetCodStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'COD {status}'**
+  String jhatkaFleetCodStatus(Object status);
+
+  /// No description provided for @jhatkaFleetCodAmounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Collect {collect} · collected {collected}'**
+  String jhatkaFleetCodAmounts(Object collect, Object collected);
+
+  /// No description provided for @jhatkaFleetPodLine.
+  ///
+  /// In en, this message translates to:
+  /// **'POD: delivered at {temp}°C'**
+  String jhatkaFleetPodLine(Object temp);
+
+  /// No description provided for @jhatkaFleetPodBreachSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **' — BREACH, complaint raised'**
+  String get jhatkaFleetPodBreachSuffix;
+
+  /// No description provided for @jhatkaFleetRiders.
+  ///
+  /// In en, this message translates to:
+  /// **'Riders ({count})'**
+  String jhatkaFleetRiders(Object count);
+
+  /// No description provided for @jhatkaFleetInFlight.
+  ///
+  /// In en, this message translates to:
+  /// **'In flight ({count})'**
+  String jhatkaFleetInFlight(Object count);
+
+  /// No description provided for @jhatkaFleetDriverIneligible.
+  ///
+  /// In en, this message translates to:
+  /// **'{status} · {reason}'**
+  String jhatkaFleetDriverIneligible(Object status, Object reason);
+
+  /// No description provided for @jhatkaFleetUnavailableDriver.
+  ///
+  /// In en, this message translates to:
+  /// **'unavailable'**
+  String get jhatkaFleetUnavailableDriver;
+
+  /// No description provided for @jhatkaFleetStatusCod.
+  ///
+  /// In en, this message translates to:
+  /// **'{status} · COD {cod}'**
+  String jhatkaFleetStatusCod(Object status, Object cod);
+
+  /// No description provided for @jhatkaFleetOrderSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **' · order {orderNo}'**
+  String jhatkaFleetOrderSuffix(Object orderNo);
+
+  /// No description provided for @jhatkaIntakeLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load the order.'**
+  String get jhatkaIntakeLoadFailed;
+
+  /// No description provided for @jhatkaIntakeOutletNotTrading.
+  ///
+  /// In en, this message translates to:
+  /// **'This outlet cannot take on new work right now — check compliance.'**
+  String get jhatkaIntakeOutletNotTrading;
+
+  /// No description provided for @jhatkaIntakeFssaiNotValid.
+  ///
+  /// In en, this message translates to:
+  /// **'FSSAI licence is not valid. Finish what is in flight; take nothing new.'**
+  String get jhatkaIntakeFssaiNotValid;
+
+  /// No description provided for @jhatkaIntakeInsufficientStock.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough stock to prepare this order.'**
+  String get jhatkaIntakeInsufficientStock;
+
+  /// No description provided for @jhatkaIntakeAlreadyDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Already done — refresh.'**
+  String get jhatkaIntakeAlreadyDone;
+
+  /// No description provided for @jhatkaIntakeReceiveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Receive failed. Retry.'**
+  String get jhatkaIntakeReceiveFailed;
+
+  /// No description provided for @jhatkaIntakeAcceptFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept failed. Retry.'**
+  String get jhatkaIntakeAcceptFailed;
+
+  /// No description provided for @jhatkaIntakePrepareFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparation failed. Retry.'**
+  String get jhatkaIntakePrepareFailed;
+
+  /// No description provided for @jhatkaIntakeRejectFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Reject failed. Retry.'**
+  String get jhatkaIntakeRejectFailed;
+
+  /// No description provided for @jhatkaIntakeRejectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reject this order?'**
+  String get jhatkaIntakeRejectTitle;
+
+  /// No description provided for @jhatkaIntakeRejectBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The customer reads the reason. For a paid order the refund is raised as a document — nothing is kept silently.'**
+  String get jhatkaIntakeRejectBody;
+
+  /// No description provided for @jhatkaIntakeRefundRaised.
+  ///
+  /// In en, this message translates to:
+  /// **'Rejected. Refund {refundNo} raised — the customer is repaid, not just refused.'**
+  String jhatkaIntakeRefundRaised(Object refundNo);
+
+  /// No description provided for @jhatkaIntakeReceiveOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Receive order'**
+  String get jhatkaIntakeReceiveOrder;
+
+  /// No description provided for @jhatkaIntakeReceiveHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Receiving puts the order on this counter and starts the clock.'**
+  String get jhatkaIntakeReceiveHint;
+
+  /// No description provided for @jhatkaIntakeAcceptOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept order'**
+  String get jhatkaIntakeAcceptOrder;
+
+  /// No description provided for @jhatkaIntakeStartPreparation.
+  ///
+  /// In en, this message translates to:
+  /// **'Start preparation'**
+  String get jhatkaIntakeStartPreparation;
+
+  /// No description provided for @jhatkaIntakePreparationHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparation allocates real stock. Refused when the counter cannot cover it.'**
+  String get jhatkaIntakePreparationHint;
+
+  /// No description provided for @jhatkaIntakeBackToList.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to list — weigh from there'**
+  String get jhatkaIntakeBackToList;
+
+  /// No description provided for @jhatkaIntakeNothingToDo.
+  ///
+  /// In en, this message translates to:
+  /// **'Order is {lifecycle} — nothing to do here.'**
+  String jhatkaIntakeNothingToDo(Object lifecycle);
+
+  /// No description provided for @jhatkaIntakeEstimated.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated {amount} · {paymentMode}'**
+  String jhatkaIntakeEstimated(Object amount, Object paymentMode);
+
+  /// No description provided for @jhatkaIntakeLine.
+  ///
+  /// In en, this message translates to:
+  /// **'• {name} — ~{qty} {unit}'**
+  String jhatkaIntakeLine(Object name, Object qty, Object unit);
+
+  /// No description provided for @jhatkaIntakeLineFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Line'**
+  String get jhatkaIntakeLineFallback;
 }
 
 class _AppLocalizationsDelegate

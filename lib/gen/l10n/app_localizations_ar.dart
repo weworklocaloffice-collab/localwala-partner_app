@@ -3720,4 +3720,148 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get jhatkaReceiptAlreadyPosted => 'This receipt is already posted.';
+
+  @override
+  String get jhatkaFleetLoadFailed => 'Could not load fleet.';
+
+  @override
+  String jhatkaFleetSetStatusTitle(Object name) {
+    return 'Set $name';
+  }
+
+  @override
+  String jhatkaFleetDeliveryTitle(Object deliveryNo) {
+    return 'Delivery $deliveryNo';
+  }
+
+  @override
+  String jhatkaFleetStatusLine(Object status) {
+    return 'Status $status';
+  }
+
+  @override
+  String jhatkaFleetCodStatus(Object status) {
+    return 'COD $status';
+  }
+
+  @override
+  String jhatkaFleetCodAmounts(Object collect, Object collected) {
+    return 'Collect $collect · collected $collected';
+  }
+
+  @override
+  String jhatkaFleetPodLine(Object temp) {
+    return 'POD: delivered at $temp°C';
+  }
+
+  @override
+  String get jhatkaFleetPodBreachSuffix => ' — BREACH, complaint raised';
+
+  @override
+  String jhatkaFleetRiders(Object count) {
+    return 'Riders ($count)';
+  }
+
+  @override
+  String jhatkaFleetInFlight(Object count) {
+    return 'In flight ($count)';
+  }
+
+  @override
+  String jhatkaFleetDriverIneligible(Object status, Object reason) {
+    return '$status · $reason';
+  }
+
+  @override
+  String get jhatkaFleetUnavailableDriver => 'unavailable';
+
+  @override
+  String jhatkaFleetStatusCod(Object status, Object cod) {
+    return '$status · COD $cod';
+  }
+
+  @override
+  String jhatkaFleetOrderSuffix(Object orderNo) {
+    return ' · order $orderNo';
+  }
+
+  @override
+  String get jhatkaIntakeLoadFailed => 'Could not load the order.';
+
+  @override
+  String get jhatkaIntakeOutletNotTrading =>
+      'This outlet cannot take on new work right now — check compliance.';
+
+  @override
+  String get jhatkaIntakeFssaiNotValid =>
+      'FSSAI licence is not valid. Finish what is in flight; take nothing new.';
+
+  @override
+  String get jhatkaIntakeInsufficientStock =>
+      'Not enough stock to prepare this order.';
+
+  @override
+  String get jhatkaIntakeAlreadyDone => 'Already done — refresh.';
+
+  @override
+  String get jhatkaIntakeReceiveFailed => 'Receive failed. Retry.';
+
+  @override
+  String get jhatkaIntakeAcceptFailed => 'Accept failed. Retry.';
+
+  @override
+  String get jhatkaIntakePrepareFailed => 'Preparation failed. Retry.';
+
+  @override
+  String get jhatkaIntakeRejectFailed => 'Reject failed. Retry.';
+
+  @override
+  String get jhatkaIntakeRejectTitle => 'Reject this order?';
+
+  @override
+  String get jhatkaIntakeRejectBody =>
+      'The customer reads the reason. For a paid order the refund is raised as a document — nothing is kept silently.';
+
+  @override
+  String jhatkaIntakeRefundRaised(Object refundNo) {
+    return 'Rejected. Refund $refundNo raised — the customer is repaid, not just refused.';
+  }
+
+  @override
+  String get jhatkaIntakeReceiveOrder => 'Receive order';
+
+  @override
+  String get jhatkaIntakeReceiveHint =>
+      'Receiving puts the order on this counter and starts the clock.';
+
+  @override
+  String get jhatkaIntakeAcceptOrder => 'Accept order';
+
+  @override
+  String get jhatkaIntakeStartPreparation => 'Start preparation';
+
+  @override
+  String get jhatkaIntakePreparationHint =>
+      'Preparation allocates real stock. Refused when the counter cannot cover it.';
+
+  @override
+  String get jhatkaIntakeBackToList => 'Back to list — weigh from there';
+
+  @override
+  String jhatkaIntakeNothingToDo(Object lifecycle) {
+    return 'Order is $lifecycle — nothing to do here.';
+  }
+
+  @override
+  String jhatkaIntakeEstimated(Object amount, Object paymentMode) {
+    return 'Estimated $amount · $paymentMode';
+  }
+
+  @override
+  String jhatkaIntakeLine(Object name, Object qty, Object unit) {
+    return '• $name — ~$qty $unit';
+  }
+
+  @override
+  String get jhatkaIntakeLineFallback => 'Line';
 }
